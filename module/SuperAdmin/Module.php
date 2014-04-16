@@ -31,6 +31,10 @@ use SuperAdmin\Model\MonthlyInOutTable;
 use SuperAdmin\Model\RegistrationModel;
 use SuperAdmin\Model\RegistrationTable;
 
+use SuperAdmin\Model\LeaveModel;
+use SuperAdmin\Model\LeaveTable;
+
+
 class Module
 {
     public function onBootstrap(MvcEvent $e)
@@ -93,6 +97,12 @@ class Module
                 {
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
                     $table = new RegistrationTable($dbAdapter);
+                    return $table;
+                },
+                'SuperAdmin\Model\LeaveTable' => function($sm)
+                {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $table = new LeaveTable($dbAdapter);
                     return $table;
                 },
             ),
