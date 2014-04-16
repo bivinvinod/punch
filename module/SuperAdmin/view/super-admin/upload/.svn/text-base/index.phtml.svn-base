@@ -1,0 +1,4 @@
+<h3>Import CSV Data</h3>
+<form enctype="multipart/form-data" action="" method="post">
+File:<input name="uploaded" type="file" /><input type="submit" name="upfile" value="Upload File">
+</form>

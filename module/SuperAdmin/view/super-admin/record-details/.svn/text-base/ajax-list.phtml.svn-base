@@ -1,0 +1,29 @@
+<div class="block-content collapse in">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th style="text-align:center;">User Id</th>
+                <th style="text-align:center;">Name</th>
+                <th style="text-align:center;">Total Working Time</th>
+                <th style="text-align:center;">Total Out Time</th>
+            </tr>
+            <?php
+            foreach ($records as $value)
+            {
+            ?>
+            <tr>
+                <td style="text-align:center;"><?php echo $value['employee_code']; ?></td>
+                <td style="text-align:center;"><?php echo $value['employee_name']; ?></td>
+                <td style="text-align:center;"><?php echo $value['totalIn']; ?></td>
+                <td style="text-align:center;"><?php echo $value['totalOut']; ?></td>            
+            </tr>
+            <?php
+            }
+            ?>
+        </thead>
+        <tbody>
+        
+           
+        </tbody>
+    </table>
+</div>
