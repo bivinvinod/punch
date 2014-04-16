@@ -1,55 +1,53 @@
 <?php
 namespace SuperAdmin\Model;
 
-use Zend\InputFilter\Factory as InputFactory;
-use Zend\InputFilter\InputFilter;
-use Zend\InputFilter\InputFilterAwareInterface;
-use Zend\InputFilter\InputFilterInterface;
-
-
-class LeaveModel implements InputFilterAwareInterface
-{
-	public $inTime;
-	public $outTime;
-	public $monthlyTableId;
-        public $userId;
-        public $punchDate;
-	
-	protected $inputFilter;        
-
-
-	public function setInTime($inTime)
-	{
-		$this->inTime = $inTime;				
-	}
-
-
-	public function setOutTime($outTime)
-	{
-		$this->outTime = $outTime;				
-	}
-
-	public function setMonthlyTableId($monthlyTableId)
-	{
-		$this->monthlyTableId = $monthlyTableId;				
-	}
-        public function setUserId($userId)
-	{
-		$this->userId = $userId;				
-	}
-        public function setPunchDate($punchDate)
-	{
-		$this->punchDate = $punchDate;				
-	}
+use Zend\Db\Adapter\Adapter;
+use Zend\Db\TableGateway\AbstractTableGateway;
+use Zend\Db\Sql\Sql;
+use Zend\Db\Sql\Select;
+use Zend\Db\Sql\Where;
 
 
 
-	// Add content to this method:
-    public function setInputFilter(InputFilterInterface $inputFilter){
-      //  throw new \Exception("Not used");
+
+class LeaneTable extends AbstractTableGateway
+{ 
+    protected $table = 'tbl_leave';
+
+        public function __construct(Adapter $adapter)
+    {
+        $this->adapter = $adapter;
     }
-	
-    public function getInputFilter(){     
-   	}
 
+
+
+    public function exchangeToArray($obj)
+    {
+        $return = array();
+
+        if(isset($obj->date))
+            $return['leave_date'] = $obj->date;
+
+
+        if(isset($obj->description))
+            $return['leave_description'] = $obj->description;
+
+        return $return;
+    }
+
+     public function insertMonthlyInOut(MonthlyInOutModel $obj){
+
+        $sql = new Sql($this->adapter);            
+        $insert = $sql->insert($this->table);                       
+        $insert->values ($this->exchangeToArray($obj));
+        $statement = $sql->prepareStatementForSqlObject($insert);          
+        $result = $statement->execute();                    
+        //$lastId=$this->adapter->getDriver()->getConnection()->getLastGeneratedValue();
+        return $result;             
+       
+     }
+     
+     
+     
+     
 }
