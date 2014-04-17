@@ -10,9 +10,9 @@ use Zend\Db\Sql\Where;
 
 
 
-class LeaveTable extends AbstractTableGateway
+class AttendenceTable extends AbstractTableGateway
 { 
-    protected $table = 'leave_table';
+    protected $table = 'tbl_attendence';
 
         public function __construct(Adapter $adapter)
     {
@@ -25,24 +25,22 @@ class LeaveTable extends AbstractTableGateway
     {
         $return = array();
 
-        if(isset($obj->id))
-            $return['id'] = $obj->id;
+        if(isset($obj->userId))
+            $return['user_id'] = $obj->userId;
         
-        if(isset($obj->date))
-            $return['leave_date'] = $obj->date;
-        
+        if(isset($obj->leaveDate))
+            $return['leave_dates'] = $obj->leaveDate;
+
+        if(isset($obj->leaveMatter))
+            $return['leave_matter'] = $obj->leaveMatter;
         if(isset($obj->status))
             $return['status'] = $obj->status;
-
-
-        if(isset($obj->description))
-            $return['desc'] = $obj->description;
 
         return $return;
     }
 
-
-     public function insertleave(LeaveModel $obj){
+    public function inserts(AttendenceModel $obj)
+    {
         $sql = new Sql($this->adapter);            
         $insert = $sql->insert($this->table);                       
         $insert->values ($this->exchangeToArray($obj));

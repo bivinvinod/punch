@@ -416,6 +416,95 @@ return array(
                             
                         ),
                     ),
+/*--------------------------------------- End of Leave --------------------------------------------------------------------------------*/
+                    
+/* ------------------------------------------------------------------------------------------------------------- */                   
+ /* -------------------------------------------------Attendence Controller -------------------------- */
+ /* ------------------------------------------------------------------------------------------------------------- */        
+                   
+                    'attendence' => array(
+                        'type' => 'literal',
+                        'options' => array(
+                            'route' => '/attendence',
+                            'defaults' => array(
+                                '__NAMESPACE__' => 'SuperAdmin\Controller',
+                                'controller' => 'Attendence',
+                                'action' => 'index'
+                            ),
+                        ),
+                        'may_terminate' => true,
+                        'child_routes' => array(  
+                            'index' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/index',
+                                    'constraints' => array(
+                                        //'action1' => '[a-zA-Z0-9_-]+'
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'index'
+                                    )
+                                )
+                            ),
+                               
+                            'add' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/add',
+                                    'constraints' => array(
+                                        //'action1' => '[a-zA-Z0-9_-]+'
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'add'
+                                    )
+                                )
+                            ),
+
+                            'ajaxList' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/ajaxList',
+                                    'constraints' => array(
+                                        //'action1' => '[a-zA-Z0-9_-]+'
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'ajaxList'
+                                    )
+                                )
+                            ),
+                            
+                            'edit' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/edit[/:id]',
+                                    'constraints' => array(
+                                        'id' => '[0-9]+'
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'edit'
+                                    )
+                                )
+                            ),
+                            
+                            
+
+                            'status' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/status',
+                                    'constraints' => array(
+                                        //'action1' => '[a-zA-Z0-9_-]+'
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'status'
+                                    )
+                                )
+                            ),
+                            
+                                                
+                            
+                        ),
+                    ),
 /*--------------------------------------- End of Record Details ----------------------------------------*/
 
 
@@ -463,6 +552,7 @@ return array(
             'SuperAdmin\Controller\Upload' => 'SuperAdmin\Controller\UploadController',
             'SuperAdmin\Controller\RecordDetails' => 'SuperAdmin\Controller\RecordDetailsController',
             'SuperAdmin\Controller\Leave' => 'SuperAdmin\Controller\LeaveController',
+            'SuperAdmin\Controller\Attendence' => 'SuperAdmin\Controller\AttendenceController'
             
         ),
     ),

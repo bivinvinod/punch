@@ -148,9 +148,49 @@ $(document).ready(function(){
                                 ?>
                                 <tr>
                                     <td style="text-align:center;"><?php echo $value['dates']; ?></td>
-                                    <td style="text-align:center;"><?php echo $value['in_time'].'-'; if($value['late_by'] !='') { echo "<style=\"color:red;\">(late by -".$value['late_by'].")"; } ?></td>
-                                    <td style="text-align:center;"><?php echo $value['total_in']; ?></td>
-                                    <td style="text-align:center;"><?php echo $value['over_time']; ?></td>  
+                                    <td style="text-align:center;">
+                                        <?php
+                                        
+                                        if(trim($value['status'])== 'Present')
+                                        {
+                                            
+                                            echo $value['in_time'].'-';
+                                            if($value['late_by'] !='')
+                                            {
+                                                echo "<style=\"color:red;\">(late by -".$value['late_by'].")";
+                                            }
+                                        }
+                                        else
+                                        { 
+                                           
+                                            echo "Weekly Off";
+                                           
+                                        }
+                                        ?></td>
+                                    <td style="text-align:center;">
+                                        <?php
+                                        if(trim($value['status'])== 'Present')
+                                        {
+                                            echo $value['total_in'];
+                                        }
+                                        else
+                                        { 
+                                            echo "--";  
+                                        }
+                                        ?>
+                                    </td>
+                                    <td style="text-align:center;">
+                                        <?php
+                                        if(trim($value['status'])== 'Present')
+                                        {
+                                            echo $value['over_time'];
+                                        }
+                                        else
+                                        { 
+                                           
+                                            echo "--";
+                                           
+                                        }?></td>  
                                 </tr>
                                 <?php
                                 }

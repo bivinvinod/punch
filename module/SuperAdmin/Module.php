@@ -34,6 +34,9 @@ use SuperAdmin\Model\RegistrationTable;
 use SuperAdmin\Model\LeaveModel;
 use SuperAdmin\Model\LeaveTable;
 
+use SuperAdmin\Model\AttendenceModel;
+use SuperAdmin\Model\AttendenceTable;
+
 
 class Module
 {
@@ -103,6 +106,12 @@ class Module
                 {
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
                     $table = new LeaveTable($dbAdapter);
+                    return $table;
+                },
+                'SuperAdmin\Model\AttendenceTable' => function($sm)
+                {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $table = new AttendenceTable($dbAdapter);
                     return $table;
                 },
             ),
