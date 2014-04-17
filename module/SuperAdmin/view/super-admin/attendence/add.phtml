@@ -88,11 +88,29 @@ $(document).ready(function(){
                         <form class="form-horizontal" id="addProduct" method="post" enctype="multipart/form-data">
                             <fieldset>
                                 <legend></legend>
+                                
+                                <div class="control-group">
+                                    <label class="control-label" for="typeahead">User Name</label>
+                                    <div class="controls">
+                                        <select id="name" name="name" required>
+                                            <option value="">Name please</option>
+                                            <?php
+                                                foreach ($userNames as $value)
+                                                {
+                                                ?>
+                                                    <option value="<?php echo $value['employee_code']?>"><?php echo $value['employee_name']?></option>
+                                                <?php
+                                                }
+                                                ?>
 
+                                        </select>
+                                    </div>
+                                </div>
+                                    
                                 <div class="control-group">
                                     <label class="control-label" for="typeahead">Leave Date</label>
                                     <div class="controls">
-                                        <input type="text" name="date" id="date" class="span6" placeholder="Username" required><br />
+                                        <input type="text" name="date" id="date" class="span6" placeholder="DD/MM/YYYY" required><br />
                                     </div>
                                 </div>
 

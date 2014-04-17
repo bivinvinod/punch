@@ -21,6 +21,7 @@ class AttendenceController extends AbstractActionController
 {
     protected $authservice;
     protected $attendenceTable;
+    protected $registrationTable;
 
     public function getAuthService()
     {
@@ -36,9 +37,18 @@ class AttendenceController extends AbstractActionController
         if(!$this->attendenceTable)
         {
             $sm= $this->getServiceLocator();
-            $this->attendenceTable = $sm->get('SuperAdmin\Model\AttendenceTableTable'); 
+            $this->attendenceTable = $sm->get('SuperAdmin\Model\AttendenceTable'); 
         }
         return $this->attendenceTable;
+    }
+    public function getRegistrationTable()
+    {	
+        if(!$this->registrationTable)
+        {
+            $sm= $this->getServiceLocator();
+            $this->registrationTable = $sm->get('SuperAdmin\Model\RegistrationTable'); 
+        }
+        return $this->registrationTable;
     }
     
     //Actions
@@ -63,7 +73,7 @@ class AttendenceController extends AbstractActionController
             $request= $this->getRequest();
             if($request->isPost())
             {
-                $leave= new LeaveModel();
+                $attendence= new AttendenceModel();
                 //Date
                 if($request->getPost('date') != '')
                 {
@@ -73,10 +83,15 @@ class AttendenceController extends AbstractActionController
                     $year = substr($input_date,6,4);                            
                     $d1 = $year.'-'.$month.'-'.$day;
                 }
-                $leave->setDate($d1);
-                $leave->setDescription($request->getPost('dis'));
-                $this->getLeaveTable()->inserts($leave);
+                $attendence->setUserId($request->getPost('name'));
+                $attendence->setLeaveDate($d1);
+                $attendence->setLeaveMatter($request->getPost('dis'));
+                $this->getAttendenceTable()->inserts($attendence);
             }
+            $viewModel= new ViewModel(array(
+                'userNames' => $this->getRegistrationTable()->fetchAllUsers(),
+            ));
+            return $viewModel;
             
         }
         else

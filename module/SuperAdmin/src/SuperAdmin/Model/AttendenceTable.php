@@ -39,7 +39,7 @@ class AttendenceTable extends AbstractTableGateway
         return $return;
     }
 
-    public function inserts(LeaveModel $obj)
+    public function inserts(AttendenceModel $obj)
     {
         $sql = new Sql($this->adapter);            
         $insert = $sql->insert($this->table);                       
