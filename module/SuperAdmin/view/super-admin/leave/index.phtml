@@ -27,11 +27,11 @@
     
     //Status off
     $('.ston').live('click',function()
-    {
+    {   alert('Here');
         var offId = $(this).attr('id'); 
         $.ajax({
             type:"POST",
-            url:"/superAdmin/user/status",
+            url:"/superAdmin/leave/status",
             cache:false,
             data:{offId:offId },
             dataType:"html",
@@ -51,7 +51,7 @@
         var onId = $(this).attr('id'); 
         $.ajax({
             type:"POST",
-            url:"/superAdmin/user/status",
+            url:"/superAdmin/leave/status",
             cache:false,
             data:{ onId:onId },
             dataType:"html",

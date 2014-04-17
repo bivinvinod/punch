@@ -51,8 +51,43 @@ class LeaveTable extends AbstractTableGateway
         return $result;             
        
     }
+    
+                public function updateLeave($id,$status)
+                {
+                    $sql = "update leave_table set status='$status' where id= '$id'"; 
+                    $statement = $this->adapter->query($sql);           
+                    $result = $statement->execute(); 
+                    return $result;
+                }
      
+                
+                
+                   public function fetchAllData()
+                   {
+                        $sql = "SELECT * FROM leave_table";
+                        $statement = $this->adapter->query($sql);           
+                        $result = $statement->execute();
+                        return $result; 
+                   }
      
+                   
+                   
+        public function updateLeaveStatusOff($id)
+        {  
+                $sql = "update leave_table set status='0' where id= $id"; 
+                $statement = $this->adapter->query($sql);           
+                $result = $statement->execute(); 
+                return $result;   
+        }
+        
+        public function updateLeaveStatusOn($id)
+        {  
+                $sql = "update leave_table set status='1' where id= $id"; 
+                $statement = $this->adapter->query($sql);           
+                $result = $statement->execute(); 
+                return $result;   
+        }
+    
      
      
 }
