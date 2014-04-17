@@ -10,9 +10,9 @@ use Zend\Db\Sql\Where;
 
 
 
-class LeaneTable extends AbstractTableGateway
+class LeaveTable extends AbstractTableGateway
 { 
-    protected $table = 'tbl_leave';
+    protected $table = 'leave_table';
 
         public function __construct(Adapter $adapter)
     {
@@ -25,17 +25,23 @@ class LeaneTable extends AbstractTableGateway
     {
         $return = array();
 
+        if(isset($obj->id))
+            $return['id'] = $obj->id;
+        
         if(isset($obj->date))
             $return['leave_date'] = $obj->date;
+        
+        if(isset($obj->status))
+            $return['status'] = $obj->status;
 
 
         if(isset($obj->description))
-            $return['leave_description'] = $obj->description;
+            $return['desc'] = $obj->description;
 
         return $return;
     }
 
-     public function insertMonthlyInOut(MonthlyInOutModel $obj){
+     public function insertleave(LeaveModel $obj){
 
         $sql = new Sql($this->adapter);            
         $insert = $sql->insert($this->table);                       

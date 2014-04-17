@@ -11,6 +11,7 @@ class LeaveModel implements InputFilterAwareInterface
 {
 	public $id;
 	public $date;
+                public $status;
 	public $description;
         
 	protected $inputFilter;        
@@ -24,7 +25,10 @@ class LeaveModel implements InputFilterAwareInterface
 	{
 		$this->date = $date;				
 	}
-
+                public function setStatus($status)
+                 {
+                    $this->status = $status;				
+                 }
 	public function setDiscription($description)
 	{
 		$this->description = $description;				

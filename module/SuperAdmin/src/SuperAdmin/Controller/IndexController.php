@@ -56,7 +56,7 @@ class IndexController extends AbstractActionController
     public function superAdminAuthenticateAction()
     {
        
-            $this->layout('layout/layoutAgentSuperAdmin');
+            //$this->layout('layout/layoutAgentSuperAdmin');
             $request = $this->getRequest();
             if ($request->isPost())
             {
