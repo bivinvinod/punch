@@ -13,8 +13,8 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\Session\Container;
 
-use SuperAdmin\Model\MonthlyModel;
-use SuperAdmin\Model\MonthlyTable;
+use SuperAdmin\Model\LeaveModel;
+use SuperAdmin\Model\LeaveTable;
 
 
 class LeaveController extends AbstractActionController
@@ -30,35 +30,16 @@ class LeaveController extends AbstractActionController
         return $this->authservice;
     }
     
-    public function setLeaveTable()
+    public function getLeaveTable()
     {	
-        if(!$this->monthlyTable)
+        if(!$this->leaveTable)
         {
             $sm= $this->getServiceLocator();
-            $this->monthlyTable = $sm->get('SuperAdmin\Model\MonthlyTable'); 
+            $this->leaveTable = $sm->get('SuperAdmin\Model\LeaveTable'); 
         }
-        return $this->monthlyTable;
+        return $this->leaveTable;
     }
     
-    public function setMonthlyInOutTable()
-    {		
-        if(!$this->monthlyInOutTables)
-        {	
-            $sm = $this->getServiceLocator();
-            $this->monthlyInOutTables = $sm->get('SuperAdmin\Model\MonthlyInOutTable'); 
-        }
-        return $this->monthlyInOutTables;
-    }
-    public function getRegistrationTable()
-    {		
-        if(!$this->registrationTable)
-        {	
-            $sm = $this->getServiceLocator();
-            $this->registrationTable = $sm->get('SuperAdmin\Model\RegistrationTable'); 
-        }
-        return $this->registrationTable;
-    }
-
     //Actions
     public function indexAction()
     {	
@@ -78,6 +59,23 @@ class LeaveController extends AbstractActionController
         if($this->getAuthService()->hasIdentity())
         {
             $this->layout('layout/superAdminDashboardLayout');
+            $request= $this->getRequest();
+            if($request->isPost())
+            {
+                $leave= new LeaveModel();
+                //Date
+                if($request->getPost('date') != '')
+                {
+                    $input_date= $request->getPost('date');
+                    $month = substr($input_date,3,2);
+                    $day = substr($input_date,0,2);
+                    $year = substr($input_date,6,4);                            
+                    $d1 = $year.'-'.$month.'-'.$day;
+                }
+                $leave->setDate($d1);
+                $leave->setDescription($request->getPost('dis'));
+                $this->getLeaveTable()->inserts($leave);
+            }
             
         }
         else

@@ -10,7 +10,7 @@ use Zend\Db\Sql\Where;
 
 
 
-class LeaneTable extends AbstractTableGateway
+class LeaveTable extends AbstractTableGateway
 { 
     protected $table = 'tbl_leave';
 
@@ -35,17 +35,16 @@ class LeaneTable extends AbstractTableGateway
         return $return;
     }
 
-     public function insertMonthlyInOut(MonthlyInOutModel $obj){
-
+    public function inserts(LeaveModel $obj)
+    {
         $sql = new Sql($this->adapter);            
         $insert = $sql->insert($this->table);                       
         $insert->values ($this->exchangeToArray($obj));
         $statement = $sql->prepareStatementForSqlObject($insert);          
         $result = $statement->execute();                    
-        //$lastId=$this->adapter->getDriver()->getConnection()->getLastGeneratedValue();
         return $result;             
        
-     }
+    }
      
      
      

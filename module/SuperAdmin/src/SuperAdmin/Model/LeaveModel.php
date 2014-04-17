@@ -25,7 +25,7 @@ class LeaveModel implements InputFilterAwareInterface
 		$this->date = $date;				
 	}
 
-	public function setDiscription($description)
+	public function setDescription($description)
 	{
 		$this->description = $description;				
         }
