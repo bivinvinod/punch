@@ -333,7 +333,7 @@ return array(
  /* ------------------------------------------------- Leave Controller -------------------------- */
  /* ------------------------------------------------------------------------------------------------------------- */        
                    
-                    'Leave' => array(
+                    'leave' => array(
                         'type' => 'literal',
                         'options' => array(
                             'route' => '/leave',
@@ -412,19 +412,7 @@ return array(
                                 )
                             ),
                             
-                            'userDetails' => array(
-                                'type' => 'segment',
-                                'options'=> array(
-                                    'route' => '/userDetails',
-                                    'constraints' => array(
-                                        //'action1' => '[a-zA-Z0-9_-]+'
-                                    ),
-                                    'defaults' => array(
-                                        'action' => 'userDetails'
-                                    )
-                                )
-                            ),
-                                                       
+                                                
                             
                         ),
                     ),
