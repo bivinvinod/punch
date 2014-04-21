@@ -84,4 +84,52 @@ class LeaveController extends AbstractActionController
             return $this->redirect()->toRoute("superAdmin");
         }
     }
+    
+    
+    
+        public function ajaxListAction()
+        {
+            $viewModel= new ViewModel(array(
+                'leaveDatas' => $this->getLeaveTable()->fetchAllData(),
+            ));
+
+            $viewModel->setTerminal(true);
+            return $viewModel;
+        }
+    
+        
+        
+         public function statusAction()
+        {
+                echo "Here... crap"; exit;
+             
+                        if($_POST['offId'] != '')
+                        {
+                            if($this->getLeaveTable()->updateLeaveStatusOff($_POST['offId']))
+                            {     
+                                echo "Status Edited SuccessFully....";exit;
+                            }
+                            else
+                            {
+                                echo "You can't Change Status....";exit;
+                            }
+                        }
+            
+            
+                            //Status On
+                            if($_POST['onId'] != '')
+                            {
+                                if($this->getLeaveTable()->updateLeaveStatusOn($_POST['onId']))
+                                {     
+                                    echo "Status Edited SuccessFully....";exit;
+                                }
+                                else
+                                {
+                                    echo "You can't Change Status....";exit;
+                                }
+                            }
+            
+            
+        }
+    
 }
