@@ -227,7 +227,132 @@ return array(
 
                         )
                     ),
+/* ------------------------------------------------------------------------------------------------------------------------------------------ */
+                    /* ----------------------------------- Registration Controller ------------------------------------------------------------------------- */
+                    /* ------------------------------------------------------------------------------------------------------------------------------------------ */
+                    'registration' => array(
+                        'type' => 'literal',
+                        'options' => array(
+                            'route' => '/registration',
+                            'defaults' => array(
+                                '__NAMESPACE__' => 'superAdmin\Controller',
+                                'controller' => 'Registration',
+                                'action' => 'index'
+                            ),
+                        ),
+                        'may_terminate' => true,
+                        'child_routes' => array(
+                            'default' => array(
+                                'type' => 'Segment',
+                                'options' => array(
+                                    'route' => '/[:controller[/:action]]',
+                                    'constraints' => array(
+                                        'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                    ),
+                                    'defaults' => array(
+                                    ),
+                                ),
+                            ),
+                            /* list Action */
+                            'list' => array(
+                                'type' => 'segment',
+                                'options' => array(
+                                    'route' => '/list',
+                                    'constraints' => array(
+                                    //'id' => '[0-9]+',                                       
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'list'
+                                    )
+                                )
+                            ),
+                            /* check Action */
+                            'check' => array(
+                                'type' => 'segment',
+                                'options' => array(
+                                    'route' => '/check[/:id]',
+                                    'constraints' => array(
+                                        'id' => '[0-9]+',
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'check'
+                                    )
+                                )
+                            ),
+                            /* check end */
 
+                            /* editProfile Action */
+                            'edit' => array(
+                                'type' => 'segment',
+                                'options' => array(
+                                    'route' => '/edit[/:id]',
+                                    'constraints' => array(
+                                        'id' => '[0-9]+',
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'edit'
+                                    )
+                                )
+                            ),
+                            /* editProfile end */
+
+                            /* delete Action */
+                            'delete' => array(
+                                'type' => 'segment',
+                                'options' => array(
+                                    'route' => '/delete[/:id]',
+                                    'constraints' => array(
+                                        'id' => '[0-9]+',
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'delete'
+                                    )
+                                )
+                            ),
+                            /* delete end */
+                             /* delete Action */
+                            'edit' => array(
+                                'type' => 'segment',
+                                'options' => array(
+                                    'route' => '/edit[/:id]',
+                                    'constraints' => array(
+                                        'id' => '[0-9]+',
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'edit'
+                                    )
+                                )
+                            ),
+                            /* delete end */
+
+
+                            /* home Action */
+                            'home' => array(
+                                'type' => 'segment',
+                                'options' => array(
+                                    'route' => '/home',
+                                    'constraints' => array(
+                                    //'id' => '[0-9]+',                                       
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'home'
+                                    )
+                                )
+                            ),
+                        /* home end */
+
+
+
+
+
+
+                        /* Menu Order Action End */
+                        )
+                    ),
+                    /* ------------------------------------------------------------------------------------------------ */
+                    /* ----------------------------------Registration Controller End ----------------------------------------- */
+                    /* ---------------------------------------------------------------------------
 /* ------------------------------------------------------------------------------------------------------------- */                   
  /* ------------------------------------------------- Record Details Controller -------------------------- */
  /* ------------------------------------------------------------------------------------------------------------- */        
@@ -553,8 +678,8 @@ return array(
             'SuperAdmin\Controller\Upload' => 'SuperAdmin\Controller\UploadController',
             'SuperAdmin\Controller\RecordDetails' => 'SuperAdmin\Controller\RecordDetailsController',
             'SuperAdmin\Controller\Leave' => 'SuperAdmin\Controller\LeaveController',
-            'SuperAdmin\Controller\Attendence' => 'SuperAdmin\Controller\AttendenceController'
-            
+            'SuperAdmin\Controller\Attendence' => 'SuperAdmin\Controller\AttendenceController',
+            'SuperAdmin\Controller\Registration' => 'SuperAdmin\Controller\RegistrationController'
         ),
     ),
     
