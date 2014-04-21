@@ -4,7 +4,8 @@
     $(document).ready(function() {
         showTable();
 
-    });
+    
+    
     
     function showTable()
     {
@@ -28,7 +29,9 @@
     //Status off
     $('.ston').live('click',function()
     {
+        
         var offId = $(this).attr('id'); 
+        alert(offId);
         $.ajax({
             type:"POST",
             url:"/superAdmin/user/status",
@@ -49,6 +52,7 @@
     $('.stof').live('click',function()
     {
         var onId = $(this).attr('id'); 
+        alert(onId);
         $.ajax({
             type:"POST",
             url:"/superAdmin/user/status",
@@ -65,7 +69,7 @@
 
     }); 
 
-
+});
 </script>
 
 
