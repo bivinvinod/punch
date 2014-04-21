@@ -1,0 +1,102 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+    </head>
+    <body>
+        <form name="login" method="post" action="">
+            <fieldset align="center" border="1">
+                <legend><b>Employee List<img src="/images/profile.jpg" alt="Computer man" width="70" height="70"></b></legend>
+                <table align="left" border="2"class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Employee Code</th>
+                            <th>Employee Name </th>
+                            <th>Employee Last Name</th>
+                            <th>Date Of Birth </th>
+                            <th>Gender</th>
+                            <th >Email ID </th>
+                            <th>Contact Address </th> 
+                            <th>Mobile Number 1</th>
+                            <th>Mobile Number 2</th>
+                            <th>Mobile Number 3</th>
+                            <th>Date Of Joining </th>
+                            <th>Department</th> 
+                            <th >Designation</th> 
+                            <th >Monthly Salary </th> 
+                            <th >Upload Your Latest Photo </th>
+                            <th >Device Code </th>
+                            <th >Company Name</th>
+                            <th >Company Location</th>
+                            <th >Employee Grade</th>
+                            <th >Employee Team </th>
+                            <th >Shift In Time</th>
+                            <th >Shift Out Time</th>
+                            <th >Employee Category</th>
+                            <th >Employment Type</th>
+                            <th >Date Of Completion</th>
+                            <th >Card Number</th> 
+                            <th>ID Card Number</th>
+                            <th>ID Card Image</th>
+                            <th>Passport Number</th>
+                            <th>Passport Image</th>
+                            <th>Aadhar Number</th>
+                            <th>Aadhar Image</th>
+                            <th>Driving License Number</th>
+                            <th>Driving License Image</th>
+                            <th>Feedback</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        foreach ($datas as $key => $value) {
+                            ?>                         
+                            <tr>
+                                <td><?php echo $value['employee_code']; ?></td>
+                                <td><?php echo $value['employee_name']; ?></td>
+                                <td><?php echo $value['last_name']; ?> </td>
+                                <td> <?php echo $value['dob']; ?> </td>
+                                <td> <?php echo $value['gender']; ?></td>
+                                <td> <?php echo $value['email_id']; ?></td>
+                                <td> <?php echo $value['address']; ?></td>
+                                <td> <?php echo $value['mobile_no1']; ?></td>
+                                <td> <?php echo $value['mobile_no2']; ?></td>
+                                <td> <?php echo $value['mobile_no3']; ?></td>
+                                <td> <?php echo $value['doj']; ?></td>
+                                <td> <?php echo $value['department']; ?></td>
+                                <td> <?php echo $value['designation']; ?></td>
+                                <td> <?php echo $value['monthly_salary']; ?></td>
+                                <td> <?php echo $value['image']; ?></td>
+                                <td> <?php echo $value['device_code']; ?></td>
+                                <td> <?php echo $value['company']; ?></td>
+                                <td> <?php echo $value['location']; ?></td>
+                                <td> <?php echo $value['grade']; ?></td>
+                                <td> <?php echo $value['team']; ?></td>
+                                <td> <?php echo $value['shift_in_time']; ?></td>
+                                <td> <?php echo $value['shift_out_time']; ?></td>
+                                <td> <?php echo $value['category']; ?></td>
+                                <td> <?php echo $value['employment_type']; ?></td>
+                                <td> <?php echo $value['doc']; ?></td>
+                                <td> <?php echo $value['card_number']; ?></td>
+                                <td> <?php echo $value['id_card']; ?></td>
+                                <td> <?php echo $value['id_card_image']; ?></td>
+                                <td> <?php echo $value['passport']; ?></td>
+                                <td> <?php echo $value['passport_image']; ?></td>
+                                <td><?php echo $value['aadhar']; ?></td>
+                                <td><?php echo $value['aadhar_image']; ?></td>
+                                <td><?php echo $value['driver_license']; ?></td>
+                                <td><?php echo $value['driver_license_image']; ?></td>
+                                <td><?php echo $value['feedback']; ?></td>
+                                <td> <a href="/superAdmin/registration/edit/<?php echo $value['employee_code']; ?>">Edit</a> <a href="/superAdmin/registration/delete/<?php echo $value['employee_code']; ?>">Delete</a>   </td>
+                            </tr>
+
+    <?php
+}
+?>
+
+                    </tbody> 
+
+                </table>
+            </fieldset>
+        </form>
+    </body>
+</html>
