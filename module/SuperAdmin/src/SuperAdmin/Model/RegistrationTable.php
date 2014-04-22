@@ -175,6 +175,19 @@ class RegistrationTable extends AbstractTableGateway {
         $result = $statement->execute();
         return $result; 
     }
+    public function findUser($id)
+    {
+        $sql = "SELECT count(employee_code) as employee_code FROM registration WHERE employee_code = '$id'";
+        $statement = $this->adapter->query($sql);
+        $result = $statement->execute();
+        $s = $result->current();
+        if ($s['employee_code'])
+        {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
     public function fetchAll()
     {
         $sql="SELECT * FROM registration";                              
@@ -182,18 +195,21 @@ class RegistrationTable extends AbstractTableGateway {
         $result    = $statement->execute(); 
         return $result; 
     }
-
-    public function findUser($id) {
-        $sql = "SELECT count(employee_code) as employee_code FROM registration WHERE employee_code = '$id'";
-        $statement = $this->adapter->query($sql);
+    public function getShiftTime($userId)
+    {
+        $sql = "SELECT shift_in_time,shift_out_time FROM registration WHERE employee_code= '$userId'";
+        $statement = $this->adapter->query($sql);           
         $result = $statement->execute();
         $s = $result->current();
-        if ($s['employee_code']) {
-            return 1;
-        } else {
-            return 0;
-        }
+        return $s; 
     }
+    
+    
+    
+    
+    
+    
+    
 
     public function updateProfileImage($lastId, $img) {
         $sql = "update registration set image='$img' where id= '$lastId'";

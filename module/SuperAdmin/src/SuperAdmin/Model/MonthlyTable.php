@@ -78,6 +78,8 @@ class MonthlyTable extends AbstractTableGateway
         
         if(isset($obj->overTime))
             $return['over_time'] = $obj->overTime;
+        if(isset($obj->underTime))
+            $return['under_time'] = $obj->underTime;
         
         return $return;
     }

@@ -37,6 +37,9 @@ use SuperAdmin\Model\LeaveTable;
 use SuperAdmin\Model\AttendenceModel;
 use SuperAdmin\Model\AttendenceTable;
 
+use SuperAdmin\Model\UserWorkHistoryModel;
+use SuperAdmin\Model\UserWorkHistoryTable;
+
 
 class Module
 {
@@ -112,6 +115,12 @@ class Module
                 {
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
                     $table = new AttendenceTable($dbAdapter);
+                    return $table;
+                },
+                'SuperAdmin\Model\UserWorkHistoryTable' => function($sm)
+                {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $table = new UserWorkHistoryTable($dbAdapter);
                     return $table;
                 },
             ),
