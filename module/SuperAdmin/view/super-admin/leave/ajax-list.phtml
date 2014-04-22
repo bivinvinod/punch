@@ -13,7 +13,6 @@
             <tr>
                 <td style="text-align:center;"><?php echo $value['leave_date']; ?></td>
                 <td style="text-align:center;"><?php echo $value['desc']; ?></td>
-            
                 <td style="text-align:center;">
                     <?php 
                     if($value['status'] == 1)
@@ -31,7 +30,7 @@
                     ?>            
                 </td>
                 <td>
-                    <a href="/superAdmin/user/edit/<?php echo $value['id'];?>"><img src="/images/edit.gif" border="0" width="40" height="40" id="">
+                    <a href="/superAdmin/leave/edit/<?php echo $value['id'];?>"><img src="/images/edit.gif" border="0" width="40" height="40" id="">
                 </td>
             </tr>
             <?php
