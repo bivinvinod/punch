@@ -42,7 +42,7 @@ class LeaveTable extends AbstractTableGateway
     }
 
 
-     public function insertleave(LeaveModel $obj){
+     public function insertLeave(LeaveModel $obj){
         $sql = new Sql($this->adapter);            
         $insert = $sql->insert($this->table);                       
         $insert->values ($this->exchangeToArray($obj));
@@ -52,13 +52,15 @@ class LeaveTable extends AbstractTableGateway
        
     }
     
-                public function updateLeave($id,$status)
-                {
-                    $sql = "update leave_table set status='$status' where id= '$id'"; 
-                    $statement = $this->adapter->query($sql);           
-                    $result = $statement->execute(); 
-                    return $result;
-                }
+        public function updateLeave(LeaveModel $obj)
+        {
+        $sql = new Sql($this->adapter);         
+        $update = $sql->update($this->table);   
+        $update->set($this->exchangeToArray($obj));
+        $update->where(array('id' => $obj->id));
+        $statement = $sql->prepareStatementForSqlObject($update);
+        $statement->execute();        
+        }
      
                 
                 
@@ -86,6 +88,15 @@ class LeaveTable extends AbstractTableGateway
                 $statement = $this->adapter->query($sql);           
                 $result = $statement->execute(); 
                 return $result;   
+        }
+        
+        
+        public function fetchspecificData($id)
+        {
+        $sql = "SELECT * FROM leave_table where id=$id";
+        $statement = $this->adapter->query($sql);           
+        $result = $statement->execute();
+        return $result; 
         }
     
      

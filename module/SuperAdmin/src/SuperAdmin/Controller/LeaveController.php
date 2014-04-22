@@ -73,8 +73,11 @@ class LeaveController extends AbstractActionController
                     $d1 = $year.'-'.$month.'-'.$day;
                 }
                 $leave->setDate($d1);
+                $s1=1;
+                $leave->setStatus($s1);
                 $leave->setDescription($request->getPost('dis'));
-                $this->getLeaveTable()->inserts($leave);
+                $this->getLeaveTable()->insertLeave($leave);
+                return $this->redirect()->toRoute('superAdmin/leave');
             }
             
         }
@@ -101,7 +104,7 @@ class LeaveController extends AbstractActionController
         
          public function statusAction()
         {
-                echo "Here... crap"; exit;
+                //echo "Here... crap"; exit;
              
                         if($_POST['offId'] != '')
                         {
@@ -131,5 +134,36 @@ class LeaveController extends AbstractActionController
             
             
         }
+        
+        
+    public function editAction()
+    {
+        if($this->getAuthService()->hasIdentity())
+        {
+            $id= $this->params()->fromRoute('id');
+            $this->layout('layout/superAdminDashboardLayout');
+            $request= $this->getRequest();
+            if($request->isPost())
+            {
+              $leave = new LeaveModel();
+              $leave->setId($id);
+              $leave->setDate($request->getPost('date'));
+              $leave->setDescription($request->getPost('desc'));
+              $this->getLeaveTable()->updateLeave($leave);
+              return $this->redirect()->toRoute('superAdmin/leave');
+            }
+            $viewModel = new ViewModel(array(
+               'edit' => $this->getLeaveTable()->fetchSpecificData($id), 
+            ));
+            return $viewModel;
+                       
+        }
+        else
+        {
+            $this->flashMessenger()->addMessage("Please Login");
+            return $this->redirect()->toRoute("superAdmin");
+        }
+        
+    }
     
 }

@@ -11,7 +11,7 @@ class LeaveModel implements InputFilterAwareInterface
 {
 	public $id;
 	public $date;
-                  public $status;
+        public $status;
 	public $description;
         
 	protected $inputFilter;        
@@ -19,22 +19,22 @@ class LeaveModel implements InputFilterAwareInterface
 
 	public function setId($id)
 	{
-		$this->id = $inTime;				
+		$this->id = $id;				
 	}
 	public function setDate($date)
 	{
 		$this->date = $date;				
 	}
 
-                public function setStatus($status)
-                 {
-                    $this->status = $status;				
-                 }
+        public function setStatus($status)
+        {
+            $this->status = $status;				
+        }
 
 	public function setDescription($description)
 	{
-		$this->description = $description;				
-                  }
+            $this->description = $description;				
+        }
 	// Add content to this method:
         public function setInputFilter(InputFilterInterface $inputFilter){
         //  throw new \Exception("Not used");
