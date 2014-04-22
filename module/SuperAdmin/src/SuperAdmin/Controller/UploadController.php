@@ -22,12 +22,16 @@ use SuperAdmin\Model\MonthlyInOutTable;
 use SuperAdmin\Model\RegistrationModel;
 use SuperAdmin\Model\RegistrationTable;
 
+use SuperAdmin\Model\UserWorkHistoryModel;
+use SuperAdmin\Model\UserWorkHistoryTable;
+
 
 class UploadController extends AbstractActionController
 {
     protected $monthlyTable;
     protected $monthlyInOutTables;
     protected $registrationTable;
+    protected $userWorkHistoryTable;
 
     public function getAuthService()
     {
@@ -66,6 +70,15 @@ class UploadController extends AbstractActionController
         }
         return $this->registrationTable;
     }
+    public function getUserWorkHistoryTable()
+    {
+        if(!$this->userWorkHistoryTable)
+        {	
+            $sm = $this->getServiceLocator();
+            $this->userWorkHistoryTable = $sm->get('SuperAdmin\Model\UserWorkHistoryTable'); 
+        }
+        return $this->userWorkHistoryTable;
+    }
 
     //Actions
     public function indexAction()
@@ -82,6 +95,7 @@ class UploadController extends AbstractActionController
                 $file  = $this->params()->fromFiles('uploaded');
                 $ext= explode('.', $file[name]);
                 $monthlyTableData = new MonthlyModel();
+                $workHistory = new UserWorkHistoryModel();
                 if($ext[1]=="csv")
                 {
                     $tot=0;
@@ -97,6 +111,10 @@ class UploadController extends AbstractActionController
                             $day = substr($input_date,0,2);
                             $year = '20' . substr($input_date,6,2);                            
                             $newDate = $year.'-'.$month.'-'.$day;
+                            
+                            //Over time calculation Based on registration
+                            $shiftOut= $this->getRegistrationTable()->getShiftTime(mysql_real_escape_string($data[1]));
+                            //print_r($shiftOut); echo $shiftOut['shift_in_time'];exit;
                             
                             $monthlyTableData->setDate($newDate);
                             $monthlyTableData->setEmployeeCode(mysql_real_escape_string($data[1]));
@@ -117,9 +135,7 @@ class UploadController extends AbstractActionController
                             $monthlyTableData->setPunchRecords(mysql_real_escape_string($data[16]));
                             $monthlyTableData->setOverTime(mysql_real_escape_string($data[17]));
                             $monthlyTableId = $this->setMonthlyTable()->uploadData($monthlyTableData);
-                            
-                            $countUser= $this->getRegistrationTable()->findUser(mysql_real_escape_string($data[1]));
-                            
+                                                        
                             if($countUser == 0)
                             {
                                 //To Registration Table
@@ -180,6 +196,31 @@ class UploadController extends AbstractActionController
 
                             $monthlyTableData = new MonthlyModel();                                                                              
                             $this->setMonthlyTable()->updateMonthlyTable($monthlyTableId,  gmdate("H:i", $diff),  gmdate("H:i",  $out));
+                            
+                            $countUser= $this->getRegistrationTable()->findUser(mysql_real_escape_string($data[1]));
+                            $inShift= $countUser['shift_in_time'];
+                            $outShift= $countUser['shift_out_time'];
+                            $totWork= gmdate("H:i:s", $diff);
+                            $fixedHours= "08:00:00";
+                           
+                            $workHistory->setUserCode(mysql_real_escape_string($data[1]));
+                            $workHistory->setWorkedDate($newDate);
+                            $workHistory->setWorkedHour($totWork);
+                            
+                            //$workSetDiff= abs(strtotime($countUser['shift_out_time'])-strtotime('shift_out_time'))
+                            if($totWork >= '08:00:00')
+                            {
+                                $overTime= gmdate("H:i:s", abs(strtotime($fixedHours) -strtotime($totWork)));
+                                $workHistory->setOverTime($overTime);
+                            }
+                            else
+                            {
+                                $underTime= gmdate("H:i:s", abs(strtotime($totWork)- strtotime($fixedHours)));
+                                $workHistory->setUnderTime($underTime);                             
+                            }
+                            
+                            $this->getUserWorkHistoryTable()->add($workHistory);
+                            
                         }
                         $tot++;
                     }

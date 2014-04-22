@@ -10,7 +10,7 @@ use Zend\Db\Sql\Where;
 
 
 
-class LeaveTable extends AbstractTableGateway
+class UserWorkHistoryTable extends AbstractTableGateway
 { 
     protected $table = 'user_work_history';
 
@@ -45,18 +45,6 @@ class LeaveTable extends AbstractTableGateway
         return $return;
     }
 
-
-    public function insertLeave(LeaveModel $obj)
-    {
-        $sql = new Sql($this->adapter);            
-        $insert = $sql->insert($this->table);                       
-        $insert->values ($this->exchangeToArray($obj));
-        $statement = $sql->prepareStatementForSqlObject($insert);          
-        $result = $statement->execute();                    
-        return $result;             
-       
-    }
-    
     public function updateLeave(LeaveModel $obj)
     {
         $sql = new Sql($this->adapter);         
@@ -65,5 +53,15 @@ class LeaveTable extends AbstractTableGateway
         $update->where(array('id' => $obj->id));
         $statement = $sql->prepareStatementForSqlObject($update);
         $statement->execute();        
-    }    
+    }
+    public function add(UserWorkHistoryModel $obj)
+    {
+        print_r($obj);exit;
+        $sql = new Sql($this->adapter);            
+        $insert = $sql->insert($this->table);                       
+        $insert->values ($this->exchangeToArray($obj));
+        $statement = $sql->prepareStatementForSqlObject($insert);          
+        $result = $statement->execute();                    
+        return $result;     
+    }
 }
