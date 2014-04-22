@@ -159,22 +159,21 @@ class RegistrationTable extends AbstractTableGateway {
         return $return;
     }
 
-    public function fetchAll() {
-        $resultSet = $this->select(function (Select $select) {
-            //$select->order('id DESC');
-        });
-        return $resultSet;
-    }
-
-
-    public function saveRegistration(RegistrationModel $obj) {
-        //   print_r($obj); exit;
+    public function saveRegistration(RegistrationModel $obj)
+    {
         $sql = new Sql($this->adapter);
         $insert = $sql->insert($this->table);
         $insert->values($this->exchangeToArray($obj));
         $statement = $sql->prepareStatementForSqlObject($insert);
         $result = $statement->execute();
         return $result;
+    }
+    public function fetchAllUsers()
+    {
+        $sql = "SELECT * FROM registration WHERE status= 1";
+        $statement = $this->adapter->query($sql);           
+        $result = $statement->execute();
+        return $result; 
     }
 
     public function findUser($id) {

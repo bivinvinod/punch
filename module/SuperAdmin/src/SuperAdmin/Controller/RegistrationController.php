@@ -1,15 +1,14 @@
 <?php
-
 namespace SuperAdmin\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\Session\Container; // We need this when using sessions
 use Zend\Validator\File\Size;
+
 use SuperAdmin\Model\RegistrationModel;
 use SuperAdmin\Model\RegistrationTable;
-use SuperAdmin\Model\ProfileModel;
-use SuperAdmin\Model\ProfileTable;
+
 
 class RegistrationController extends AbstractActionController {
 
@@ -18,36 +17,18 @@ class RegistrationController extends AbstractActionController {
 
     
 
-    public function getRegistrationTable() {
-        if (!$this->registration) {
+    public function getRegistrationTable()
+    {
+        if (!$this->registration)
+        {
             $ser = $this->getServiceLocator();
             $this->registration = $ser->get('SuperAdmin\Model\RegistrationTable');
         }
         return $this->registration;
     }
-
-    public function homeAction() {
-  
-  $this->layout('layout/superAdminDashboardLayout');
-        
-    }
-
-    public function checkAction() {
-        //exit("hai");
-        $employeeCode = $_POST['employeeCode'];
-
-        $count = $this->getRegistrationTable()->checkAvaiability($employeeCode);
-        //echo $count; exit;
-        if ($count) {
-            echo "1";
-            exit;
-        } else {
-            echo "0";
-            exit;
-        }
-    }
-
-    public function indexAction() {
+    
+    public function indexAction()
+    {
         $this->layout('layout/superAdminDashboardLayout');
         $config = $this->getServiceLocator()->get('config');
         $path = $config['defaultValues']['upload_path'];
