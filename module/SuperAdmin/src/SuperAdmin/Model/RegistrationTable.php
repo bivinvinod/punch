@@ -175,6 +175,13 @@ class RegistrationTable extends AbstractTableGateway {
         $result = $statement->execute();
         return $result; 
     }
+    public function fetchAll()
+    {
+        $sql="SELECT * FROM registration";                              
+        $statement = $this->adapter->query($sql);  
+        $result    = $statement->execute(); 
+        return $result; 
+    }
 
     public function findUser($id) {
         $sql = "SELECT count(employee_code) as employee_code FROM registration WHERE employee_code = '$id'";

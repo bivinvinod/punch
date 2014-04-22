@@ -155,5 +155,10 @@ class RecordDetailsController extends AbstractActionController
                 return $viewModel;
             }
         }
+        else
+        {
+            $this->flashMessenger()->addMessage("Please Login");
+            return $this->redirect()->toRoute("superAdmin");
+        }
     }
 }
