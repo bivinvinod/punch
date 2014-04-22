@@ -233,9 +233,5 @@ class UploadController extends AbstractActionController
             $this->flashMessenger()->addMessage("Please Login");
             return $this->redirect()->toRoute("superAdmin");
         }
-        
-        /*SELECT SEC_TO_TIME( SUM( TIME_TO_SEC( total_in ) ) ) AS total_time
-FROM monthly_table
-WHERE employee_code =1*/
     }
 }
