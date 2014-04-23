@@ -17,6 +17,10 @@ class UserWorkHistoryModel implements InputFilterAwareInterface
         public $underTime;
         public $earlyBy;
         public $lateBy;
+        public $inTime;
+        public $outTime;
+        public $dutyType;
+        public $correctTime;
 
 
         protected $inputFilter;        
@@ -55,6 +59,22 @@ class UserWorkHistoryModel implements InputFilterAwareInterface
         public function setLateBy($lateBy)
 	{
             $this->lateBy = $lateBy;				
+        }
+        public function setInTime($inTime)
+	{
+            $this->inTime = $inTime;				
+        }
+        public function setOutTime($outTime)
+	{
+            $this->outTime = $outTime;				
+        }
+        public function setDutyType($dutyType)
+	{
+            $this->dutyType = $dutyType;				
+        }
+        public function setCorrectTime($correctTime)
+	{
+            $this->correctTime = $correctTime;				
         }
 	// Add content to this method:
         public function setInputFilter(InputFilterInterface $inputFilter){

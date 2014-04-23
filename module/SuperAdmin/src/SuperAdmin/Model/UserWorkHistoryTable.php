@@ -41,6 +41,14 @@ class UserWorkHistoryTable extends AbstractTableGateway
             $return['early_by'] = $obj->earlyBy;
         if(isset($obj->lateBy))
             $return['late_by'] = $obj->lateBy;
+        if(isset($obj->inTime))
+            $return['in_time'] = $obj->inTime;
+        if(isset($obj->outTime))
+            $return['out_time'] = $obj->outTime;
+        if(isset($obj->dutyType))
+            $return['duty_type'] = $obj->dutyType;
+        if(isset($obj->correctTime))
+            $return['correct_time'] = $obj->correctTime;
 
         return $return;
     }
