@@ -41,15 +41,24 @@ class RegistrationController extends AbstractActionController {
 
 
 
-    public function listAction() {
-         $this->layout('layout/superAdminDashboardLayout');
+    public function listAction()
+    {
+        if ($this->getAuthService()->hasIdentity())
+        {
+            $this->layout('layout/superAdminDashboardLayout');
 
-        $viewModel = new ViewModel(array(
-            'datas' => $this->getRegistrationTable()->fetchAll(),
-               
-        ));
-        return $viewModel;
-        return $this->redirect()->toRoute('superAdmin/registration/list');
+            $viewModel = new ViewModel(array(
+                'datas' => $this->getRegistrationTable()->fetchAll(),
+
+            ));
+            return $viewModel;
+            return $this->redirect()->toRoute('superAdmin/registration/list');
+        }
+        else
+        {
+            $this->flashMessenger()->addMessage("Please Login");
+            return $this->redirect()->toRoute("superAdmin");
+        }
     }
 
 

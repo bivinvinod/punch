@@ -122,6 +122,10 @@ class MonthlyModel implements InputFilterAwareInterface
 	{
 		$this->overTime= $overTime;
 	}
+        public function setUnderTime($underTime)
+	{
+		$this->underTime= $underTime;
+	}
 
 
 
