@@ -27,14 +27,14 @@ class AttendenceTable extends AbstractTableGateway
 
         if(isset($obj->userId))
             $return['user_id'] = $obj->userId;
-        
         if(isset($obj->leaveDate))
             $return['leave_dates'] = $obj->leaveDate;
-
         if(isset($obj->leaveMatter))
             $return['leave_matter'] = $obj->leaveMatter;
         if(isset($obj->status))
             $return['status'] = $obj->status;
+        if(isset($obj->leaveType))
+            $return['leave_type'] = $obj->leaveType;
 
         return $return;
     }

@@ -85,6 +85,7 @@ class AttendenceController extends AbstractActionController
                 }
                 $attendence->setUserId($request->getPost('name'));
                 $attendence->setLeaveDate($d1);
+                $attendence->setLeaveType($request->getPost('leaveType'));
                 $attendence->setLeaveMatter($request->getPost('dis'));
                 $this->getAttendenceTable()->inserts($attendence);
             }

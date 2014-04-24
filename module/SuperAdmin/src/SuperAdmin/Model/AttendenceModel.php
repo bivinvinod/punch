@@ -14,6 +14,7 @@ class AttendenceModel implements InputFilterAwareInterface
         public $leaveDate;
 	public $leaveMatter;
         public $status;
+        public $leaveType;
 
 
         protected $inputFilter;        
@@ -39,6 +40,10 @@ class AttendenceModel implements InputFilterAwareInterface
         public function setStatus($status)
 	{
 		$this->status = $status;				
+        }
+        public function setLeaveType($leaveType)
+	{
+		$this->leaveType = $leaveType;				
         }
 	// Add content to this method:
         public function setInputFilter(InputFilterInterface $inputFilter){
