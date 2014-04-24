@@ -6,14 +6,16 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
 
 
-        <title>view</title> 
+        <title>profile</title> 
     </head>
     <body>
+	
         <form name="view" method="post" action="" enctype="multipart/form-data">
             <fieldset align="center"> 
-                <?php foreach ($edit as $key => $value) { ?>
-                    <legend><b>Employee Profile  <img src="/images/upload/<?php echo $value['image']; ?>" id="image" onmouseover="" width="100" height="130" border="6"  > </b></legend>
-
+              <?php foreach ($profile as $key => $value) { ?>
+		
+		<legend><b><h2 style="text-align: center;"><?php echo $value['employee_name']; ?> </h2> <img style="float: right;" src="/images/upload/<?php echo $value['image']; ?>" id="image" onmouseover="" width="100" height="130" border="6"  > </b></legend>
+                    
                     <table align="center" border="0" cellpadding="4" cellspacing="4"> 
 
 
@@ -23,25 +25,25 @@
                         <b> <tr align="left">
                                 <td >Employee Code</td> 
                                 <td align="">
-                                    <input type="text" name="employee_code" readonly="<?php echo $value['employee_code']; ?>">
+                                 :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $value['employee_code']; ?>
                                 </td>
                             </tr>
                             <tr align="left">
                                 <td>Employee Name  </td> 
                                 <td align="">
-                                    <input type="text" name="employee_name" value="<?php echo $value['employee_name']; ?>">
+                                    :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $value['employee_name']; ?>
                                 </td>
                             </tr>
                             <tr align="left">
                                 <td>Employee Last Name </td> 
                                 <td align=""> 
-                                    <input type="text" name="last_name" value="<?php echo $value['last_name']; ?>">
+                                    :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $value['last_name']; ?>
                                 </td>
                             </tr>
                             <tr align="left">
-                                <td>Date Of Birth  </td> 
+                                <td>Date Of Birth : </td> 
                                 <td align="">
-                                    <input type="date" name="dob" value="<?php echo $value['dob']; ?>">
+                                    :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $value['dob']; ?>
                                 </td>
                             </tr>
                             <tr align="left">
@@ -49,197 +51,182 @@
                                     Gender
                                 </td>
                                 <td align=""  >
-                                    <input name="gender" value="male" type="radio" id="gender" <?php $gender = $value['gender']; ?><?php echo ($gender == 'Male') ? "checked" : ""; ?>>Male
-                                    <input name="gender" value="female" type="radio"   id="gender" <?php $gender = $value['gender']; ?><?php echo ($gender == 'Female') ? "checked" : ""; ?>>Female
+                                  : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php $gender = $value['gender']; ?>
+                                  
                                 </td>
                             </tr>
                             <tr align="left">
                                 <td>Email ID  </td>
                                 <td align="">
-                                    <input type="email " name="email_id" value="<?php echo $value['email_id']; ?>">
+                                    :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $value['email_id']; ?>
                                 </td>
                             </tr>
                             <tr align="left">
                                 <td>Contact Address </td> 
                                 <td align=""> 
-                                    <input type="text" name="address" value="<?php echo $value['address']; ?>">
+                                    :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $value['address']; ?>
                                 </td>
                             </tr>
                             <tr align="left">
                                 <td>Emergency Contact Number</td> 
                                 <td align=""> 
-                                    <input type="text" name="mobile_no1" value="<?php echo $value['mobile_no1']; ?>">
+                                   :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $value['mobile_no1']; ?>
                                 </td>
                             </tr>
                             <tr align="right">
                                 <td></td>
                                 <td align="left">
-                                    <input type="text" name="mobile_no2" value="<?php echo $value['mobile_no2']; ?>" >
+                                    :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $value['mobile_no2']; ?>
                                 </td>
                             </tr>
                             <tr align="right">
                                 <td></td> 
                                 <td align="left">
-                                    <input type="text" name="mobile_no3" value="<?php echo $value['mobile_no3']; ?>">
+                              :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $value['mobile_no3']; ?>
                                 </td>
                             </tr>
                             <tr align="left">
                                 <td> Date Of Joining  </td>
                                 <td align="">
-                                    <input type="date" name="doj" value="<?php echo $value['doj']; ?>">
+                                   : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $value['doj']; ?>
                                 </td>
                             </tr>
                             <tr align="left">
                                 <td>Department  </td>
-                                <td align=""><select name="department" id="department" >
-                                        <?php echo $value['department']; ?>
-                                        <option value="IT" <?php if ($value['department'] == "IT") echo 'selected'; ?>>IT</option>
-                                        <option value="Accounts"<?php if ($value['department'] == "Accounts") echo 'selected'; ?>>Accounts</option>
-                                    </select>
+                                <td align="">
+                                       :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <?php echo $value['department']; ?>
+                                        
                                 </td>
                             </tr>
 
                             <tr align="left">
                                 <td>Designation </td>
-                                <td align=""> <select name="designation" id="designation" >
-
-                                        <option value="Programmer" <?php if ($value['designation'] == "Programmer") echo 'selected'; ?>>Programmer</<option>
-                                        <option value="Tester" <?php if ($value['designation'] == "Tester") echo 'selected'; ?>>Tester</option>
-                                        <option value="Designer" <?php if ($value['designation'] == "Designer") echo 'selected'; ?>>Designer</option>
-                                        <option value="Accountant" <?php if ($value['designation'] == "Accountant") echo 'selected'; ?>>Accountant</option>
-                                        <option value="MD" <?php if ($value['designation'] == "MD") echo 'selected'; ?>>Managing Director</option>
-                                        <option value="Director" <?php if ($value['designation'] == "Director") echo 'selected'; ?>>Director</option>
-                                        <option value="Admin" <?php if ($value['designation'] == "Admin") echo 'selected'; ?>>Admin</option>
-                                        <option value="Other" <?php if ($value['designation'] == "Other") echo 'selected'; ?>>Other</option>
-                                    </select>
-                                </td>
+                                <td align=""> 
+                                        
+                                       
+                                        : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $value['designation']; ?>
+                                  </td>
                             </tr>
 
                             <tr align="left">
                                 <td>Monthly Salary </td> 
                                 <td align="">
-                                    <input type="text" name="monthly_salary" value="<?php echo $value['monthly_salary']; ?>">
+                                   :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $value['monthly_salary']; ?>
                                 </td>
                             </tr>
-                            <tr align="left">
-                                <td>Upload Your Latest Photo</td> 
-                                <td align=""> <input type="file"  onchange="readURL(this);"  width="100" height="130">
-                                </td>
-                            </tr>                 
+                                   
                             <tr align="left">
                                 <td>Device Code  </td> 
                                 <td align="">
-                                    <input type="text" name="device_code" value="<?php echo $value['device_code']; ?>">
+                                   : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $value['device_code']; ?>
                                 </td>
                             </tr>
                             <tr align="left">
                                 <td>Company Name </td> 
-                                <td align=""><input type="text" name="company" value="Codex Mind Technology" value="<?php echo $value['company']; ?>">
+                                <td align="">
+				    :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $value['company']; ?>
                                 </td>
                             </tr>
                             <tr align="left">
                                 <td>Company Location  </td>
-                                <td align=""><input type="text" name="location" value="Calicut" value="<?php echo $value['location']; ?>">
+                                <td align=""> :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $value['location']; ?>
                                 </td>
                             </tr>
                             <tr align="left">
                                 <td>Employee Grade </td>
                                 <td align=""> 
-                                    <input type="text" name="grade" value="<?php echo $value['grade']; ?>">
+                                    :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $value['grade']; ?>
                                 </td>
                             </tr>
                             <tr align="left">
                                 <td>Employee Team</td>
                                 <td align=""> 
-                                    <input type="text" name="team" value="<?php echo $value['team']; ?>">
+                                    :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $value['team']; ?>
                                 </td>
+				
                             </tr>
                             <tr align="left">
                                 <td>Employee In Time</td>
                                 <td align=""> 
-                                    <input type="time" name="intime" value="<?php echo $value['intime']; ?>">
+                                    :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $value['intime']; ?>
                                 </td>
                             </tr>
                             <tr align="left">
                                 <td>Employee Out Time</td>
                                 <td align=""> 
-                                    <input type="time" name="outtime" value="<?php echo $value['outtime']; ?>">
+                                    :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $value['outtime']; ?>
                                 </td>
                             </tr>
                             <tr align="left">
                                 <td>Employee Category  </td> 
-                                <td align=""><input type="text" name="category" value="Permanent" value="<?php echo $value['category']; ?>">
+                                <td align="">
+				    :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $value['category']; ?>
                                 </td>
                             </tr>
                             <tr align="left">
                                 <td>Employment Type  </td> 
                                 <td align="">
-                                    <input type="text" name="employment_type" value="<?php echo $value['employment_type']; ?>">
+                                    :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $value['employment_type']; ?>
                                 </td>
                             </tr>
                             <tr align="left">
                                 <td>Date Of Completion </td> 
                                 <td align="">
-                                    <input type="date" name="doc" value="<?php echo $value['doc']; ?>">
+                                    :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $value['doc']; ?>
                                 </td>
                             </tr>
                             <tr align="left">
                                 <td>Card Number </td> 
                                 <td align="">
-                                    <input type="text" name="card_number" value="<?php echo $value['card_number']; ?>">
+                                   : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $value['card_number']; ?>
+				    
                                 </td>
                             </tr>
                             <tr align="left">
                                 <td>ID Card Number </td>
                                 <td align="left"> 
-                                    <input type="text" name="id_card" value="<?php echo $value['id_card']; ?>">
+                                    :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $value['id_card']; ?>
                                 </td>
                                 <td align="left">
-                                    <img src="/images/upload/<?php echo $value['id_card_image']; ?>" width="70" height="90" border="0">
-                                    <input type="file" name="id_card_image" id="id_card_image"  value="">                          
+                                   <img src="/images/upload/<?php echo $value['id_card_image']; ?>" width="70" height="90" border="0">
+                                                              
                                 </td>
                             </tr>
                             <tr align="left">
                                 <td>Passport Number </td>
                                 <td align="left"> 
-                                    <input type="text" name="passport" value="<?php echo $value['passport']; ?>">
+                                   :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <?php echo $value['passport']; ?>
                                 <td align="left">
                                     <img src="/images/upload/<?php echo $value['passport_image']; ?>" width="70" height="90" border="0">
-                                    <input type="file" name="passport_image" value="hai"  >
+                                    
                                 </td>
                             </tr>
                             <tr align="left">
                                 <td>Aadhar Number </td>
-                                <td align="left"> <input type="text" name="aadhar" value="<?php echo $value['aadhar']; ?>">
+                                <td align="left"> :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $value['aadhar']; ?>
                                 <td align="left">
                                     <img src="/images/upload/<?php echo $value['aadhar_image']; ?>" width="70" height="90" border="0">
-                                    <input type="file" name="aadhar_image" >
+                                    
                                 </td>
                             </tr>
                             <tr align="left">
                                 <td>Driving License Number </td>
                                 <td align="left"> 
-                                    <input type="text" name="driver_license" value="<?php echo $value['driver_license']; ?>">
+                                    :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $value['driver_license']; ?>
                                 <td align="left">
                                     <img src="/images/upload/<?php echo $value['driver_license_image']; ?>" width="70" height="90" border="0">
-                                    <input type="file" name="driver_license_image">
+                                    
                                 </td>
                             </tr>
                             <tr align="left">
                                 <td>Employee Feedback</td>
                                 <td align="left">
-                                    <textarea   rows="5" cols="20"  name="feedback">
-                                        <?php echo $value['feedback']; ?>
-                                    </textarea>
+                                    
+                                        :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $value['feedback']; ?>
+                                  
                                 </td>
                             </tr>
-                        <?php
-                        }
-                        unset($value);
-                        ?>
-
-                        <tr align="center"><td> <input type="submit" name="submit" value="Submit"></td></tr>
-
+                       <?php } ?>
                 </table>
             </fieldset>
 
