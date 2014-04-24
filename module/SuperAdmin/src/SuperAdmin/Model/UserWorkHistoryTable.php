@@ -41,6 +41,14 @@ class UserWorkHistoryTable extends AbstractTableGateway
             $return['early_by'] = $obj->earlyBy;
         if(isset($obj->lateBy))
             $return['late_by'] = $obj->lateBy;
+        if(isset($obj->inTime))
+            $return['in_time'] = $obj->inTime;
+        if(isset($obj->outTime))
+            $return['out_time'] = $obj->outTime;
+        if(isset($obj->dutyType))
+            $return['duty_type'] = $obj->dutyType;
+        if(isset($obj->correctTime))
+            $return['correct_time'] = $obj->correctTime;
 
         return $return;
     }
@@ -56,12 +64,33 @@ class UserWorkHistoryTable extends AbstractTableGateway
     }
     public function add(UserWorkHistoryModel $obj)
     {
-        print_r($obj);exit;
         $sql = new Sql($this->adapter);            
         $insert = $sql->insert($this->table);                       
         $insert->values ($this->exchangeToArray($obj));
         $statement = $sql->prepareStatementForSqlObject($insert);          
         $result = $statement->execute();                    
         return $result;     
+    }
+    public function fetchAllRecords($id,$d1,$d2)
+    {
+        if($d1 != '' && $d2 != '')
+        {
+            $sql= "select * from  user_work_history where user_code= $id and worked_date between '$d1' and '$d2'";
+        }
+        else if($d1 != '')
+        {
+            $sql= "select * from  user_work_history where user_code= $id and worked_date >= '$d1'";
+        }
+        else if($d2 != '')
+        {
+            $sql= "select * from  user_work_history where user_code= $id and worked_date <= '$d2'"; 
+        }
+        else
+        {
+            $sql= "select * from  user_work_history where user_code= $id";  
+        }
+        $statement = $this->adapter->query($sql);
+        $result = $statement->execute();
+        return $result; 
     }
 }

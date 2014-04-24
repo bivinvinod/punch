@@ -1,6 +1,9 @@
 <?php
 
 return array(
+    'defaultValues' => array(
+        'upload_path'=>'/var/www/punch/public',
+    ),
     'router' => array(
         'routes' => array(
 
@@ -645,7 +648,53 @@ return array(
                         ),
                     ),
 /*--------------------------------------- End of Record Details ----------------------------------------*/
-
+/* ------------------------------------------------------------------------------------------------------------- */                   
+ /* ------------------------------------------------- User Reports Controller -------------------------- */
+ /* ------------------------------------------------------------------------------------------------------------- */        
+                   
+                    'userReports' => array(
+                        'type' => 'literal',
+                        'options' => array(
+                            'route' => '/userReports',
+                            'defaults' => array(
+                                '__NAMESPACE__' => 'SuperAdmin\Controller',
+                                'controller' => 'UserReports',
+                                'action' => 'index'
+                            ),
+                        ),
+                        'may_terminate' => true,
+                        'child_routes' => array(  
+                            'index' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/index',
+                                    'constraints' => array(
+                                        //'action1' => '[a-zA-Z0-9_-]+'
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'index'
+                                    )
+                                )
+                            ),
+                               
+                            'userReports' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/userReports',
+                                    'constraints' => array(
+                                        //'action1' => '[a-zA-Z0-9_-]+'
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'userReports'
+                                    )
+                                )
+                            ),
+                            
+                            
+                            
+                        ),
+                    ),
+/*--------------------------------------- End of User Reports ----------------------------------------*/
 
 
 
@@ -692,7 +741,8 @@ return array(
             'SuperAdmin\Controller\RecordDetails' => 'SuperAdmin\Controller\RecordDetailsController',
             'SuperAdmin\Controller\Leave' => 'SuperAdmin\Controller\LeaveController',
             'SuperAdmin\Controller\Attendence' => 'SuperAdmin\Controller\AttendenceController',
-            'SuperAdmin\Controller\Registration' => 'SuperAdmin\Controller\RegistrationController'
+            'SuperAdmin\Controller\Registration' => 'SuperAdmin\Controller\RegistrationController',
+            'SuperAdmin\Controller\UserReports' => 'SuperAdmin\Controller\UserReportsController'
         ),
     ),
     
