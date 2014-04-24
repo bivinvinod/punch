@@ -204,7 +204,14 @@ class RegistrationTable extends AbstractTableGateway {
         return $s; 
     }
     
-    
+    public function viewProfile($employeeCode)
+    {
+        $sql="SELECT * FROM registration WHERE employee_code='$employeeCode'"; 
+	$statement = $this->adapter->query($sql);           
+        $result = $statement->execute();
+        
+        return $result; 
+    }
     
     
     

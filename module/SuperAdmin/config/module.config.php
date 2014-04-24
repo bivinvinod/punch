@@ -344,8 +344,21 @@ return array(
                                 )
                             ),
                         /* home end */
-
-
+			    
+                      /* profile Action */
+                            'profile' => array(
+                                'type' => 'segment',
+                                'options' => array(
+                                    'route' => '/profile[/:id]',
+                                    'constraints' => array(
+                                    'id' => '[0-9]+',                                       
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'profile'
+                                    )
+                                )
+                            ),
+                       
 
 
 
