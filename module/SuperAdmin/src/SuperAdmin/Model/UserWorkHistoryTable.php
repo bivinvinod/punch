@@ -64,7 +64,6 @@ class UserWorkHistoryTable extends AbstractTableGateway
     }
     public function add(UserWorkHistoryModel $obj)
     {
-        //print_r($obj);exit;
         $sql = new Sql($this->adapter);            
         $insert = $sql->insert($this->table);                       
         $insert->values ($this->exchangeToArray($obj));
