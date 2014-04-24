@@ -15,7 +15,14 @@ class RegistrationController extends AbstractActionController {
     protected $registration;
     protected $profile;
 
-    
+    public function getAuthService()
+    {
+        if (! $this->authservice)
+        {
+            $this->authservice = $this->getServiceLocator()->get('AdminAuth');
+        }        
+        return $this->authservice;
+    }
 
     public function getRegistrationTable()
     {
@@ -61,7 +68,26 @@ class RegistrationController extends AbstractActionController {
         }
     }
 
+    public function profileAction()
+    {
+	if ($this->getAuthService()->hasIdentity())
+        {
+            $this->layout('layout/superAdminDashboardLayout');
+            $employeeCode = (int) $this->params()->fromRoute(id);
+            $viewModel = new ViewModel(array(
+                'profile' => $this->getRegistrationTable()->viewProfile($employeeCode),
 
+            ));
+            return $viewModel;
+            return $this->redirect()->toRoute('superAdmin/registration/profile');
+        }
+        else
+        {
+            $this->flashMessenger()->addMessage("Please Login");
+            return $this->redirect()->toRoute("superAdmin");
+        }
+	
+    }
 
 
     public function editAction() {
