@@ -71,4 +71,26 @@ class UserWorkHistoryTable extends AbstractTableGateway
         $result = $statement->execute();                    
         return $result;     
     }
+    public function fetchAllRecords($id,$d1,$d2)
+    {
+        if($d1 != '' && $d2 != '')
+        {
+            $sql= "select * from  user_work_history where user_code= $id and worked_date between '$d1' and '$d2'";
+        }
+        else if($d1 != '')
+        {
+            $sql= "select * from  user_work_history where user_code= $id and worked_date >= '$d1'";
+        }
+        else if($d2 != '')
+        {
+            $sql= "select * from  user_work_history where user_code= $id and worked_date <= '$d2'"; 
+        }
+        else
+        {
+            $sql= "select * from  user_work_history where user_code= $id";  
+        }
+        $statement = $this->adapter->query($sql);
+        $result = $statement->execute();
+        return $result; 
+    }
 }

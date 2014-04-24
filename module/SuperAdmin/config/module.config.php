@@ -1,6 +1,9 @@
 <?php
 
 return array(
+    'defaultValues' => array(
+        'upload_path'=>'/var/www/punch1/public',
+    ),
     'router' => array(
         'routes' => array(
 
@@ -661,7 +664,18 @@ return array(
                                 )
                             ),
                                
-                            
+                            'userReports' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/userReports',
+                                    'constraints' => array(
+                                        //'action1' => '[a-zA-Z0-9_-]+'
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'userReports'
+                                    )
+                                )
+                            ),
                             
                             
                             
