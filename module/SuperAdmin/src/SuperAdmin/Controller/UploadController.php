@@ -197,71 +197,66 @@ class UploadController extends AbstractActionController
 
                             $monthlyTableData = new MonthlyModel();                                                                              
                             $this->setMonthlyTable()->updateMonthlyTable($monthlyTableId,  gmdate("H:i", $diff),  gmdate("H:i",  $out));
-                            
-                            $countUser= $this->getRegistrationTable()->getShiftTime(mysql_real_escape_string($data[1]));
-                            $inShift= $countUser['shift_in_time'];
-                            $outShift= $countUser['shift_out_time'];
-                            
-                            $totWork= gmdate("H:i:s", $diff);
-                            $fixedHours= "08:00:00";
-                           
-                            $workHistory->setUserCode(mysql_real_escape_string($data[1]));
-                            $workHistory->setWorkedDate($newDate);
-                            $workHistory->setWorkedHour($totWork);
-                            
-                            //$workSetDiff= abs(strtotime($countUser['shift_out_time'])-strtotime('shift_out_time'))
-                            if($totWork > '08:00:00')
+                            if(mysql_real_escape_string($data[10]) != '')
                             {
-                                $overTime= gmdate("H:i:s", abs(strtotime($fixedHours) -strtotime($totWork)));
-                                $workHistory->setOverTime($overTime);
-                                $workHistory->setUnderTime('00:00:00');
-                                $workHistory->setDutyType('OT');
+                                $countUser= $this->getRegistrationTable()->getShiftTime(mysql_real_escape_string($data[1]));
+                                $inShift= $countUser['shift_in_time'];
+                                $outShift= $countUser['shift_out_time'];
+
+                                $totWork= gmdate("H:i:s", $diff);
+                                $fixedHours= "08:00:00";
+
+                                $workHistory->setUserCode(mysql_real_escape_string($data[1]));
+                                $workHistory->setWorkedDate($newDate);
+                                $workHistory->setWorkedHour($totWork);
                                 
+                                //$workSetDiff= abs(strtotime($countUser['shift_out_time'])-strtotime('shift_out_time'))
+                                if($totWork > '08:00:00')
+                                {
+                                    $overTime= gmdate("H:i:s", abs(strtotime($fixedHours) -strtotime($totWork)));
+                                    $workHistory->setOverTime($overTime);
+                                    $workHistory->setUnderTime('00:00:00');
+                                    $workHistory->setDutyType('OT');
+
+                                }
+                                elseif($totWork < '08:00:00')
+                                {
+                                    $underTime= gmdate("H:i:s", abs(strtotime($totWork)- strtotime($fixedHours)));
+                                    $workHistory->setUnderTime($underTime); 
+                                    $workHistory->setOverTime('00:00:00');
+                                    $workHistory->setDutyType('UT');
+                                }
+                                else
+                                {
+                                   $workHistory->setDutyType('Normal');                            
+                                }
+
+                                $s=date("H:i:s", abs(strtotime(mysql_real_escape_string($data[10]))));
+                                if($inShift > date("H:i:s", abs(strtotime(mysql_real_escape_string($data[10])))))
+                                {
+                                    $earlByTime= gmdate("H:i:s", abs(strtotime($s)- strtotime($inShift)));
+                                    $workHistory->setEarlyBy($earlByTime); 
+                                    $workHistory->setLateBy('00:00:00');
+                                    $workHistory->setCorrectTime('Earlyby');
+                                }
+                                elseif($inShift < date("H:i:s", abs(strtotime(mysql_real_escape_string($data[10])))))
+                                {
+
+                                    $lateByTime= gmdate("H:i:s", abs(strtotime($inShift)- strtotime($s)));
+                                    $workHistory->setLateBy($lateByTime); 
+                                    $workHistory->setEarlyBy('00:00:00');
+                                    $workHistory->setCorrectTime('LateBy');
+                                }
+                                else
+                                {
+                                    $workHistory->setCorrectTime('Ontime');
+                                }
+
+                                $workHistory->setInTime(mysql_real_escape_string($data[10]));
+                                $workHistory->setOutTime(mysql_real_escape_string($data[11]));
+
+                                $this->getUserWorkHistoryTable()->add($workHistory);
                             }
-                            elseif($totWork < '08:00:00')
-                            {
-                                $underTime= gmdate("H:i:s", abs(strtotime($totWork)- strtotime($fixedHours)));
-                                $workHistory->setUnderTime($underTime); 
-                                $workHistory->setOverTime('00:00:00');
-                                $workHistory->setDutyType('UT');
-                            }
-                            else
-                            {
-                               $workHistory->setDutyType('Normal');                            
-                            }
-                            echo  date("H:i:s",strtotime(mysql_real_escape_string($data[10]))).'<br>';echo $inShift.'<br>';
-                            exit;$t1= date("H:i:s",strtotime(mysql_real_escape_string($data[10]))).'<br>';
-                            $t2= $inShift;
-                            $t= abs(strtotime($t2)- strtotime($t1));
-                            
-                            echo gmdate("H:i:s",$t);exit;
-                            
-                            //echo date("H:i:s", abs(strtotime(mysql_real_escape_string($data[10]))));echo "<br>";
-                            //echo $inShift; 
-                            if($inShift > date("H:i:s", abs(strtotime(mysql_real_escape_string($data[10])))))
-                            {
-                                $earlByTime= gmdate("H:i:s", abs(strtotime($inShift)- date("H:i:s",strtotime(mysql_real_escape_string($data[10])))));
-                                echo 'early by'.$earlByTime; exit;
-                                $workHistory->setEarlyBy($earlByTime); 
-                                $workHistory->setLateBy('00:00:00');
-                                $workHistory->setCorrectTime('Earlyby');
-                            }
-                            elseif($inShift < date("H:i:s", abs(strtotime(mysql_real_escape_string($data[10])))))
-                            {
-                                $lateByTime= gmdate("H:i:s", abs(strtotime($inShift))-abs(strtotime(mysql_real_escape_string($data[10]))));
-                                echo "late ".$lateByTime; exit;
-                                $workHistory->setLateBy($lateByTime); 
-                                $workHistory->setEarlyBy('00:00:00');
-                                $workHistory->setCorrectTime('LateBy');
-                            }
-                            else
-                            {
-                                $workHistory->setCorrectTime('Ontime');
-                            }
-                            $workHistory->setInTime(mysql_real_escape_string($data[10]));
-                            $workHistory->setOutTime(mysql_real_escape_string($data[11]));
-                            
-                            $this->getUserWorkHistoryTable()->add($workHistory);
                             
                         }
                         $tot++;
