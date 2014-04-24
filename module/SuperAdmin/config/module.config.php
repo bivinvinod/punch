@@ -2,7 +2,7 @@
 
 return array(
     'defaultValues' => array(
-        'upload_path'=>'/var/www/punch1/public',
+        'upload_path'=>'/var/www/punch/public',
     ),
     'router' => array(
         'routes' => array(

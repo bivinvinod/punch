@@ -211,37 +211,39 @@ class RegistrationTable extends AbstractTableGateway {
     
     
 
-    public function updateProfileImage($lastId, $img) {
-        $sql = "update registration set image='$img' where id= '$lastId'";
+    public function updateProfileImage($employeeCode, $img) {
+        $sql = "update registration set image='$img' where employee_code = '$employeeCode'";
         //echo($sql);exit;
         $statement = $this->adapter->query($sql);
         $result = $statement->execute();
         return $result;
     }
 
-    public function updateIdCardImage($lastId, $id_img) {
-        $sql = "update registration set id_card_image='$id_img' where id= '$lastId'";
+    public function updateIdCardImage($employeeCode, $id_img) {
+        $sql = "update registration set id_card_image='$id_img' where employee_code = '$employeeCode'";
         $statement = $this->adapter->query($sql);
         $result = $statement->execute();
         return $result;
     }
 
-    public function updatePassword($lastId, $pt_img) {
-        $sql = "update registration set passport_image='$pt_img' where id= '$lastId'";
+    public function updatePassport($employeeCode,$pt_img)
+    {
+        $sql = "update registration SET passport_image= '$pt_img' WHERE employee_code ='$employeeCode'";
+        $statement = $this->adapter->query($sql);
+        $result = $statement->execute();
+        return $result;
+    }
+    
+
+    public function updateAadharImage($employeeCode, $ad_img) {
+        $sql = "update registration set aadhar_image='$ad_img' where employee_code = '$employeeCode'";
         $statement = $this->adapter->query($sql);
         $result = $statement->execute();
         return $result;
     }
 
-    public function updateAadharImage($lastId, $ad_img) {
-        $sql = "update registration set aadhar_image='$ad_img' where id= '$lastId'";
-        $statement = $this->adapter->query($sql);
-        $result = $statement->execute();
-        return $result;
-    }
-
-    public function updateDriverLicenseImage($lastId, $dl_img) {
-        $sql = "update registration set driver_license_image='$dl_img' where id= '$lastId'";
+    public function updateDriverLicenseImage($employeeCode, $dl_img) {
+        $sql = "update registration set driver_license_image='$dl_img' where employee_code = '$employeeCode'";
         $statement = $this->adapter->query($sql);
         $result = $statement->execute();
         return $result;
@@ -272,8 +274,6 @@ class RegistrationTable extends AbstractTableGateway {
 
       public function getViewSearch($employee_code) 
     { 
-        //$uname = $login_session->username;     
-         //echo "SELECT * FROM registration WHERE employee_code='$employee_code'";exit;
                 $sql="SELECT * FROM registration WHERE employee_code='$employee_code'";                              
                 $statement = $this->adapter->query($sql);  
                 $result    = $statement->execute(); 
@@ -286,13 +286,11 @@ class RegistrationTable extends AbstractTableGateway {
         $sql = new Sql($this->adapter);         
         $update = $sql->update($this->table);  
         $update->set ($this->exchangeToArray($obj));
-        //print_r($this->exchangeToArray($obj));
         $update->where(array('employee_code' => $obj->employee_code));
         $statement = $sql->prepareStatementForSqlObject($update);
-      // print_r($this->exchangeToArray($obj));
         $statement->execute();        
     } 
-          public function getDeleted($employee_code) 
+    public function getDeleted($employee_code) 
     { 
         //$uname = $login_session->username;     
          
