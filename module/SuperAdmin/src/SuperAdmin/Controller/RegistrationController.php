@@ -141,7 +141,7 @@ class RegistrationController extends AbstractActionController {
             //Profile Image
             if ($this->params()->fromFiles('dp') != '') {
                 $file = $this->params()->fromFiles('dp');
-                $ext = explode('.', $file['dp']);
+                $ext = explode('.', $file['name']);
                 $img = $employee_name.'.'.$ext[1];
                 if (!empty($file['name'])) {
                     $paths = $path.'/images/upload/'.$img;
