@@ -35,12 +35,17 @@ class UserReportsController extends AbstractActionController
 
     public function indexAction()
     {
-        
-            $this->layout('layout/superAdmin');
+        if ($this->getAuthService()->hasIdentity())
+        {
+            $this->layout('layout/superAdminDashboardLayout');
             return new ViewModel(array(
                 'flashMessages' => $this->flashMessenger()->getMessages(),
             ));
-        
+        }
+        else
+        {
+            return $this->redirect()->toRoute('superAdmin');         
+        }
     }
 
     public function ajaxList()

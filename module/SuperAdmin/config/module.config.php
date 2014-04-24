@@ -639,7 +639,7 @@ return array(
                     'userReports' => array(
                         'type' => 'literal',
                         'options' => array(
-                            'route' => '/user',
+                            'route' => '/userReports',
                             'defaults' => array(
                                 '__NAMESPACE__' => 'SuperAdmin\Controller',
                                 'controller' => 'UserReports',
