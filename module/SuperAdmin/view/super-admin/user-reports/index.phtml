@@ -80,8 +80,8 @@
                                 ?>
                                 
                             </select>
-                            <input type="text" name="date1" id="date1">
-                            <input type="text" name="date2" id="date2">
+                            <input type="text" name="date1" id="date1" placeholder="DD/MM/YYYY">
+                            <input type="text" name="date2" id="date2" placeholder="DD/MM/YYYY">
                             <input type="submit" name="submit" value="Submit" style="margin-bottom: 11px; padding: 3px; width: 99px;">
                         </form>
                     </div>
@@ -95,20 +95,23 @@
                                 <th style="text-align:center;">Date</th>
                                 <th style="text-align:center;">In Time</th>
                                 <th style="text-align:center;">Out Time</th>
-                                <th style="text-align:center;">Working Hour</th>
+                                <th style="text-align:center;">Normal Working</th>
                                 <th style="text-align:center;">OT</th>
-                                <th style="text-align:center;">Total Work</th>
+                                <th style="text-align:center;">Working Hour</th>                                
+                               
                                 <th style="text-align:center;">Under Time</th>
                                 <th style="text-align:center;">Early By</th>
                                 <th style="text-align:center;">Late By</th>
                             </tr>
                             <?php
-                            if(count($records) != '')
+                            $cnt= count($records);
+                            if($cnt != '')
                             {
                                 foreach ($records as $value)
-                                {
+                                {        
+                                    $s=$value['worked_hour'];
                                 ?>
-                                <tr>
+                                <tr <?php if($s < '08:00:00'){ ?>style="color:red;" <?php } ?>>
                                     <td style="text-align:center;"><?php echo $value['worked_date']; ?></td>
                                     <td style="text-align:center;">
                                         <?php
@@ -122,10 +125,11 @@
                                     </td>
                                     <td style="text-align:center;">
                                         <?php
-                                            $s= split(':',$value['worked_hour']);
-                                            echo $s[0].':'.$s[1];
+                                        $s= split(":",gmdate("H:i:s", abs(strtotime($value['worked_hour'])- strtotime($value['over_time']))));
+                                        echo $s[0].':'.$s[1];
                                         ?>
                                     </td>
+                                   
                                     <td style="text-align:center;">
                                         <?php
                                         if($value['over_time'] != '00:00:00')
@@ -139,20 +143,13 @@
                                         }
                                         ?>
                                     </td>
-                                    <td style="text-align:center;">
+                                     <td style="text-align:center;">
                                         <?php
-                                            $s1= split(':',gmdate("H:i:s", abs(strtotime($value['worked_hour'])+ strtotime($value['over_time']))));
-                                            if(gmdate("H:i:s", abs(strtotime($value['worked_hour'])+ strtotime($value['over_time']))) < '08:00:00')
-                                            {
-                                                echo "correct".$s1[0].':'.$s[1];
-                                            }
-                                            else 
-                                            {
-                                                echo "not correct".$s1[0].':'.$s[1];   
-                                            }
-                                            
+                                        $s1= split(':',$value['worked_hour']);
+                                        echo $s1[0].':'.$s1[1];
                                         ?>
                                     </td>
+                                    
                                     <td style="text-align:center;">
                                         <?php
                                         if($value['under_time'] != '00:00:00')
@@ -166,10 +163,56 @@
                                         }
                                         ?>
                                     </td>
+                                    <td style="text-align:center;">
+                                        <?php
+                                        if($value['early_by'] != '00:00:00')
+                                        {
+                                            echo date('H:i', strtotime($value['early_by']));
+                                        }
+                                        else
+                                        {
+                                            echo "-";
+                                        }
+                                        ?>
+                                    </td>
+                                    <td style="text-align:center;">
+                                        <?php
+                                        if($value['late_by'] != '00:00:00')
+                                        {
+                                            echo date('H:i', strtotime($value['late_by']));
+                                        }
+                                        else
+                                        {
+                                            echo "-";
+                                        }
+                                        ?>
+                                    </td>
                                     
                                 </tr>
+                                
                                 <?php
                                 }
+                                ?>
+                                <tr>
+                                    <td colspan="8">
+                                        <div class="muted pull-left" style="width: 1266px; background-color: #FFFFCC; padding: 0px;">
+                                            <div style="float:left; width: 580px; padding: 24px;">
+                                                <div style="float:left;width: 200px; padding: 0px; font-weight: bold;">Working Hours</div>
+                                                <div style="float:left;width: 200px; padding: 0px; font-weight: bold; color: red;"><?php echo $cnt * 8;?></div>
+                                                <br>
+                                                <br>
+                                                <div style="float:left;width: 200px; padding: 0px; font-weight: bold;">Work Hours(<span style="font-size:10px;">Including OT</span>)</div>                                               
+                                                <div style="float:left;width: 200px; padding: 0px; font-weight: bold; color: red;"><?php echo $this->totWork?></div>
+                                            </div>
+                                            <div style="float:left; width: 580px; padding: 24px;">
+                                                <div style="float:left;width: 200px; padding: 0px; font-weight: bold;">Total OT</div>
+                                                <div style="float:left;width: 200px; padding: 0px; font-weight: bold; color: red;"><?php echo $this->ot?></div>
+                                            </div>
+                                                                                        
+                                        </div>
+                                    </td>
+                                </tr>
+                                <?php
                             }
                             else
                             {
