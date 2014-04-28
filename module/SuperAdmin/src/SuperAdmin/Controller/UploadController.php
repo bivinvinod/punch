@@ -83,13 +83,15 @@ class UploadController extends AbstractActionController
     //Actions
     public function indexAction()
     {	
+                
         if($this->getAuthService()->hasIdentity())
         {
             $this->layout('layout/superAdminDashboardLayout');
             $config = $this->getServiceLocator()->get('config'); 
             $request=$this->getRequest();
             $path=$config['defaultValues']['upload_path'];
-        
+            
+            
             if($request->isPost())
             {
                 $file  = $this->params()->fromFiles('uploaded');
@@ -114,7 +116,7 @@ class UploadController extends AbstractActionController
                             
                             //Over time calculation Based on registration
                             $shiftOut= $this->getRegistrationTable()->getShiftTime(mysql_real_escape_string($data[1]));
-                            //print_r($shiftOut); echo $shiftOut['shift_in_time'];exit;
+                            //print_r($shiftOut); echo $shiftOut['shift_out_time'];exit;
                             
                             $monthlyTableData->setDate($newDate);
                             $monthlyTableData->setEmployeeCode(mysql_real_escape_string($data[1]));
@@ -127,7 +129,15 @@ class UploadController extends AbstractActionController
                             $monthlyTableData->setTeam(mysql_real_escape_string($data[8]));
                             $monthlyTableData->setShift(mysql_real_escape_string($data[9]));
                             $monthlyTableData->setInTime(mysql_real_escape_string($data[10]));
-                            $monthlyTableData->setOutTime(mysql_real_escape_string($data[11]));
+                            if(mysql_real_escape_string($data[11]) != '')
+                            {
+                                $monthlyTableData->setOutTime(mysql_real_escape_string($data[11]));
+                            }
+                            else
+                            {
+                                $monthlyTableData->setOutTime($shiftOut['shift_out_time']);
+                            }
+                            
                             $monthlyTableData->setDuration(mysql_real_escape_string($data[12]));
                             $monthlyTableData->setLateBy(mysql_real_escape_string($data[13]));
                             $monthlyTableData->setEarlyBy(mysql_real_escape_string($data[14]));
@@ -147,36 +157,62 @@ class UploadController extends AbstractActionController
                                 
                                 $this->getRegistrationTable()->saveRegistration($registration);
                             }
-
-                            $str = preg_replace("/\([^)]+\)/", "", $data[16]);
+                            
+                           
+                            $str = preg_replace("/\([Door Access)]+\)/", "", $data[16]);
+                            
                             $strArr = explode(' ', $str);
-                            //print_r($strArr);
+                            
+                            $s= array_search('07:00:out(SE)', $strArr);
+                            
+                            if($s != '')
+                            {
+                                unset($strArr[$s]);
+                                
+                            }
+                            $strArr= array_filter($strArr);
+
+//                         
+                            $c=count($strArr);
+                            
+                            if(substr($strArr[$c-1], -2) == 'in')
+                            {
+                                unset($strArr[$c-1]);
+                            }
+                            
+                            
                             $timeSchedule = array(); $totInTimePerDay = 0;
+                            
                             foreach($strArr as $time)
                             {	
+                                
                                 if(empty($time)) continue;
                                 $monthlyInOutTableData = new MonthlyInOutModel();
-                                $timeSchedule [] = substr($time, 0, 5);
-                                //print_r($timeSchedule);
+                                
+                                
                                 if(trim(substr($time, 6, strlen($time))) == 'in' )
                                 {
                                     
                                     $monthlyInOutTableData->setInTime(substr($time, 0, 5));
-                                    //$monthlyInOutTableData->setOutTime(substr($time, 0, 5));
                                 }
                                 else if(trim(substr($time, 6, strlen($time))) == 'out')
                                 {
                                     $monthlyInOutTableData->setOutTime(substr($time, 0, 5));
                                 }
+                                else
+                                {
+                                    continue;
+                                }
+                                $timeSchedule [] = substr($time, 0, 5);
+                                
                                 $monthlyInOutTableData->setMonthlyTableId($monthlyTableId);
                                 $monthlyInOutTableData->setUserId(mysql_real_escape_string($data[1]));
                                 $monthlyInOutTableData->setPunchDate($newDate);
                                 $this->setMonthlyInOutTable()->insertMonthlyInOut($monthlyInOutTableData);
                             }
-
+                            
                             $diff = 0;                                                                                        
                             $timeSchedule = array_reverse($timeSchedule);
-                            
                             for($index = 0 ; $index < count($timeSchedule)  ;  )
                             {
                                 if(! isset($timeSchedule[$index + 1])) break;                                                                                        
@@ -185,6 +221,7 @@ class UploadController extends AbstractActionController
                                 $diff += abs($val - $nxtVal);                                                                                       
                                 $index += 2;
                             }
+                                       
                             $out = 0;
                             for($index = 0 ; $index < count($timeSchedule)  ;  )
                             {
@@ -196,7 +233,9 @@ class UploadController extends AbstractActionController
                             }
 
                             $monthlyTableData = new MonthlyModel();                                                                              
-                            $this->setMonthlyTable()->updateMonthlyTable($monthlyTableId,  gmdate("H:i", $diff),  gmdate("H:i",  $out));
+                            $this->setMonthlyTable()->updateMonthlyTable($monthlyTableId,  gmdate("H:i", $diff), gmdate("H:i",  $out));
+                             
+                            
                             if(mysql_real_escape_string($data[10]) != '')
                             {
                                 $countUser= $this->getRegistrationTable()->getShiftTime(mysql_real_escape_string($data[1]));
@@ -210,7 +249,7 @@ class UploadController extends AbstractActionController
                                 $workHistory->setWorkedDate($newDate);
                                 $workHistory->setWorkedHour($totWork);
                                 
-                                //$workSetDiff= abs(strtotime($countUser['shift_out_time'])-strtotime('shift_out_time'))
+                                
                                 if($totWork > '08:00:00')
                                 {
                                     $overTime= gmdate("H:i:s", abs(strtotime($fixedHours) -strtotime($totWork)));
@@ -253,7 +292,15 @@ class UploadController extends AbstractActionController
                                 }
 
                                 $workHistory->setInTime(mysql_real_escape_string($data[10]));
-                                $workHistory->setOutTime(mysql_real_escape_string($data[11]));
+                                if(mysql_real_escape_string($data[11]) != '')
+                                {
+                                    $workHistory->setOutTime(mysql_real_escape_string($data[11]));
+                                }
+                                else
+                                {
+                                    $workHistory->setOutTime($shiftOut['shift_out_time']);
+                                }
+                                
 
                                 $this->getUserWorkHistoryTable()->add($workHistory);
                             }

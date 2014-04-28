@@ -1,4 +1,15 @@
 <h3>Import CSV Data</h3>
+<div id="msg" style="font-size:12px; color:red; text-align:center;">
+                        <?php
+                            if(count($flashMessages))
+                            {
+                                foreach ($flashMessages as $msg)
+                                {
+                                    echo $msg.'</blink><br>';   
+                                }   
+                            }
+                        ?>
+                    </div>
 <form enctype="multipart/form-data" action="" method="post">
 File:<input name="uploaded" type="file" /><input type="submit" name="upfile" value="Upload File">
 </form>

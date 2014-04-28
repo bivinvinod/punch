@@ -90,18 +90,21 @@
                 </div>
                 <div class="block-content collapse in">
                     <table class="table table-striped">
-                        <thead>
+                       
                             <tr>
-                                <th style="text-align:center;">Date</th>
-                                <th style="text-align:center;">In Time</th>
-                                <th style="text-align:center;">Out Time</th>
-                                <th style="text-align:center;">Normal Working</th>
-                                <th style="text-align:center;">OT</th>
-                                <th style="text-align:center;">Working Hour</th>                                
+                                <td><?php echo $this->uname ;?></td>
+                            </tr>
+                            <tr>
+                                <td style="text-align:center;">Date</td>
+                                <td style="text-align:center;">In Time</td>
+                                <td style="text-align:center;">Out Time</td>
+                                <td style="text-align:center;">Normal Working</td>
+                                <td style="text-align:center;">OT</td>
+                                <td style="text-align:center;">Working Hour</td>                                
                                
-                                <th style="text-align:center;">Under Time</th>
-                                <th style="text-align:center;">Early By</th>
-                                <th style="text-align:center;">Late By</th>
+                                <td style="text-align:center;">Under Time</th>
+                                <td style="text-align:center;">Early By</th>
+                                <td style="text-align:center;">Late By</th>
                             </tr>
                             <?php
                             $cnt= count($records);
@@ -120,7 +123,15 @@
                                     </td>
                                     <td style="text-align:center;">
                                         <?php
+                                        if($value['out_time'] != '00:00:00')
+                                        {
                                             echo date('h:i A', strtotime($value['out_time']));
+                                        }
+                                        else
+                                        {
+                                            echo date('h:i A', strtotime($this->sout));
+                                        }
+                                            
                                         ?>
                                     </td>
                                     <td style="text-align:center;">
@@ -198,11 +209,31 @@
                                         <div class="muted pull-left" style="width: 1266px; background-color: #FFFFCC; padding: 0px;">
                                             <div style="float:left; width: 580px; padding: 24px;">
                                                 <div style="float:left;width: 200px; padding: 0px; font-weight: bold;">Working Hours</div>
-                                                <div style="float:left;width: 200px; padding: 0px; font-weight: bold; color: red;"><?php echo $cnt * 8;?></div>
+                                                <div style="float:left;width: 200px; padding: 0px; font-weight: bold; color: red;"><?php echo $tc= $cnt * 8;?></div>
                                                 <br>
                                                 <br>
                                                 <div style="float:left;width: 200px; padding: 0px; font-weight: bold;">Work Hours(<span style="font-size:10px;">Including OT</span>)</div>                                               
-                                                <div style="float:left;width: 200px; padding: 0px; font-weight: bold; color: red;"><?php echo $this->totWork?></div>
+                                                <div style="float:left;width: 200px; padding: 0px; font-weight: bold; color: red;"><?php echo $this->totWork;?></div>
+                                                <br>
+                                                <br>
+                                                <div style="float:left;width: 200px; padding: 0px; font-weight: bold;">Work Difference</div>                                               
+                                                <div style="float:left;width: 200px; padding: 0px; font-weight: bold; color: red;">
+                                                    <?php
+                                                    $s= split(':',$this->totWork);
+                                                    //if($this->totWork > $tc)
+                                                    //{
+                                                        echo $s[0]-$tc.' '.'Hours'; 
+                                                   // }
+                                                    //elseif($this->totWork < $tc)
+                                                    //{
+                                                     //   echo $s[0]- $tc; 
+                                                    ///}
+                                                    //else
+                                                    //{
+                                                     //   echo $this->totWork;
+                                                    //}
+                                                    ?>
+                                                </div>
                                             </div>
                                             <div style="float:left; width: 580px; padding: 24px;">
                                                 <div style="float:left;width: 200px; padding: 0px; font-weight: bold;">Total OT</div>
@@ -225,8 +256,10 @@
                             ?>
                                 
                                 
-                        </thead>
+                        
                     </table>
+                    
+                    
                 </div>
             </div>
         </div>
