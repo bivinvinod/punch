@@ -86,12 +86,20 @@ class UserReportsController extends AbstractActionController
             }
             
             $records = iterator_to_array($this->getWorkHistoryTable()->fetchAllRecords($request->getPost('name'),$d1,$d2));
-            // $totTime = iterator_to_array($this->getUserTable()->totalTime($request->getPost('name'),$d1,$d2));
-                
+            $totTime = iterator_to_array($this->getWorkHistoryTable()->totalTime($request->getPost('name'),$d1,$d2));
+            
+            foreach($totTime as $v)
+            {
+                $totTime= $v['total_time'];
+                $ot= $v['ot'];
+            }
             
             $viewModel= new ViewModel(array(
                 'records'=> $records,
-                'path' => $config
+                'totWork'=> $totTime,
+                'ot'=> $ot,
+                'path' => $config,
+                'userNames' => $this->getRegistrationTable()->fetchAllUsers()
             ));
             $viewModel->setTemplate('/super-admin/user-reports/index.phtml');
             return $viewModel;

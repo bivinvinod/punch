@@ -128,6 +128,7 @@ class AttendenceController extends AbstractActionController
 		
                
                 $attendence->setLeaveDate($d1);
+
 		$attendence->setEmployeeName($employeeName);
 		$attendence->setLeaveType($leaveType);
                 $attendence->setLeaveMatter($leaveMatter);
@@ -137,6 +138,10 @@ class AttendenceController extends AbstractActionController
 		
 		$s1=1;
                 $attendence->setStatus($s1);
+
+                $attendence->setLeaveType($request->getPost('leaveType'));
+                $attendence->setLeaveMatter($request->getPost('dis'));
+
                 $this->getAttendenceTable()->inserts($attendence);
             return $this->redirect()->toRoute('superAdmin/attendence');
 	    }

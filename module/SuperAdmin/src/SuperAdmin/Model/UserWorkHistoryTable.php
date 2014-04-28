@@ -93,4 +93,34 @@ class UserWorkHistoryTable extends AbstractTableGateway
         $result = $statement->execute();
         return $result; 
     }
+    public function totalTime($id,$d1,$d2)
+    {
+        if($d1 != '' && $d2 != '')
+        {
+            $sql= "select SEC_TO_TIME( SUM( TIME_TO_SEC(worked_hour))) AS total_time,"
+                . "SEC_TO_TIME( SUM( TIME_TO_SEC(over_time))) AS ot"
+                . " from user_work_history where user_code= $id and worked_date between '$d1' and '$d2'";
+        }
+        else if($d1 != '')
+        {
+            $sql= "select SEC_TO_TIME( SUM( TIME_TO_SEC(worked_hour))) AS total_time,"
+                . "SEC_TO_TIME( SUM( TIME_TO_SEC(over_time))) AS ot"
+                . " from user_work_history where user_code= $id and worked_date >= '$d1'";
+        }
+        else if($d2 != '')
+        {
+            $sql= "select SEC_TO_TIME( SUM( TIME_TO_SEC(worked_hour))) AS total_time,"
+                . "SEC_TO_TIME( SUM( TIME_TO_SEC(over_time))) AS ot"
+                . " from user_work_history where user_code= $id and worked_date <= '$d2'"; 
+        }
+        else
+        {
+            $sql= "select SEC_TO_TIME( SUM( TIME_TO_SEC(worked_hour))) AS total_time,"
+                . "SEC_TO_TIME( SUM( TIME_TO_SEC(over_time))) AS ot"
+                . " from user_work_history where user_code= $id";  
+        }
+        $statement=$statement = $this->adapter->query($sql);
+        $result = $statement->execute();
+        return $result;
+    }
 }
