@@ -65,6 +65,41 @@ class AttendenceController extends AbstractActionController
             return $this->redirect()->toRoute("superAdmin");
         }
     }
+    
+    public function ajaxListAction()
+        {
+	    //exit("shit");
+            $viewModel= new ViewModel(array(
+                'employeeLeaveDatas' => $this->getAttendenceTable()->fetchAllData(),
+            ));
+
+            $viewModel->setTerminal(true);
+            return $viewModel;
+        }
+	
+	
+	/*public function addAction()
+    {
+	if ($this->getAuthService()->hasIdentity())
+        {
+            $this->layout('layout/superAdminDashboardLayout');
+           
+            $viewModel = new ViewModel(array(
+                'name' => $this->getRegistrationTable()->fetchAllUsers(),
+
+            ));
+            return $viewModel;
+            return $this->redirect()->toRoute('superAdmin/attendence/add');
+        }
+        else
+        {
+            $this->flashMessenger()->addMessage("Please Login");
+            return $this->redirect()->toRoute("superAdmin");
+        }
+	 */
+
+	
+	
     public function addAction()
     {	
         if($this->getAuthService()->hasIdentity())
@@ -83,15 +118,34 @@ class AttendenceController extends AbstractActionController
                     $year = substr($input_date,6,4);                            
                     $d1 = $year.'-'.$month.'-'.$day;
                 }
-                $attendence->setUserId($request->getPost('name'));
+		
+		$employeeName = $request->getPost('employeeName');
+		$leaveType = $request->getPost('leaveType');
+		$leaveMatter = $request->getPost('leaveMatter');
+		
+		
+		
+		
+               
                 $attendence->setLeaveDate($d1);
-                $attendence->setLeaveMatter($request->getPost('dis'));
+		$attendence->setEmployeeName($employeeName);
+		$attendence->setLeaveType($leaveType);
+                $attendence->setLeaveMatter($leaveMatter);
+		
+		
+		
+		
+		$s1=1;
+                $attendence->setStatus($s1);
                 $this->getAttendenceTable()->inserts($attendence);
-            }
-            $viewModel= new ViewModel(array(
-                'userNames' => $this->getRegistrationTable()->fetchAllUsers(),
+            return $this->redirect()->toRoute('superAdmin/attendence');
+	    }
+	      $viewModel = new ViewModel(array(
+                'name' => $this->getRegistrationTable()->fetchAllUsers(),
+
             ));
             return $viewModel;
+            
             
         }
         else
@@ -100,4 +154,84 @@ class AttendenceController extends AbstractActionController
             return $this->redirect()->toRoute("superAdmin");
         }
     }
+
+    
+    
+    
+	public function statusAction()
+        {
+                //echo "Here... crap"; exit;
+             
+                        if($_POST['offId'] != '')
+                        {
+                            if($this->getAttendenceTable()->updateEmployeeLeaveStatusOff($_POST['offId']))
+                            {     
+                                echo "Status Edited SuccessFully....";exit;
+                            }
+                            else
+                            {
+                                echo "You can't Change Status....";exit;
+                            }
+			}
+			
+	
+            
+            
+                            //Status On
+                            if($_POST['onId'] != '')
+                            {
+                                if($this->getAttendenceTable()->updateEmployeeLeaveStatusOn($_POST['onId']))
+                                {     
+                                    echo "Status Edited SuccessFully....";exit;
+                                }
+                                else
+                                {
+                                    echo "You can't Change Status....";exit;
+                                }
+                            }
+            
+            
+        }
+        
+        
+    public function editAction()
+	    
+    {
+        if($this->getAuthService()->hasIdentity())
+        {
+            $id= $this->params()->fromRoute('id');
+            $this->layout('layout/superAdminDashboardLayout');
+            $request= $this->getRequest();
+            if($request->isPost())
+            {
+              $attendence = new AttendenceModel();
+              $attendence->setId($id);
+	        
+              $attendence->setLeaveDate($request->getPost('date'));
+	      
+	      
+	      $attendence->setRegistrationEmployeeName($request->getPost($employee_name));
+	      $attendence->setLeaveType($request->getPost($leaveType));                         
+	      
+	      
+	    
+              $attendence->setLeaveMatter($request->getPost($leaveMatter));                  
+              $this->getAttendenceTable()->updateAttendence($attendence);
+              return $this->redirect()->toRoute('superAdmin/attendence');
+            }
+            $viewModel = new ViewModel(array(
+               'edit' => $this->getAttendenceTable()->fetchSpecificData($id), 
+            ));
+            return $viewModel;
+                       
+        }
+        else
+        {
+            $this->flashMessenger()->addMessage("Please Login");
+            return $this->redirect()->toRoute("superAdmin");
+        }
+        
+    }
+    
 }
+
