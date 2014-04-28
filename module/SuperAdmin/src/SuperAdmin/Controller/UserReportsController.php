@@ -131,4 +131,24 @@ class UserReportsController extends AbstractActionController
         }
     }
     
+    
+    public function salaryCalculatorAction()
+    {
+        if ($this->getAuthService()->hasIdentity())
+        {
+            $this->layout('layout/superAdminDashboardLayout');
+            $id= $this->params()->fromRoute('id');
+            
+
+            
+            
+            
+            
+        }
+        else
+        {
+           return $this->redirect()->toRoute('superAdmin');    
+        }
+    }
+    
 }

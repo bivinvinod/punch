@@ -690,6 +690,19 @@ return array(
                                 )
                             ),
                             
+                            'salaryCalculator' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/salaryCalculator',
+                                    'constraints' => array(
+                                        //'action1' => '[a-zA-Z0-9_-]+'
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'salaryCalculator'
+                                    )
+                                )
+                            ),
+                            
                             
                             
                         ),
