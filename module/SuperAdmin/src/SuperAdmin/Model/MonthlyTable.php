@@ -105,13 +105,22 @@ class MonthlyTable extends AbstractTableGateway
         $result = $statement->execute(); 
         return $result; 
     }
-    public function updateMonthlyTable($id, $totin, $totout)
+    public function updateMonthlyTable($id, $totin/*, $totout*/)
     {
-        $sql = "UPDATE monthly_table SET total_in = '$totin',  total_out = '$totout'  WHERE  id= $id"; 
+        //echo $totin; exit;
+        /*$sql = "UPDATE monthly_table SET total_in = '$totin',  total_out = '$totout'  WHERE  id= $id";*/ 
+        $sql = "UPDATE monthly_table SET total_in = '$totin' WHERE  id= $id";
         $statement = $this->adapter->query($sql);           
         $result = $statement->execute(); 
         return $result;   
     }
+    /*public function updateMonthlyTable($id, $totin)
+    {
+        $sql = "UPDATE monthly_table SET total_in = '$totin' WHERE  id= 6"; 
+        $statement = $this->adapter->query($sql);           
+        $result = $statement->execute(); 
+        return $result;   
+    }*/
     public function searchMonthlyTable($from, $to, $name)
     {
         $sql = "SELECT * FROM monthly_table  WHERE  date > '$from'  AND date < '$to' and employee_name= '$name'"; 
