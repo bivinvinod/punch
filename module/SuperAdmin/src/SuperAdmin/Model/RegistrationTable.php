@@ -307,5 +307,19 @@ class RegistrationTable extends AbstractTableGateway {
                 //$row = $result->current();
                 return $result;
    
-              }
+    }
+    
+    
+    public function getSalary($id) 
+    { 
+        $sql=" SELECT daily_salary FROM registration WHERE employee_code = '$id' ";                              
+        $statement = $this->adapter->query($sql);  
+        $result    = $statement->execute();
+        $s = $result->current();
+        return $s['daily_salary'];
+    }
+    
+              
+              
+    
 }

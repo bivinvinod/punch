@@ -8,12 +8,20 @@ use Zend\Session\Container;
 use SuperAdmin\Model\RegistrationModel;
 use SuperAdmin\Model\RegistrationTable;
 
+use SuperAdmin\Model\AttendenceModel;
+use SuperAdmin\Model\AttendenceTable;
+
+use SuperAdmin\Model\MonthlyModel;
+use SuperAdmin\Model\MonthlyTable;
+
 
 class UserReportsController extends AbstractActionController
 {
     protected $authService;
     protected $registrationTable;
     protected $workHistoryTable;
+    protected $attendenceTable;
+    protected $monthlyTable;
 
     public function getAuthService()
     {
@@ -41,6 +49,26 @@ class UserReportsController extends AbstractActionController
             $this->workHistoryTable = $sm->get('SuperAdmin\Model\UserWorkHistoryTable'); 
         }
         return $this->workHistoryTable;
+    }
+    
+    public function getAttendenceTable()
+    {		
+        if(!$this->attendenceTable)
+        {	
+            $sm = $this->getServiceLocator();
+            $this->attendenceTable = $sm->get('SuperAdmin\Model\AttendenceTable'); 
+        }
+        return $this->attendenceTable;
+    }
+    
+    public function getMonthlyTable()
+    {		
+        if(!$this->monthlyTable)
+        {	
+            $sm = $this->getServiceLocator();
+            $this->monthlyTable = $sm->get('SuperAdmin\Model\MonthlyTable'); 
+        }
+        return $this->monthlyTable;
     }
 
 
@@ -137,13 +165,79 @@ class UserReportsController extends AbstractActionController
         if ($this->getAuthService()->hasIdentity())
         {
             $this->layout('layout/superAdminDashboardLayout');
-            $id= $this->params()->fromRoute('id');
+            $request= $this->getRequest();
+            if($request->isPost())
+            {
+                if($request->getPost('date1') != '')
+                {
+                    $input_date1= $request->getPost('date1');
+                    $month = substr($input_date1,3,2);
+                    $day = substr($input_date1,0,2);
+                    $year = substr($input_date1,6,4);                            
+                    $d1 = $year.'-'.$month.'-'.$day;
+                }
+                //Date2
+                if($request->getPost('date2') != '')
+                {
+                    $input_date2= $request->getPost('date2');
+                    $month2 = substr($input_date2,3,2);
+                    $day2 = substr($input_date2,0,2);
+                    $year2 = substr($input_date2,6,4);                            
+                    $d2 = $year2.'-'.$month2.'-'.$day2;
+                }
+                $id= $request->getPost('name');
+
+                $leaves = $this->getAttendenceTable()->getNoOfLeaves($id, $d1, $d2);
+                $halfD=0;
+                $fullD=0;
+                $halfP=0;
+                $fullP=0;
+                $days = 0;
+                
+                foreach ($leaves as $key => $leave) {
+                    if($leave['leave_type'] == "Half Day")
+                        $halfD += 0.5;
+                    if($leave['leave_type'] == "Full Day")
+                        $fullD += 1;
+                    if($leave['leave_type'] == "Paid Half Day")
+                        $halfP += 0.5;
+                    if($leave['leave_type'] == "Paid Full Day")
+                        $fullP += 1;     
+                }
+                $total = $halfD + $fullD + $halfP + $fullP;
+                $salaryPerDay = $this->getRegistrationTable()->getSalary($id);
+                echo $salaryPerDay;
+                $now = strtotime("$d2");
+                $your_date = strtotime("$d1");
+                $datediff = $now - $your_date;
+                $days = (floor($datediff/(60*60*24))) + 1;
+                if($total > 2){
+                    $totalP = $halfP + $fullP;
+                    $days =  $days - $totalP;
+                    $totalSalary = ($salaryPerDay * $days);
+                }
+                else {
+                    $totalSalary = $salaryPerDay * $days;
+                }
+                
+                echo $totalSalary;                
+                
+            }
+            
+            
+            
+            
             
 
             
+           
             
             
             
+            
+            return new ViewModel(array(
+                'userNames' => $this->getRegistrationTable()->fetchAllUsers()
+            )); 
         }
         else
         {

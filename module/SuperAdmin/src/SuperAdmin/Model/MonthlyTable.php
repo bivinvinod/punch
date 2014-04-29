@@ -201,4 +201,13 @@ begin
 SELECT sum(total_in) as totalIn, sum(total_out) as totalOut FROM monthly_table wher id=rid;
 end $$ */
 	
+//    public function workingDays()
+//    {
+//        $sql = "SELECT * FROM monthly_table WHERE employee_code = '$id' AND WeeklyOff =  "; 
+//        $statement = $this->adapter->query($sql);           
+//        $result = $statement->execute(); 
+//        return $result;  
+//    }
+    
+    
 }

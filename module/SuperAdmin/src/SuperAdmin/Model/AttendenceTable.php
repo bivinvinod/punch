@@ -29,13 +29,8 @@ class AttendenceTable extends AbstractTableGateway
             $return['user_id'] = $obj->userId;
         if(isset($obj->leaveDate))
             $return['leave_dates'] = $obj->leaveDate;
-
 	if (isset($obj->employeeName)) 
             $return['employee_name'] = $obj->employeeName;
-	if(isset($obj->leaveType))
-            $return['leave_type'] = $obj->leaveType;
-        
-
         if(isset($obj->leaveMatter))
             $return['leave_matter'] = $obj->leaveMatter;
         if(isset($obj->status))
@@ -100,5 +95,18 @@ class AttendenceTable extends AbstractTableGateway
         $result = $statement->execute(); 
         return $result;   
     }
+    
+    
+    public function getNoOfLeaves($id,$d1,$d2) 
+    { 
+        $sql="SELECT * FROM tbl_attendence WHERE user_id = '$id' AND leave_dates between '$d1' and '$d2' ";                              
+        $statement = $this->adapter->query($sql);  
+        $result    = $statement->execute(); 
+        return $result;
+    }
+    
+    
+    
+    
     
 }
