@@ -181,18 +181,11 @@ class AttendenceController extends AbstractActionController
             if($request->isPost())
             {
               $attendence = new AttendenceModel();
-              $attendence->setId($id);
-	        
+              $attendence->setId($id);  
               $attendence->setLeaveDate($request->getPost('date'));
-	      
-	      
-	      $attendence->setRegistrationEmployeeName($request->getPost($employee_name));
-	      $attendence->setLeaveType($request->getPost($leaveType));                         
-	      
-	      
-	    
+	      $attendence->setLeaveType($request->getPost($leaveType));   
               $attendence->setLeaveMatter($request->getPost($leaveMatter));                  
-              $this->getAttendenceTable()->updateAttendence($attendence);
+              $this->getAttendenceTable()->updateEmployeeLeave($attendence);
               return $this->redirect()->toRoute('superAdmin/attendence');
             }
             $viewModel = new ViewModel(array(

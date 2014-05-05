@@ -104,9 +104,14 @@ class AttendenceTable extends AbstractTableGateway
         $result    = $statement->execute(); 
         return $result;
     }
+  
     
-    
-    
-    
+    public function fetchspecificData($id)
+    {
+        $sql = "SELECT * FROM tbl_attendence where id = '$id' ";
+        $statement = $this->adapter->query($sql);           
+        $result = $statement->execute();
+        return $result; 
+    }
     
 }
