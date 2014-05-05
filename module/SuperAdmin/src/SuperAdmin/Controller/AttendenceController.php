@@ -78,28 +78,6 @@ class AttendenceController extends AbstractActionController
         }
 	
 	
-	/*public function addAction()
-    {
-	if ($this->getAuthService()->hasIdentity())
-        {
-            $this->layout('layout/superAdminDashboardLayout');
-           
-            $viewModel = new ViewModel(array(
-                'name' => $this->getRegistrationTable()->fetchAllUsers(),
-
-            ));
-            return $viewModel;
-            return $this->redirect()->toRoute('superAdmin/attendence/add');
-        }
-        else
-        {
-            $this->flashMessenger()->addMessage("Please Login");
-            return $this->redirect()->toRoute("superAdmin");
-        }
-	 */
-
-	
-	
     public function addAction()
     {	
         if($this->getAuthService()->hasIdentity())
@@ -119,33 +97,26 @@ class AttendenceController extends AbstractActionController
                     $d1 = $year.'-'.$month.'-'.$day;
                 }
 		
-		$employeeName = $request->getPost('employeeName');
+		$employeeCode = $request->getPost('employeeName');
+                $employeeName = $this->getRegistrationTable()->getEmployeeName($employeeCode);
 		$leaveType = $request->getPost('leaveType');
 		$leaveMatter = $request->getPost('leaveMatter');
-		
-		
-		
-		
-               
-                $attendence->setLeaveDate($d1);
+		$s1=1;
 
-		$attendence->setEmployeeName($employeeName);
+
+                $attendence->setLeaveDate($d1);
+                $attendence->setUserId($employeeCode);
+                $attendence->setEmployeeName($employeeName);
 		$attendence->setLeaveType($leaveType);
                 $attendence->setLeaveMatter($leaveMatter);
-		
-		
-		
-		
-		$s1=1;
                 $attendence->setStatus($s1);
 
-                $attendence->setLeaveType($request->getPost('leaveType'));
-                $attendence->setLeaveMatter($request->getPost('leaveMatter'));
 
                 $this->getAttendenceTable()->inserts($attendence);
-            return $this->redirect()->toRoute('superAdmin/attendence');
-	    }
-	      $viewModel = new ViewModel(array(
+                return $this->redirect()->toRoute('superAdmin/attendence');
+            }
+                
+            $viewModel = new ViewModel(array(
                 'name' => $this->getRegistrationTable()->fetchAllUsers(),
 
             ));

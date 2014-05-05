@@ -319,6 +319,14 @@ class RegistrationTable extends AbstractTableGateway {
         return $s['daily_salary'];
     }
     
+    public function getEmployeeName($id) 
+    { 
+        $sql=" SELECT employee_name FROM registration WHERE employee_code = '$id' ";                              
+        $statement = $this->adapter->query($sql);  
+        $result    = $statement->execute();
+        $s = $result->current();
+        return $s['employee_name'];
+    }
               
               
     
