@@ -358,6 +358,36 @@ return array(
                                     )
                                 )
                             ),
+                            
+                            
+                            /* Ajax List Action */
+                            'ajaxList' => array(
+                                'type' => 'segment',
+                                'options' => array(
+                                    'route' => '/ajaxList',
+                                    'constraints' => array(
+                                    //'id' => '[0-9]+',                                       
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'ajaxList'
+                                    )
+                                )
+                            ),
+                            
+                            
+                            /* status Action */
+                            'status' => array(
+                                'type' => 'segment',
+                                'options' => array(
+                                    'route' => '/status',
+                                    'constraints' => array(
+                                    //'id' => '[0-9]+',                                       
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'status'
+                                    )
+                                )
+                            ),
                        
 
 

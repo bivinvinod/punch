@@ -156,6 +156,11 @@ class RegistrationTable extends AbstractTableGateway {
         if (isset($obj->feedback)) {
             $return['feedback'] = $obj->feedback;
         }
+        
+        if (isset($obj->status)) {
+            $return['status'] = $obj->status;
+        }
+        
         return $return;
     }
 
@@ -327,6 +332,24 @@ class RegistrationTable extends AbstractTableGateway {
         $s = $result->current();
         return $s['employee_name'];
     }
+    
+    
+    public function updateEmployeeStatusOff($id)
+    {  
+	
+        $sql = "update registration set status='0' where id= '$id'"; 
+        $statement = $this->adapter->query($sql);           
+        $result = $statement->execute(); 
+        return $result;   
+    }
+        
+    public function updateEmployeeStatusOn($id)
+    {  
+        $sql = "update registration set status='1' where id= '$id'"; 
+        $statement = $this->adapter->query($sql);           
+        $result = $statement->execute(); 
+        return $result;   
+    }   
               
               
     

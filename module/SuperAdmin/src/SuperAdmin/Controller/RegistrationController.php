@@ -34,7 +34,14 @@ class RegistrationController extends AbstractActionController {
         return $this->registration;
     }
     
-    public function indexAction()
+    
+    public function indexAction() {
+       $this->layout('layout/superAdminDashboardLayout'); 
+    }
+    
+    
+    
+    public function ajaxListAction()
     {
         $this->layout('layout/superAdminDashboardLayout');
 
@@ -42,8 +49,44 @@ class RegistrationController extends AbstractActionController {
             'datas' => $this->getRegistrationTable()->fetchAll(),
                
         ));
+        $viewModel->setTerminal(true);
         return $viewModel;
         return $this->redirect()->toRoute('superAdmin/registration/list');
+    }
+    
+    
+    public function statusAction()
+    {
+             
+        if($_POST['offId'] != '')
+        {
+            if($this->getRegistrationTable()->updateEmployeeStatusOff($_POST['offId']))
+            {     
+                echo "Status Edited SuccessFully....";exit;
+            }
+            else
+            {
+                echo "You can't Change Status....";exit;
+            }
+	}
+			
+	
+            
+            
+        //Status On
+        if($_POST['onId'] != '')
+        {
+            if($this->getRegistrationTable()->updateEmployeeStatusOn($_POST['onId']))
+            {     
+                echo "Status Edited SuccessFully....";exit;
+            }
+            else
+            {
+                echo "You can't Change Status....";exit;
+            }
+        }
+            
+            
     }
 
 
