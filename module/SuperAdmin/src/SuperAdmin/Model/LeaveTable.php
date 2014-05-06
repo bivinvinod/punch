@@ -91,9 +91,9 @@ class LeaveTable extends AbstractTableGateway
         }
         
         
-        public function fetchspecificData($id)
+        public function fetchSpecificData($id)
         {
-        $sql = "SELECT * FROM leave_table where id=$id";
+        $sql = "SELECT * FROM leave_table where id='$id' ";
         $statement = $this->adapter->query($sql);           
         $result = $statement->execute();
         return $result; 

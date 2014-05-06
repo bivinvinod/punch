@@ -45,8 +45,9 @@ class RegistrationModel implements InputFilterAwareInterface {
     public $driver_license;
     public $driver_license_image;
     public $feedback;
-    protected $inputFilter;
     protected $status;
+    protected $inputFilter;
+    
 
     public function setRegistrationEmployeeCode($employee_code) {
         $this->employee_code = $employee_code;

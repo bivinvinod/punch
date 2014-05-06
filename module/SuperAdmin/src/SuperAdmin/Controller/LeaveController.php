@@ -153,7 +153,7 @@ class LeaveController extends AbstractActionController
               return $this->redirect()->toRoute('superAdmin/leave');
             }
             $viewModel = new ViewModel(array(
-               'edit' => $this->getLeaveTable()->fetchSpecificData($id), 
+               'edit' => $this->getLeaveTable()->fetchspecificData($id), 
             ));
             return $viewModel;
                        
