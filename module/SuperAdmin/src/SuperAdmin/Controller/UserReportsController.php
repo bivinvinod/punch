@@ -158,7 +158,7 @@ class UserReportsController extends AbstractActionController
             return $this->redirect()->toRoute('superAdmin');         
         }
     }
-    
+
     
     public function salaryCalculatorAction()
     {
@@ -188,10 +188,10 @@ class UserReportsController extends AbstractActionController
                 $id= $request->getPost('name');
 
                 $leaves = $this->getAttendenceTable()->getNoOfLeaves($id, $d1, $d2);
-                $halfD=0;
-                $fullD=0;
-                $halfP=0;
-                $fullP=0;
+                $halfD = 0;
+                $fullD = 0;
+                $halfP = 0;
+                $fullP = 0;
                 $days = 0;
                 
                 foreach ($leaves as $key => $leave) {
@@ -206,7 +206,7 @@ class UserReportsController extends AbstractActionController
                 }
                 $total = $halfD + $fullD + $halfP + $fullP;
                 $salaryPerDay = $this->getRegistrationTable()->getSalary($id);
-                echo $salaryPerDay;
+                //echo $salaryPerDay;
                 $now = strtotime("$d2");
                 $your_date = strtotime("$d1");
                 $datediff = $now - $your_date;
@@ -217,27 +217,21 @@ class UserReportsController extends AbstractActionController
                     $totalSalary = ($salaryPerDay * $days);
                 }
                 else {
-                    $totalSalary = $salaryPerDay * $days;
+                    $totalSalary = $salaryPerDay * $days; //exit;
                 }
                 
-                echo $totalSalary;                
+                //echo $totalSalary;    //exit;            
                 
             }
             
-            
-            
-            
-            
-
-            
-           
-            
-            
-            
-            
-            return new ViewModel(array(
+            $viewModel = new ViewModel(array(
+                'salary' => $totalSalary,
+                'records' => $this->getAttendenceTable()->getNoOfLeaves($id, $d1, $d2),
                 'userNames' => $this->getRegistrationTable()->fetchAllUsers()
-            )); 
+               
+            ));
+            return $viewModel;
+            
         }
         else
         {

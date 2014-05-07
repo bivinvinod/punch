@@ -2,7 +2,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
     
-    //showTable();
+    showTable();
     function showTable()
     {
         $.ajax({
@@ -28,24 +28,6 @@ $(document).ready(function(){
     }
     
 
-
-
-       /* var options = {  
-            url:        '/superAdmin/recordDetails/ajaxList', 
-            dataType: 'html',
-            beforeSubmit: function()
-            { 
-               // $("#emsg").html('<img src="/images/photos/loading.gif" width="20" height="20" >');
-            },
-            
-            success:    function(data) { 
-           
-                alert(data);
-            } 
-        }; 
-   
-        $('#detailsForm').ajaxForm(options);*/
-    
         jQuery(function($){
             $("#date1").mask("99/99/9999");
             $("#date2").mask("99/99/9999");

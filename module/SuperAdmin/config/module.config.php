@@ -749,6 +749,18 @@ return array(
                                 )
                             ),
                             
+                            'salaryReport' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/salaryReport',
+                                    'constraints' => array(
+                                        //'action1' => '[a-zA-Z0-9_-]+'
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'salaryReport'
+                                    )
+                                )
+                            ),
                             
                             
                         ),
