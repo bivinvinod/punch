@@ -160,7 +160,23 @@ class UserReportsController extends AbstractActionController
     }
 
     
-    public function salaryCalculatorAction()
+    public function salaryCalculatorAction() {
+        if ($this->getAuthService()->hasIdentity())
+        {
+            $this->layout('layout/superAdminDashboardLayout');
+            $viewModel = new ViewModel(array(
+                'userNames' => $this->getRegistrationTable()->fetchAllUsers()
+               
+            ));
+            return $viewModel;
+        }
+        else{
+            return $this->redirect()->toRoute('superAdmin'); 
+        }
+        
+    }
+    
+    public function salaryReportAction()
     {
         if ($this->getAuthService()->hasIdentity())
         {
@@ -220,16 +236,14 @@ class UserReportsController extends AbstractActionController
                     $totalSalary = $salaryPerDay * $days; //exit;
                 }
                 
-                //echo $totalSalary;    //exit;            
-                
             }
             
             $viewModel = new ViewModel(array(
                 'salary' => $totalSalary,
                 'records' => $this->getAttendenceTable()->getNoOfLeaves($id, $d1, $d2),
                 'userNames' => $this->getRegistrationTable()->fetchAllUsers()
-               
             ));
+            $viewModel->setTemplate('/super-admin/user-reports/salary-calculator.phtml');
             return $viewModel;
             
         }

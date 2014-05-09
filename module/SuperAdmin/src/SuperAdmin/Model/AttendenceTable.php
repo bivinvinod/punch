@@ -99,7 +99,7 @@ class AttendenceTable extends AbstractTableGateway
     
     public function getNoOfLeaves($id,$d1,$d2) 
     { 
-        $sql="SELECT * FROM tbl_attendence WHERE user_id = '$id' AND leave_dates between '$d1' and '$d2' ";                              
+        $sql="SELECT * FROM tbl_attendence WHERE user_id = '$id' AND leave_dates between '$d1' and '$d2' AND status= '1' ";                              
         $statement = $this->adapter->query($sql);  
         $result    = $statement->execute(); 
         return $result;

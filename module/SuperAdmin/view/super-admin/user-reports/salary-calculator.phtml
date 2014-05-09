@@ -66,14 +66,14 @@ $(document).ready(function(){
                     </div>
                         
                     <div class="muted pull-left">
-                        <form id="detailsForm" name="detailsForm" method="post" action="/superAdmin/userReports/salaryCalculator">
+                        <form id="detailsForm" name="detailsForm" method="post" action="/superAdmin/userReports/salaryReport">
                             <select id="name" name="name" required>
                                 <option value="">Name please</option>
                                 <?php
                                 foreach ($userNames as $value)
                                 {
                                 ?>
-                                <option value="<?php echo $value['employee_name']?>"><?php echo $value['employee_name']?></option>
+                                <option value="<?php echo $value['employee_code']?>"><?php echo $value['employee_name']?></option>
                                 <?php
                                 }
                                 ?>
@@ -94,83 +94,27 @@ $(document).ready(function(){
                                 <th style="text-align:center;">Leave Date</th>
                                 <th style="text-align:center;">Leave type</th>
                                 <th style="text-align:center;">leave matter</th>
-                                <th style="text-align:center;">Status</th>
                             </tr>
                             <?php
                             if(count($records) != '')
                             {
                                 foreach ($records as $value)
-                                {                                    print_r($records); exit;
+                                {                                    //print_r($value); 
                                 ?>
                                 <tr>
-                                    <td style="text-align:center;"><?php echo $value['dates']; ?></td>
-                                    <td style="text-align:center;">
-                                        <?php
-                                        
-                                        if(trim($value['status'])== 'Present')
-                                        {
-                                            
-                                            echo $value['in_time'].'-';
-                                            if($value['late_by'] !='')
-                                            {
-                                                echo "<style=\"color:red;\">(late by -".$value['late_by'].")";
-                                            }
-                                        }
-                                        else
-                                        { 
-                                           
-                                            echo "Weekly Off";
-                                           
-                                        }
-                                        ?></td>
-                                    <td style="text-align:center;">
-                                        <?php
-                                        if(trim($value['status'])== 'Present')
-                                        {
-                                            echo $value['total_in'];
-                                        }
-                                        else
-                                        { 
-                                            echo "--";  
-                                        }
-                                        ?>
-                                    </td>
-                                    <td style="text-align:center;">
-                                        <?php
-                                        if(trim($value['status'])== 'Present')
-                                        {
-                                            echo $value['over_time'];
-                                        }
-                                        else
-                                        { 
-                                           
-                                            echo "--";
-                                           
-                                        }?></td>  
+                                    <td style="text-align:center;"><?php echo $value['leave_dates']; ?></td>
+                                    <td style="text-align:center;"><?php echo $value['leave_type']; ?></td>
+                                    <td style="text-align:center;"><?php echo $value['leave_matter']; ?></td>
                                 </tr>
                                 <?php
                                 }
                                 ?>
+                                    
                                     <tr>
-                                        <td style="text-align:center;" colspan="2">Total Working Hours</td><td style="text-align:center; color: red;"><?php echo $tt= $this->totWork; ?></td><td style="text-align:center; color: red;"><?php echo $ot= $this->ot; ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td style="text-align:center;" colspan="3">Grand Total Working Hours</td>
+                                        <td style="text-align:center;" colspan="3">Grand Total Salary</td>
                                         <td style="text-align:center; color: red;">
                                             <?php
-                                                $tth= explode(':',$tt);
-                                                $oth= explode(':',$ot);
-                                                $h= $tth['0']+$oth['0'];
-                                                $m= $tth['1']+$oth['1'];
-                                                if($m >= 60)
-                                                {
-                                                    $hours=$h+1;
-                                                    echo $hours." Hours";
-                                                }
-                                                else
-                                                {
-                                                    echo $h. " Hours";
-                                                }
+                                               printf("Rupess: %f Only",$salary);
                                             ?>
                                         </td>
                                     </tr>
