@@ -161,6 +161,10 @@ class RegistrationTable extends AbstractTableGateway {
             $return['status'] = $obj->status;
         }
         
+        if (isset($obj->leave)) {
+            $return['annual_leave'] = $obj->leave;
+        }
+        
         return $return;
     }
 

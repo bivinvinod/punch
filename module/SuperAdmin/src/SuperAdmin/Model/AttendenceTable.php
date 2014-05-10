@@ -85,8 +85,7 @@ class AttendenceTable extends AbstractTableGateway
         return $result;   
     }   
      
-    
-    
+
     
     public function fetchAllData()
     {  

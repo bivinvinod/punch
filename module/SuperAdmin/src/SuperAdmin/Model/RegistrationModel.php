@@ -45,7 +45,8 @@ class RegistrationModel implements InputFilterAwareInterface {
     public $driver_license;
     public $driver_license_image;
     public $feedback;
-    protected $status;
+    public $status;
+    public $leave;
     protected $inputFilter;
     
 
@@ -193,6 +194,10 @@ class RegistrationModel implements InputFilterAwareInterface {
     
     public function setStatus($status) {
         $this->status = $status;
+    }
+    
+    public function setLeave($leave) {
+        $this->leave = $leave;
     }
     
     public function setInputFilter(InputFilterInterface $inputFilter) {
