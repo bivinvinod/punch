@@ -70,7 +70,7 @@ class AttendenceController extends AbstractActionController
         {
 	    //exit("shit");
             $viewModel= new ViewModel(array(
-                'employeeLeaveDatas' => $this->getAttendenceTable()->fetchAllData(),
+                'employeeLeaveDatas' => $this->getAttendenceTable()->getNames(),
             ));
 
             $viewModel->setTerminal(true);
@@ -96,18 +96,23 @@ class AttendenceController extends AbstractActionController
                     $year = substr($input_date,6,4);                            
                     $d1 = $year.'-'.$month.'-'.$day;
                 }
-		
+		$fromTime = $request->getPost('fromTime');
+                $toTime = $request->getPost('toTime'); 
+                $type = $request->getPost('leaveType');
+                if($type == "Full Day" || $type == "Paid Full Day" ){
+                    $fromTime = "09:00:00";
+                    $toTime = "18:00:00";
+                }
 		$employeeCode = $request->getPost('employeeName');
-                $employeeName = $this->getRegistrationTable()->getEmployeeName($employeeCode);
-		$leaveType = $request->getPost('leaveType');
 		$leaveMatter = $request->getPost('leaveMatter');
 		$s1=1;
 
 
                 $attendence->setLeaveDate($d1);
                 $attendence->setUserId($employeeCode);
-                $attendence->setEmployeeName($employeeName);
-		$attendence->setLeaveType($leaveType);
+		$attendence->setFrom($fromTime);
+                $attendence->setTo($toTime);
+                $attendence->setLeaveType($type);
                 $attendence->setLeaveMatter($leaveMatter);
                 $attendence->setStatus($s1);
 

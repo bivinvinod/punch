@@ -61,7 +61,7 @@ class LeaveController extends AbstractActionController
             $this->layout('layout/superAdminDashboardLayout');
             $request= $this->getRequest();
             if($request->isPost())
-            {
+                {
                 $leave= new LeaveModel();
                 //Date
                 if($request->getPost('date') != '')
@@ -74,8 +74,18 @@ class LeaveController extends AbstractActionController
                 }
                 $leave->setDate($d1);
                 $s1=1;
+                $fromTime = $request->getPost('fromTime');
+                $toTime = $request->getPost('toTime'); 
+                $type = $request->getPost('leaveType');
+                if($type == "Full Day" || $type == "Paid Full Day" ){
+                    $fromTime = "09:00:00";
+                    $toTime = "18:00:00";
+                }
                 $leave->setStatus($s1);
                 $leave->setDescription($request->getPost('dis'));
+                $leave->setFrom($fromTime);
+                $leave->setTo($toTime);
+                $leave->setType($type);
                 $this->getLeaveTable()->insertLeave($leave);
                 return $this->redirect()->toRoute('superAdmin/leave');
             }
@@ -149,6 +159,9 @@ class LeaveController extends AbstractActionController
               $leave->setId($id);
               $leave->setDate($request->getPost('date'));
               $leave->setDescription($request->getPost('desc'));
+              $leave->setfrom($request->getPost('fromTime'));
+              $leave->setTo($request->getPost('toTime'));
+              $leave->setType($request->getPost('type'));
               $this->getLeaveTable()->updateLeave($leave);
               return $this->redirect()->toRoute('superAdmin/leave');
             }

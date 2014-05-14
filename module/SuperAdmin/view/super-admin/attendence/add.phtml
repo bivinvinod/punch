@@ -1,5 +1,19 @@
 <script src="/js/jquery.maskedinput.js" type="text/javascript"></script>
 <script type="text/javascript">
+function checkvalue(val) {
+    
+    if (val == "Half Day" || val == "Paid Half Day" ){
+        document.getElementById('fromTimeJ').style.display = 'block';
+        document.getElementById('toTimeJ').style.display = 'block';
+    }
+    else
+    {
+        document.getElementById('fromTimeJ').style.display = 'none';
+        document.getElementById('toTimeJ').style.display = 'none';
+    }    
+}
+    
+    
 $(document).ready(function(){
     
     //showTable();
@@ -26,25 +40,6 @@ $(document).ready(function(){
             
         });
     }
-    
-
-
-
-       /* var options = {  
-            url:        '/superAdmin/recordDetails/ajaxList', 
-            dataType: 'html',
-            beforeSubmit: function()
-            { 
-               // $("#emsg").html('<img src="/images/photos/loading.gif" width="20" height="20" >');
-            },
-            
-            success:    function(data) { 
-           
-                alert(data);
-            } 
-        }; 
-   
-        $('#detailsForm').ajaxForm(options);*/
     
         jQuery(function($){
             $("#date").mask("99/99/9999");
@@ -112,12 +107,26 @@ $(document).ready(function(){
                                 <div class="control-group">
                                     <label class="control-label" for="typeahead">Leave Type</label>
                                     <div class="controls">
-                                        <select name="leaveType" id="leavetype" selected = "<?php echo $value['leave_type']; ?>">
-                                    <option value="Half Day">Half Day</option>
-                                    <option value="Full Day">Full Day</option>
-				    <option value="Paid Half Day">Paid Half Day</option>
-                                    <option value="Paid Full Day">Paid Full Day</option>
+                                        <select name="leaveType" id="leavetype" onchange='checkvalue(this.value)' selected = "<?php echo $value['leave_type']; ?>">
+                                            <option value="Full Day">Full Day</option>
+                                            <option value="Half Day">Half Day</option>
+                                            <option value="Paid Full Day">Paid Full Day</option>
+                                            <option value="Paid Half Day">Paid Half Day</option>
                                         </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="control-group" style='display:none' id="fromTimJ">
+                                    <label class="control-label" for="typeahead">From Time</label>
+                                    <div class="controls">
+                                        <input type="time" name="fromTime" id="date" class="span6" placeholder="" ><br />
+                                    </div>
+                                </div>
+                                
+                               <div class="control-group" style='display:none' id="toTimeJ">
+                                    <label class="control-label" for="typeahead">To Time</label>
+                                    <div class="controls">
+                                        <input type="time" name="toTime" id="date" class="span6" placeholder="" ><br />
                                     </div>
                                 </div>
 				 

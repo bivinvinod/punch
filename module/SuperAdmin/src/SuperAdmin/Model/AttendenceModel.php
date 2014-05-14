@@ -12,9 +12,10 @@ class AttendenceModel implements InputFilterAwareInterface
 	public $id;
 	public $userId;
         public $leaveDate;
-	public $employeeName;
 	public $leaveType;
 	public $leaveMatter;
+        public $fromTime;
+        public $toTime;
         public $status;
         
 
@@ -34,13 +35,20 @@ class AttendenceModel implements InputFilterAwareInterface
 	{
 		$this->leaveDate = $leaveDate;				
 	}
-        public function setEmployeeName($employeeName) 
-        {
-        $this->employeeName = $employeeName;
-        }
+        
 	public function setLeaveType($leaveType)
 	{
 	    $this->leaveType = $leaveType;
+	}
+        
+        public function setFrom($fromTime)
+	{
+	    $this->fromTime = $fromTime;
+	}
+        
+        public function setTo($toTime)
+	{
+	    $this->toTime = $toTime;
 	}
 
 	public function setLeaveMatter($leaveMatter)

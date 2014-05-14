@@ -37,6 +37,17 @@ class LeaveTable extends AbstractTableGateway
 
         if(isset($obj->description))
             $return['desc'] = $obj->description;
+        
+        if(isset($obj->fromTime))
+            $return['from_time'] = $obj->fromTime;
+        
+        if(isset($obj->toTime))
+            $return['to_time'] = $obj->toTime;
+        
+        if(isset($obj->type))
+            $return['type'] = $obj->type;
+
+
 
         return $return;
     }
