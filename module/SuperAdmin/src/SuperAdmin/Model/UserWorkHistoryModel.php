@@ -21,6 +21,7 @@ class UserWorkHistoryModel implements InputFilterAwareInterface
         public $outTime;
         public $dutyType;
         public $correctTime;
+        public $punchRecords;
 
 
         protected $inputFilter;        
@@ -75,6 +76,10 @@ class UserWorkHistoryModel implements InputFilterAwareInterface
         public function setCorrectTime($correctTime)
 	{
             $this->correctTime = $correctTime;				
+        }
+        public function setPunchRecords($punchRecords)
+	{
+            $this->punchRecords = $punchRecords;				
         }
 	// Add content to this method:
         public function setInputFilter(InputFilterInterface $inputFilter){

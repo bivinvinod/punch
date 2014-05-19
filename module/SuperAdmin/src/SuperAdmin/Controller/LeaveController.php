@@ -114,9 +114,7 @@ class LeaveController extends AbstractActionController
         
          public function statusAction()
         {
-                //echo "Here... crap"; exit;
-             
-                        if($_POST['offId'] != '')
+                 if($_POST['offId'] != '')
                         {
                             if($this->getLeaveTable()->updateLeaveStatusOff($_POST['offId']))
                             {     

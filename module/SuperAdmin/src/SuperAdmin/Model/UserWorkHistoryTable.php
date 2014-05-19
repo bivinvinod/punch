@@ -49,6 +49,8 @@ class UserWorkHistoryTable extends AbstractTableGateway
             $return['duty_type'] = $obj->dutyType;
         if(isset($obj->correctTime))
             $return['correct_time'] = $obj->correctTime;
+        if(isset($obj->punchRecords))
+            $return['punch_records'] = $obj->punchRecords;
 
         return $return;
     }
@@ -122,5 +124,13 @@ class UserWorkHistoryTable extends AbstractTableGateway
         $statement=$statement = $this->adapter->query($sql);
         $result = $statement->execute();
         return $result;
+    }
+    
+    
+    public function getData($id, $date) {
+        $sql="SELECT * FROM user_work_history WHERE user_code = '$id' AND worked_date = '$date'";                              
+        $statement = $this->adapter->query($sql);  
+        $result    = $statement->execute(); 
+        return $result; 
     }
 }

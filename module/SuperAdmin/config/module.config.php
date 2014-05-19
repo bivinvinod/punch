@@ -766,9 +766,61 @@ return array(
                         ),
                     ),
 /*--------------------------------------- End of User Reports ----------------------------------------*/
+                    
 
+/* ------------------------------------------------------------------------------------------------------------- */                   
+ /* ------------------------------------------------EDIT Controller -------------------------- */
+ /* ------------------------------------------------------------------------------------------------------------- */        
+                          
+                    
+                    
+                    
+                    'edit' => array(
+                        'type' => 'literal',
+                        'options' => array(
+                            'route' => '/edit',
+                            'defaults' => array(
+                                '__NAMESPACE__' => 'superAdmin\Controller',
+                                'controller' => 'Edit',
+                                'action' => 'index'
+                            ),
+                        ),
+                        'may_terminate' => true,
+                        'child_routes' => array(
+                            'default' => array(
+                                'type' => 'Segment',
+                                'options' => array(
+                                    'route' => '/[:controller[/:action]]',
+                                    'constraints' => array(
+                                        'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                    ),
+                                    'defaults' => array(
+                                    ),
+                                ),
+                            ),
 
+                            'editRecord' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/editRecord',
+                                    'constraints' => array(
+                                        //'action1' => '[a-zA-Z0-9_-]+'
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'editRecord'
+                                    )
+                                )
+                            ),
+                            
+                            
+                            
+                            
+                                
+                        ),
+                    ),    
 
+/*--------------------------------------- EDIT Reports ----------------------------------------*/
 
                 ),
             ),
@@ -813,7 +865,8 @@ return array(
             'SuperAdmin\Controller\Leave' => 'SuperAdmin\Controller\LeaveController',
             'SuperAdmin\Controller\Attendence' => 'SuperAdmin\Controller\AttendenceController',
             'SuperAdmin\Controller\Registration' => 'SuperAdmin\Controller\RegistrationController',
-            'SuperAdmin\Controller\UserReports' => 'SuperAdmin\Controller\UserReportsController'
+            'SuperAdmin\Controller\UserReports' => 'SuperAdmin\Controller\UserReportsController',
+            'SuperAdmin\Controller\Edit' => 'SuperAdmin\Controller\EditController'
         ),
     ),
     

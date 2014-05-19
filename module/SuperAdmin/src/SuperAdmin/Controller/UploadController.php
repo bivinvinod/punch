@@ -143,6 +143,7 @@ class UploadController extends AbstractActionController
                             $monthlyTableData->setEarlyBy(mysql_real_escape_string($data[14]));
                             $monthlyTableData->setStatus(mysql_real_escape_string($data[15]));
                             $monthlyTableData->setPunchRecords(mysql_real_escape_string($data[16]));
+                            $workHistory->setPunchRecords(mysql_real_escape_string($data[16]));
                             $monthlyTableData->setOverTime(mysql_real_escape_string($data[17]));
                             $monthlyTableId = $this->setMonthlyTable()->uploadData($monthlyTableData);
                             
@@ -188,7 +189,6 @@ class UploadController extends AbstractActionController
                                 
                                 if(empty($time)) continue;
                                 $monthlyInOutTableData = new MonthlyInOutModel();
-                                
                                 
                                 if(trim(substr($time, 6, strlen($time))) == 'in' )
                                 {
@@ -280,7 +280,6 @@ class UploadController extends AbstractActionController
                                 }
                                 elseif($inShift < date("H:i:s", abs(strtotime(mysql_real_escape_string($data[10])))))
                                 {
-
                                     $lateByTime= gmdate("H:i:s", abs(strtotime($inShift)- strtotime($s)));
                                     $workHistory->setLateBy($lateByTime); 
                                     $workHistory->setEarlyBy('00:00:00');
