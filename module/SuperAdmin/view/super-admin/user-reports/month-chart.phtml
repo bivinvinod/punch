@@ -1,7 +1,4 @@
-<?php /*
 
-
-?>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript">
       google.load("visualization", "1", {packages:["corechart"]});
@@ -12,8 +9,7 @@
         data.addColumn('number', '<?php echo $this->name; ?>');
         
         data.addRows([
-          [01, 10700],
-          [02, -15400],
+          <?php echo $this->name; ?>
           
         ]);
 
@@ -28,5 +24,3 @@
     </script>
 
     <div id="chart_div" style="width: 900px; height: 500px;"></div>
- * 
- */?>

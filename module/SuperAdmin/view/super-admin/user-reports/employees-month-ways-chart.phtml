@@ -48,10 +48,7 @@
         </div>
     </div>
 </div>
-<?php 
-if($this->name1 != '')
-{
-?>
+
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
         <script type="text/javascript">
           google.load("visualization", "1", {packages:["corechart"]});
@@ -79,12 +76,3 @@ if($this->name1 != '')
         </script>
 
         <div id="chart_div" style="width: 900px; height: 500px;"></div>
-<?php
-}
-else
-{
-    echo "Oops no record is there....";
-}
-
-?>
-  
