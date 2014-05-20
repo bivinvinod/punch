@@ -1,0 +1,101 @@
+<div class="span99" id="content">
+    <div class="row-fluid">
+      	<div class="navbar">
+           	
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span12">
+            
+            <div class="block">
+                <div class="navbar navbar-inner block-header">
+                    <div class="muted pull-left" style="text-align:center; float: left; width:100%;">Employee Month Wise Records Listings<div id="msg" style="font-size:12px; color:red; text-align:center;">
+                        <?php
+                            if(count($flashMessages))
+                            {
+                                foreach ($flashMessages as $msg)
+                                {
+                                    echo $msg.'</blink><br>';   
+                                }   
+                            }
+                        ?>
+                    </div>
+                    <div class="muted pull-left" style="width: 1266px; background-color: #FFFFCC;">
+                        <form id="detailsForm" name="detailsForm" method="post" action="/superAdmin/userReports/monthAllEmpChart">
+                            <select id="name1" name="name1" required>
+                                <option value="">Name please</option>
+                                <?php
+                                foreach ($userNames as $value)
+                                {
+                                ?>
+                                    <option value="<?php echo $value['employee_code']?>"><?php echo $value['employee_name']?></option>
+                                <?php
+                                }
+                                ?>
+                            </select>
+                            <select id="name2" name="name2" required>
+                                <option value="">Name please</option>
+                                <?php
+                                foreach ($userNames as $value)
+                                {
+                                ?>
+                                    <option value="<?php echo $value['employee_code']?>"><?php echo $value['employee_name']?></option>
+                                <?php
+                                }
+                                ?>
+                            </select>
+                            <select id="name3" name="name3" required>
+                                <option value="">Name please</option>
+                                <?php
+                                foreach ($userNames as $value)
+                                {
+                                ?>
+                                    <option value="<?php echo $value['employee_code']?>"><?php echo $value['employee_name']?></option>
+                                <?php
+                                }
+                                ?>
+                            </select>
+                            <select id="year" name="year" required>
+                                <option value="">Year please</option>
+                                <option value="2014">2014</option>
+                                <option value="2015">2015</option>
+                                <option value="2016">2016</option>
+                                <option value="2017">2017</option>
+                            </select>
+                            <input type="submit" name="submit" value="Submit" style="margin-bottom: 11px; padding: 3px; width: 99px;">
+                        </form>
+                    </div>    
+                </div>
+            </div>                   
+        </div>
+    </div>
+</div>  
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script type="text/javascript">
+          google.load("visualization", "1", {packages:["corechart"]});
+          google.setOnLoadCallback(drawChart);
+          function drawChart() {
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Month');
+            data.addColumn('number', '<?php echo $this->name1; ?>');
+            data.addColumn('number', '<?php echo $this->name2; ?>');
+            data.addColumn('number', '<?php echo $this->name3; ?>');
+
+            data.addRows([
+              <?php echo implode(',', $strArr); ?>
+
+            ]);
+
+
+            var options = {
+              title: 'Working Performance of <?php echo $this->name1; ?>',
+              hAxis: {title: 'Month', titleTextStyle: {color: 'red'}},
+              vAxis: {title: 'Hours', titleTextStyle: {color: 'red'}}
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+          }
+        </script>
+
+        <div id="chart_div" style="width: 900px; height: 500px;"></div>

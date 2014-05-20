@@ -1,0 +1,57 @@
+<?php /*echo implode(',', $strArr); ?>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Employee Name', 'Total Work Hours', 'Below 8 hrs', '8 Hrs'],
+          ['Lijesh',  800, 1000,100],
+          ['2014-03-01', 04, null,100],
+          ['2014-03-01', 04, 800,100],
+          ['Rajeesh',  400, 800,100],
+          ['Shijin',  50, 800,100],
+          ['Bivin',  699, 800,100]
+            <?php //echo implode(',', $strArr); ?>
+        ]);
+
+        var options = {
+          title: '<?php echo $this->name; ?> Working Performance(From: <?php echo $this->d1; ?> To :<?php echo $this->d2; ?>)',
+          hAxis: {title: 'Dates', titleTextStyle: {color: 'red'}},
+          vAxis: {title: 'Hours', titleTextStyle: {color: 'red'}}
+        };
+
+        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>
+ 
+    <div id="chart_div" style="width: 100%; height: 500px;"></div>*/?>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = new google.visualization.DataTable();
+                data.addColumn('string', 'Employee Name');
+                data.addColumn('number', 'Above 8 Hours');
+                data.addColumn('number', 'Below 8 hrs');
+                data.addColumn('number', '8 Hrs');
+                data.addRows([
+                    <?php echo implode(',', $strArr); ?>
+                ]);
+
+        var options = {
+          title: ' Working Performance(From: <?php echo $this->d1; ?> To :<?php echo $this->d2; ?>)',
+          hAxis: {title: 'Dates', titleTextStyle: {color: 'red'}},
+          vAxis: {title: 'Hours', titleTextStyle: {color: 'red'}}
+        };
+
+        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>
+ 
+    <div id="chart_div" style="width: 100%; height: 500px;"></div>
+ 
+ 

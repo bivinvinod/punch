@@ -761,6 +761,94 @@ return array(
                                     )
                                 )
                             ),
+                            'allEmpCharts' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/allEmpCharts',
+                                    'constraints' => array(
+                                        //'action1' => '[a-zA-Z0-9_-]+',
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'allEmpCharts'
+                                    )
+                                )
+                            ),
+                            'ajaxCharts' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/ajaxCharts',
+                                    'constraints' => array(
+                                        //'action1' => '[a-zA-Z0-9_-]+',
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'ajaxCharts'
+                                    )
+                                )
+                            ),
+                            
+                            'charts' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/charts[/:action1]',
+                                    'constraints' => array(
+                                        'action1' => '[a-zA-Z0-9_-]+',
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'charts'
+                                    )
+                                )
+                            ),
+                            
+                            'employeesMonthWaysChart' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/employeesMonthWaysChart',
+                                    'constraints' => array(
+                                        //'action1' => '[a-zA-Z0-9_-]+'
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'employeesMonthWaysChart'
+                                    )
+                                )
+                            ),
+                            
+                            'monthChart' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/monthChart',
+                                    'constraints' => array(
+                                        //'action1' => '[a-zA-Z0-9_-]+'
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'monthChart'
+                                    )
+                                )
+                            ),
+                            
+                            'monthAllChart' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/monthAllChart',
+                                    'constraints' => array(
+                                        //'action1' => '[a-zA-Z0-9_-]+'
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'monthAllChart'
+                                    )
+                                )
+                            ),
+                            'monthAllEmpChart' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/monthAllEmpChart',
+                                    'constraints' => array(
+                                        //'action1' => '[a-zA-Z0-9_-]+'
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'monthAllEmpChart'
+                                    )
+                                )
+                            ),
                             
                             
                         ),
