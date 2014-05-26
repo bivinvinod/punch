@@ -167,6 +167,10 @@ class RegistrationController extends AbstractActionController {
             $employment_type = $request->getPost('employment_type');
             $doc = $request->getPost('doc');
             $card_number = $request->getPost('card_number');
+	    $id_card = $request->getPost('id_card');
+	    $work_days = $request->getPost('work_days');
+	    $work_hours = $request->getPost('work_hours');
+	    
             $feedback = $request->getPost('feedback');
 
 
@@ -198,7 +202,9 @@ class RegistrationController extends AbstractActionController {
             $update->setRegistrationEmploymentType($employment_type);
             $update->setRegistrationDOC($doc);
             $update->setRegistrationCardNumber($card_number);
-            
+            $update->setRegistrationCardNumber($id_card);
+	    $update->setRegistrationWorkDays($work_days);
+	    $update->setRegistrationWorkHours($work_hours);
             
            
             

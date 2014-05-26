@@ -44,14 +44,14 @@
                                 Gender
                                 </td>
                                 <td align=""  >
-                                    <input name="gender" value="male" type="radio" id="gender" <?php $gender= $value['gender']; ?><?php echo ($gender== 'Male') ?  "checked" : "" ;  ?>>Male
-                                <input name="gender" value="female" type="radio"   id="gender" <?php $gender= $value['gender']; ?><?php echo ($gender== 'Female') ?  "checked" : "" ;  ?>>Female
+                                <input name="gender" value="male" type="radio" id="gender" <?php $gender= $value['gender'];  if($gender== "male") echo "checked";   ?>>Male
+                                <input name="gender" value="female" type="radio"   id="gender" <?php $gender= $value['gender'];  if($gender== "female") echo "checked" ;  ?>>Female
                                 </td>
                         </tr>
                         <tr align="left">
                             <td>Email ID  </td>
                             <td align="">
-                                <input type="email " name="email_id" value="<?php echo $value['email_id'];?>">
+                                <input type="email" name="email_id" value="<?php echo $value['email_id'];?>">
                             </td>
                         </tr>
                         <tr align="left">
@@ -220,6 +220,50 @@
                                  <input type="file" name="driver_license_image">
                              </td>
                          </tr>
+			 
+			  <tr align="left">
+                             <td>No.of Working Days (per Week)</td> 
+                               <td align=""> <select name="work_days" id="work_days" >
+                                  
+                                <option value="1" <?php if($value['work_days']=="1") echo 'selected'; ?>>1</<option>
+                                <option value="2" <?php if($value['work_days']=="2") echo 'selected'; ?>>2</option>
+                                <option value="3" <?php if($value['work_days']=="3") echo 'selected'; ?>>3</option>
+                                <option value="4" <?php if($value['work_days']=="4") echo 'selected'; ?>>4</option>
+                                <option value="5" <?php if($value['work_days']=="5") echo 'selected'; ?>>5</option>
+                                <option value="6" <?php if($value['work_days']=="6") echo 'selected'; ?>>6</option>
+                                
+                                </select>
+                            </td>
+                         </tr>
+			 
+			 <tr align="left">
+                             <td>No.of Working Hours (per Day)</td> 
+                               <td align=""> <select name="work_hours" id="work_hours" >
+                                  
+                                <option value="1" <?php if($value['work_hours']=="1") echo 'selected'; ?>>1</<option>
+                                <option value="2" <?php if($value['work_hours']=="2") echo 'selected'; ?>>2</option>
+                                <option value="3" <?php if($value['work_hours']=="3") echo 'selected'; ?>>3</option>
+                                <option value="4" <?php if($value['work_hours']=="4") echo 'selected'; ?>>4</option>
+                                <option value="5" <?php if($value['work_hours']=="5") echo 'selected'; ?>>5</option>
+                                <option value="6" <?php if($value['work_hours']=="6") echo 'selected'; ?>>6</option>
+				<option value="7" <?php if($value['work_hours']=="7") echo 'selected'; ?>>7</<option>
+                                <option value="8" <?php if($value['work_hours']=="8") echo 'selected'; ?>>8</option>
+                                <option value="9" <?php if($value['work_hours']=="9") echo 'selected'; ?>>9</option>
+                                <option value="10" <?php if($value['work_hours']=="10") echo 'selected'; ?>>10</option>
+                                <option value="11" <?php if($value['work_hours']=="11") echo 'selected'; ?>>11</option>
+                                <option value="12" <?php if($value['work_hours']=="12") echo 'selected'; ?>>12</option>
+				<option value="13" <?php if($value['work_hours']=="13") echo 'selected'; ?>>13</<option>
+                                <option value="14" <?php if($value['work_hours']=="14") echo 'selected'; ?>>14</option>
+                                <option value="15" <?php if($value['work_hours']=="15") echo 'selected'; ?>>15</option>
+                                <option value="16" <?php if($value['work_hours']=="16") echo 'selected'; ?>>16</option>
+                                <option value="17" <?php if($value['work_hours']=="17") echo 'selected'; ?>>17</option>
+                                <option value="18" <?php if($value['work_hours']=="18") echo 'selected'; ?>>18</option>
+                               	
+                                </select>
+                            </td>
+                         </tr>
+			 
+			 
                          <tr align="left">
                              <td>Employee Feedback</td>
                              <td align="left">
@@ -243,3 +287,8 @@
    
     </head>
 </html>
+//
+foreach ($array as $k => $v)
+is a little faster than
+while (list($k,$v) = each($array))
+

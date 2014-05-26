@@ -73,6 +73,7 @@ class RegistrationTable extends AbstractTableGateway {
         if (isset($obj->daily_salary)) {
             $return['daily_salary'] = $obj->daily_salary;
         }
+	
 
         if (isset($obj->image)) {
             $return['image'] = $obj->image;
@@ -164,8 +165,17 @@ class RegistrationTable extends AbstractTableGateway {
         if (isset($obj->leave)) {
             $return['annual_leave'] = $obj->leave;
         }
-        
-        return $return;
+	
+	if (isset($obj->work_days)) {
+            $return['work_days'] = $obj->work_days;
+        }
+	
+	if (isset($obj->work_hours)) {
+            $return['work_hours'] = $obj->work_hours;
+        }
+	
+      return $return;
+	
     }
 
     public function saveRegistration(RegistrationModel $obj)
@@ -249,6 +259,7 @@ class RegistrationTable extends AbstractTableGateway {
         $result = $statement->execute();
         return $result;
     }
+    
     
 
     public function updateAadharImage($employeeCode, $ad_img) {
@@ -335,6 +346,7 @@ class RegistrationTable extends AbstractTableGateway {
         $result    = $statement->execute();
         $s = $result->current();
         return $s['employee_name'];
+	
     }
     
     

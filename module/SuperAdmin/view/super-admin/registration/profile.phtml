@@ -10,6 +10,7 @@
     </head>
     <body>
 	
+	
         <form name="view" method="post" action="" enctype="multipart/form-data">
             <fieldset align="center"> 
               <?php foreach ($profile as $key => $value) { ?>
@@ -30,7 +31,9 @@
                             </tr>
                             <tr align="left">
                                 <td>Employee Name  </td> 
+
                                 <td align="">
+
                                     :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $value['employee_name']; ?>
                                 </td>
                             </tr>
@@ -51,7 +54,7 @@
                                     Gender
                                 </td>
                                 <td align=""  >
-                                  : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php $gender = $value['gender']; ?>
+                                  : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $gender = $value['gender']; ?>
                                   
                                 </td>
                             </tr>
@@ -148,19 +151,21 @@
                             <tr align="left">
                                 <td>Employee In Time</td>
                                 <td align=""> 
-                                    :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $value['intime']; ?>
+                                    :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $value['shift_in_time']; ?>
                                 </td>
                             </tr>
                             <tr align="left">
                                 <td>Employee Out Time</td>
                                 <td align=""> 
-                                    :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $value['outtime']; ?>
+                                    :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $value['shift_out_time']; ?>
                                 </td>
                             </tr>
                             <tr align="left">
                                 <td>Employee Category  </td> 
+				
+				
                                 <td align="">
-				    :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $value['category']; ?>
+			    :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $value['category']; ?>
                                 </td>
                             </tr>
                             <tr align="left">
@@ -218,12 +223,24 @@
                                     
                                 </td>
                             </tr>
-                            <tr align="left">
+			    
+			    <tr align="left">
+                             <td>No.of Working Days &nbsp;(per Week)</td> 
+                             <td align="left">
+                                 :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $value['work_days']; ?>
+                             </td>
+                         </tr>
+			 <tr align="left">
+                             <td>No.of Working Hours &nbsp;(per Day)</td> 
+                             <td align="left">
+                                 :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $value['work_hours']; ?>
+                             </td>
+                         </tr>
+		         <tr align="left">
                                 <td>Employee Feedback</td>
                                 <td align="left">
                                     
                                         :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $value['feedback']; ?>
-                                  
                                 </td>
                             </tr>
                        <?php } ?>

@@ -17,6 +17,9 @@ class AttendenceModel implements InputFilterAwareInterface
         public $fromTime;
         public $toTime;
         public $status;
+	
+	
+	
         
 
 
