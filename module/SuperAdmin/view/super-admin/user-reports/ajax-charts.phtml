@@ -1,0 +1,38 @@
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = new google.visualization.DataTable();
+                data.addColumn('string', 'Employee Name');
+                data.addColumn('number', 'Above Working Hours');
+                data.addColumn('number', 'Below Working hrs');
+                data.addColumn('number', 'Correct Hours');
+                data.addRows([
+                    <?php echo implode(',', $strArr); ?>
+                ]);
+
+        var options = {
+          title: ' Working Performance(From: <?php echo $this->d1; ?> To :<?php echo $this->d2; ?>)',
+          hAxis: {title: 'Employees', titleTextStyle: {color: 'red'}},
+          vAxis: {title: 'Hours', titleTextStyle: {color: 'red'}}
+        };
+
+        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>
+ 
+    <div id="chart_div" style="width: 100%; height: 500px;"></div>
+ </div>
+<div class="muted pull-left" style="width: 50%; float: left;">
+        <table style="float: left; width: 500px;">
+            <tr><td>Total Days</td><td><?php echo $this->totalDays;?></td></tr>
+            <tr><td>Sundays</td><td><?php echo $this->sundays;?></td></tr>
+            <tr><td>Saturdays</td><td><?php echo $this->saturdays;?></td></tr>
+            <tr><td>Total Working Days</td><td><?php echo $this->workingDays;?></td></tr>
+            <tr><td>Working Hour</td><td><?php echo $this->monthWorking;?></td></tr>
+                
+            </tr>
+        </table>
+    </div>

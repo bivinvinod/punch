@@ -40,6 +40,9 @@ use SuperAdmin\Model\AttendenceTable;
 use SuperAdmin\Model\UserWorkHistoryModel;
 use SuperAdmin\Model\UserWorkHistoryTable;
 
+use SuperAdmin\Model\MealModel;
+use SuperAdmin\Model\MealTable;
+
 
 class Module
 {
@@ -123,6 +126,12 @@ class Module
                     $table = new UserWorkHistoryTable($dbAdapter);
                     return $table;
                 },
+                'SuperAdmin\Model\MealTable' => function($sm)
+                {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $table = new MealTable($dbAdapter);
+                    return $table;
+                },        
             ),
         );
     }

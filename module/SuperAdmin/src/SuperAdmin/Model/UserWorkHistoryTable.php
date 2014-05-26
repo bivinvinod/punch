@@ -125,12 +125,67 @@ class UserWorkHistoryTable extends AbstractTableGateway
         $result = $statement->execute();
         return $result;
     }
-    
-    
-    public function getData($id, $date) {
-        $sql="SELECT * FROM user_work_history WHERE user_code = '$id' AND worked_date = '$date'";                              
-        $statement = $this->adapter->query($sql);  
-        $result    = $statement->execute(); 
-        return $result; 
+    public function fetchAllHours($id,$d2,$d1)
+    {
+        /*$sql= "select worked_hour,worked_date"
+                . " from user_work_history where user_code= $id and worked_date between '$d1' and '$d2'";//exit; */
+        $sql= "select registration.employee_name,user_work_history.worked_hour,user_work_history.worked_date"
+                . " from user_work_history inner join registration"
+                . " on user_work_history.user_code=registration.employee_code where user_work_history.user_code= $id"
+                . " and user_work_history.worked_date between '$d1' and '$d2'";
+        
+        
+        $statement=$statement = $this->adapter->query($sql);
+        $result = $statement->execute();
+        return $result;
     }
+    public function fetchAllEmpCharts($d1,$d2)
+    {
+        $sql= "SELECT registration.employee_name,SEC_TO_TIME( SUM( TIME_TO_SEC( user_work_history.worked_hour ))) as totWork FROM user_work_history INNER JOIN registration ON user_work_history.user_code = registration.employee_code WHERE user_work_history.worked_date BETWEEN '$d1' AND '$d2' GROUP BY registration.employee_name";
+        $statement=$statement = $this->adapter->query($sql);
+        $result = $statement->execute();
+        return $result;
+    }
+    public function fetchTotalWork($id,$d2,$d1)
+    {
+        $sql= "select SEC_TO_TIME( SUM( TIME_TO_SEC( user_work_history.worked_hour ))) as totWork from user_work_history where user_code= $id and worked_date between '$d1' and '$d2'";
+        $statement=$statement = $this->adapter->query($sql);
+        $result = $statement->execute();
+        $s=$result->current();
+        echo $s; exit;
+        return $s;
+    }
+    public function fetchAllEmpMonthlyWork($name,$year)
+    {
+        //$sql="SELECT SEC_TO_TIME( SUM( TIME_TO_SEC(worked_hour))) AS twh,MONTH(worked_date) as mw from user_work_history GROUP BY concat(user_code,mw) order by user_code ASC";\
+        /*$sql="SELECT registration.employee_name, SEC_TO_TIME( SUM( TIME_TO_SEC( user_work_history.worked_hour ) ) ) AS twh, MONTH( user_work_history.worked_date ) AS mw
+                    FROM user_work_history
+                    INNER JOIN registration ON user_work_history.user_code = registration.employee_code
+                    GROUP BY concat( user_work_history.user_code, mw )
+                    ORDER BY user_work_history.user_code ASC";*/
+        
+        $sql="SELECT registration.employee_name, SEC_TO_TIME( SUM( TIME_TO_SEC( user_work_history.worked_hour ) ) ) AS twh, MONTH( user_work_history.worked_date ) AS mw
+                FROM user_work_history
+                INNER JOIN registration ON user_work_history.user_code = registration.employee_code where user_work_history.user_code='$name' and YEAR( user_work_history.worked_date )= '$year'
+                GROUP BY concat( user_work_history.user_code, mw )
+                ORDER BY MONTH( user_work_history.worked_date ) ASC";
+    
+        
+        $statement=$statement = $this->adapter->query($sql);
+        $result = $statement->execute();
+        return $result;
+    }
+    public function fetchAllMonthlyWork($name1,$name2,$name3,$year)
+    {
+        $sql="SELECT registration.employee_name, SEC_TO_TIME( SUM( TIME_TO_SEC( user_work_history.worked_hour ) ) ) AS twh, MONTH( user_work_history.worked_date ) AS mw
+                FROM user_work_history
+                INNER JOIN registration ON user_work_history.user_code = registration.employee_code where user_work_history.user_code in ($name1,$name2,$name3) and YEAR( user_work_history.worked_date )= '$year'
+                GROUP BY concat( user_work_history.user_code, mw )
+                ORDER BY MONTH( user_work_history.worked_date ) ASC";
+
+        $statement=$statement = $this->adapter->query($sql);
+        $result = $statement->execute();
+        return $result;
+    }
+    
 }

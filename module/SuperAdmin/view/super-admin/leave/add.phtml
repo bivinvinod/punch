@@ -14,32 +14,6 @@
     }
 $(document).ready(function(){
     
-    //showTable();
-    function showTable()
-    {
-        $.ajax({
-            type        : "POST",
-            url         : "/superAdmin/recordDetails/ajaxList",
-            cashe       : false,
-            dataType    : "html",
-            beforeSend  : function()
-            {
-                $('#response').text('Loading...');
-            },
-            success     : function(data)
-            {
-                $("#ajx_table").html(data);
-            },
-            error       : function(xhr, ajaxOptions, thrownError)
-            {
-                alert(xhr.status);
-                alert(thrownError);
-            }
-            
-        });
-    }
-
-    
         jQuery(function($){
             $("#date").mask("99/99/9999");
             

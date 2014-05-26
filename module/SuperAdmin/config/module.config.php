@@ -761,6 +761,94 @@ return array(
                                     )
                                 )
                             ),
+                            'allEmpCharts' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/allEmpCharts',
+                                    'constraints' => array(
+                                        //'action1' => '[a-zA-Z0-9_-]+',
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'allEmpCharts'
+                                    )
+                                )
+                            ),
+                            'ajaxCharts' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/ajaxCharts',
+                                    'constraints' => array(
+                                        //'action1' => '[a-zA-Z0-9_-]+',
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'ajaxCharts'
+                                    )
+                                )
+                            ),
+                            
+                            'charts' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/charts[/:action1]',
+                                    'constraints' => array(
+                                        'action1' => '[a-zA-Z0-9_-]+',
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'charts'
+                                    )
+                                )
+                            ),
+                            
+                            'employeesMonthWaysChart' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/employeesMonthWaysChart',
+                                    'constraints' => array(
+                                        //'action1' => '[a-zA-Z0-9_-]+'
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'employeesMonthWaysChart'
+                                    )
+                                )
+                            ),
+                            
+                            'monthChart' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/monthChart',
+                                    'constraints' => array(
+                                        //'action1' => '[a-zA-Z0-9_-]+'
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'monthChart'
+                                    )
+                                )
+                            ),
+                            
+                            'monthAllChart' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/monthAllChart',
+                                    'constraints' => array(
+                                        //'action1' => '[a-zA-Z0-9_-]+'
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'monthAllChart'
+                                    )
+                                )
+                            ),
+                            'monthAllEmpChart' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/monthAllEmpChart',
+                                    'constraints' => array(
+                                        //'action1' => '[a-zA-Z0-9_-]+'
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'monthAllEmpChart'
+                                    )
+                                )
+                            ),
                             
                             
                         ),
@@ -821,7 +909,134 @@ return array(
                     ),    
 
 /*--------------------------------------- EDIT Reports ----------------------------------------*/
+                    
+/* ------------------------------------------------------------------------------------------------------------- */                   
+ /* ------------------------------------------------Bonus Controller -------------------------- */
+ /* ------------------------------------------------------------------------------------------------------------- */ 
+                    
+                     'bonus' => array(
+                        'type' => 'literal',
+                        'options' => array(
+                            'route' => '/bonus',
+                            'defaults' => array(
+                                '__NAMESPACE__' => 'superAdmin\Controller',
+                                'controller' => 'Bonus',
+                                'action' => 'index'
+                            ),
+                        ),
+                        'may_terminate' => true,
+                        'child_routes' => array(
+                            'default' => array(
+                                'type' => 'Segment',
+                                'options' => array(
+                                    'route' => '/[:controller[/:action]]',
+                                    'constraints' => array(
+                                        'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                    ),
+                                    'defaults' => array(
+                                    ),
+                                ),
+                            ),
+                                
+                            
+                            
+                      ),
+                    ),    
 
+/*--------------------------------------- Bonus Reports ----------------------------------------*/
+                    
+/* ------------------------------------------------------------------------------------------------------------- */                   
+ /* ------------------------------------------------policy Controller -------------------------- */
+ /* ------------------------------------------------------------------------------------------------------------- */ 
+                    
+                     'mealPolicy' => array(
+                        'type' => 'literal',
+                        'options' => array(
+                            'route' => '/mealPolicy',
+                            'defaults' => array(
+                                '__NAMESPACE__' => 'superAdmin\Controller',
+                                'controller' => 'MealPolicy',
+                                'action' => 'index'
+                            ),
+                        ),
+                        'may_terminate' => true,
+                        'child_routes' => array(
+                            'default' => array(
+                                'type' => 'Segment',
+                                'options' => array(
+                                    'route' => '/[:controller[/:action]]',
+                                    'constraints' => array(
+                                        'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                    ),
+                                    'defaults' => array(
+                                    ),
+                                ),
+                            ),
+                                
+                            
+                            
+                            'add' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/add',
+                                    'constraints' => array(
+                                        //'action1' => '[a-zA-Z0-9_-]+'
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'add'
+                                    )
+                                )
+                            ),
+
+                            'ajaxList' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/ajaxList',
+                                    'constraints' => array(
+                                        //'action1' => '[a-zA-Z0-9_-]+'
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'ajaxList'
+                                    )
+                                )
+                            ),
+                            
+                            'edit' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/edit[/:id]',
+                                    'constraints' => array(
+                                        'id' => '[0-9]+'
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'edit'
+                                    )
+                                )
+                            ),
+                            
+                            
+
+                            'status' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/status',
+                                    'constraints' => array(
+                                        //'action1' => '[a-zA-Z0-9_-]+'
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'status'
+                                    )
+                                )
+                            ),
+                            
+                            
+                      ),
+                    ),    
+
+/*--------------------------------------- policy Reports ----------------------------------------*/                    
+                    
                 ),
             ),
 
@@ -866,7 +1081,9 @@ return array(
             'SuperAdmin\Controller\Attendence' => 'SuperAdmin\Controller\AttendenceController',
             'SuperAdmin\Controller\Registration' => 'SuperAdmin\Controller\RegistrationController',
             'SuperAdmin\Controller\UserReports' => 'SuperAdmin\Controller\UserReportsController',
-            'SuperAdmin\Controller\Edit' => 'SuperAdmin\Controller\EditController'
+            'SuperAdmin\Controller\Edit' => 'SuperAdmin\Controller\EditController',
+            'SuperAdmin\Controller\Bonus' => 'SuperAdmin\Controller\BonusController',
+            'SuperAdmin\Controller\MealPolicy' => 'SuperAdmin\Controller\MealPolicyController'
         ),
     ),
     

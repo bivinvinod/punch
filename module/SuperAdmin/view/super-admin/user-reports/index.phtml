@@ -67,7 +67,7 @@
                         
                         <div class="muted pull-left" style="width: 1266px; background-color: #FFFFCC;">
                             <div style="margin: 0 auto; padding: 0px; color: #FFCC00;">Date Wise Record</div>
-                        <form id="detailsForm" name="detailsForm" method="post" action="<?php echo $this->path ?>/superAdmin/userReports/userReports">
+                        <form id="detailsForm" name="detailsForm" method="post" action="/superAdmin/userReports/userReports">
                             <select id="name" name="name" required>
                                 <option value="">Name please</option>
                                 <?php
@@ -239,6 +239,14 @@
                                                 <div style="float:left;width: 200px; padding: 0px; font-weight: bold;">Total OT</div>
                                                 <div style="float:left;width: 200px; padding: 0px; font-weight: bold; color: red;"><?php echo $this->ot?></div>
                                             </div>
+                                            <?php if($this->d1 !== '' && $this->d2){ ?>
+                                            <div style="float:left; width: 580px; padding: 24px;">
+                                               
+                                                <div style="float:left;width: 200px; padding: 0px; font-weight: bold;"><a href="/superAdmin/userReports/charts/<?php echo $this->d1.'_'.$this->d2.'_'.$this->uid;?>">Chart representation</a></div>   
+                                            </div>
+                                            <?php
+                                            }
+                                            ?>
                                                                                         
                                         </div>
                                     </td>
