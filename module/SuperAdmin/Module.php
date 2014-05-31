@@ -43,6 +43,9 @@ use SuperAdmin\Model\UserWorkHistoryTable;
 use SuperAdmin\Model\MealModel;
 use SuperAdmin\Model\MealTable;
 
+use SuperAdmin\Model\SkillModel;
+use SuperAdmin\Model\SkillTable;
+
 
 class Module
 {
@@ -131,7 +134,14 @@ class Module
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
                     $table = new MealTable($dbAdapter);
                     return $table;
-                },        
+                },
+                        
+                'SuperAdmin\Model\SkillTable' => function($sm)
+                {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $table = new SkillTable($dbAdapter);
+                    return $table;
+                },          
             ),
         );
     }

@@ -83,7 +83,7 @@ class MealPolicyController extends AbstractActionController
                 $datas->setStartTime($fromTime);  
                 $datas->setStopTime($toTime);
                 $this->getMealTable()->insertData($datas);
-                return $this->redirect()->toRoute('superAdmin/policy');
+                return $this->redirect()->toRoute('superAdmin/MealPolicy');
                 
             }
             

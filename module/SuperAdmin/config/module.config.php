@@ -933,6 +933,7 @@ return array(
                                     'constraints' => array(
                                         'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                         
                                     ),
                                     'defaults' => array(
                                     ),
@@ -1035,7 +1036,127 @@ return array(
                       ),
                     ),    
 
-/*--------------------------------------- policy Reports ----------------------------------------*/                    
+/*--------------------------------------- policy Reports ----------------------------------------*/     
+                    
+/* ------------------------------------------------------------------------------------------------------------- */                   
+ /* ------------------------------------------------Rating Controller -------------------------- */
+ /* ------------------------------------------------------------------------------------------------------------- */ 
+                    'rating' => array(
+                'type' => 'literal',
+                'options' => array(
+                    'route' => '/rating',
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'SuperAdmin\Controller',
+                        'controller' => 'Rating',
+                        'action' => 'index'
+                    ),
+                ),
+                'may_terminate' => true,
+                'child_routes' => array(  
+                    'index' => array(
+                        'type' => 'segment',
+                        'options'=> array(
+                            'route' => '/index[/:id]',
+                            'constraints' => array(
+                                    'id' => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'action' => 'index'
+                            )
+                        )
+                    ),
+
+                    'ajaxList' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/ajaxList[/:id]',
+                                    'constraints' => array(
+                                        'id' => '[0-9]+',
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'ajaxList'
+                                    )
+                                )
+                            ),
+                            
+                            'delete' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/delete[/:id/:idt]',
+                                    'constraints' => array(
+                                        'id' => '[0-9]+',
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'delete'
+                                    )
+                                )
+                            ),
+                            
+                    
+                            'add' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/add[/:id]',
+                                    'constraints' => array(
+                                       'id' => '[0-9]+',
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'add'
+                                    )
+                                )
+                            ),
+                            
+                            
+                    
+                            'edit' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/edit[/:id/:idt]',
+                                    'constraints' => array(
+                                        'id' => '[0-9]+'
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'edit'
+                                    )
+                                )
+                            ),
+                    
+                    
+                            'cancel' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/cancel[/:id]',
+                                    'constraints' => array(
+                                        'id' => '[0-9]+'
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'cancel'
+                                    )
+                                )
+                            ),
+                    
+                    
+                            'back' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/back[/:id]',
+                                    'constraints' => array(
+                                        'id' => '[0-9]+'
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'back'
+                                    )
+                                )
+                            ),
+                    
+                    
+                                
+                            
+                            
+                             ),
+                    ),    
+
+    /*--------------------------------------- policy Reports ----------------------------------------*/                                                     
                     
                 ),
             ),
@@ -1083,7 +1204,8 @@ return array(
             'SuperAdmin\Controller\UserReports' => 'SuperAdmin\Controller\UserReportsController',
             'SuperAdmin\Controller\Edit' => 'SuperAdmin\Controller\EditController',
             'SuperAdmin\Controller\Bonus' => 'SuperAdmin\Controller\BonusController',
-            'SuperAdmin\Controller\MealPolicy' => 'SuperAdmin\Controller\MealPolicyController'
+            'SuperAdmin\Controller\MealPolicy' => 'SuperAdmin\Controller\MealPolicyController',
+            'SuperAdmin\Controller\Rating' => 'SuperAdmin\Controller\RatingController'
         ),
     ),
     
