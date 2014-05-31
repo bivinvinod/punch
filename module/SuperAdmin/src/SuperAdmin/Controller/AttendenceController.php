@@ -195,7 +195,7 @@ class AttendenceController extends AbstractActionController
 	      $attendence->setLeaveType($request->getPost('leaveType'));   
               $attendence->setLeaveMatter($request->getPost('desc'));
               $attendence->setUserId($request->getPost('employeeName'));
-              $attendence->setEmployeeName($employeeName);
+   
               $this->getAttendenceTable()->updateEmployeeLeave($attendence);
               return $this->redirect()->toRoute('superAdmin/attendence');
             }

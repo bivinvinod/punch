@@ -47,6 +47,8 @@ class RegistrationModel implements InputFilterAwareInterface {
     public $feedback;
     public $status;
     public $leave;
+    public $work_days;
+    public $work_hours;
     protected $inputFilter;
     
 
@@ -198,6 +200,13 @@ class RegistrationModel implements InputFilterAwareInterface {
     
     public function setLeave($leave) {
         $this->leave = $leave;
+    }
+    public function setRegistrationWorkDays($work_days) {
+        $this->work_days = $work_days;
+    }
+    
+    public function setRegistrationWorkHours($work_hours) {
+        $this->work_hours = $work_hours;
     }
     
     public function setInputFilter(InputFilterInterface $inputFilter) {
