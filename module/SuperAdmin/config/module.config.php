@@ -1156,7 +1156,95 @@ return array(
                              ),
                     ),    
 
-    /*--------------------------------------- policy Reports ----------------------------------------*/                                                     
+    /*---------------------------------------Rating End ----------------------------------------*/                                                     
+ /* ------------------------------------------------------------------------------------------------------------- */                   
+ /* ------------------------------------------------Skill Controller -------------------------- */
+ /* ------------------------------------------------------------------------------------------------------------- */ 
+                'skill' => array(
+                        'type' => 'literal',
+                        'options' => array(
+                            'route' => '/skill',
+                            'defaults' => array(
+                                '__NAMESPACE__' => 'superAdmin\Controller',
+                                'controller' => 'Skill',
+                                'action' => 'index'
+                            ),
+                        ),
+                        'may_terminate' => true,
+                        'child_routes' => array(
+                            'default' => array(
+                                'type' => 'Segment',
+                                'options' => array(
+                                    'route' => '/[:controller[/:action]]',
+                                    'constraints' => array(
+                                        'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                    ),
+                                    'defaults' => array(
+                                    ),
+                                ),
+                            ),
+
+                    'ajaxList' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/ajaxList',
+                                    'constraints' => array(
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'ajaxList'
+                                    )
+                                )
+                            ),
+                            
+                            'delete' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/delete[/:id]',
+                                    'constraints' => array(
+                                        'id' => '[0-9]+',
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'delete'
+                                    )
+                                )
+                            ),
+                            
+                    
+                            'add' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/add',
+                                    'constraints' => array(
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'add'
+                                    )
+                                )
+                            ),
+                            
+                            
+                    
+                            'edit' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/edit[/:id]',
+                                    'constraints' => array(
+                                        'id' => '[0-9]+'
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'edit'
+                                    )
+                                )
+                            ),
+                    
+                       
+                            
+                            
+                             ),
+                    ),    
+
+    /*---------------------------------------Rating End ----------------------------------------*/                                                     
                     
                 ),
             ),
@@ -1205,7 +1293,8 @@ return array(
             'SuperAdmin\Controller\Edit' => 'SuperAdmin\Controller\EditController',
             'SuperAdmin\Controller\Bonus' => 'SuperAdmin\Controller\BonusController',
             'SuperAdmin\Controller\MealPolicy' => 'SuperAdmin\Controller\MealPolicyController',
-            'SuperAdmin\Controller\Rating' => 'SuperAdmin\Controller\RatingController'
+            'SuperAdmin\Controller\Rating' => 'SuperAdmin\Controller\RatingController',
+            'SuperAdmin\Controller\Skill' => 'SuperAdmin\Controller\SkillController',
         ),
     ),
     

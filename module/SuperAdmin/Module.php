@@ -43,6 +43,9 @@ use SuperAdmin\Model\UserWorkHistoryTable;
 use SuperAdmin\Model\MealModel;
 use SuperAdmin\Model\MealTable;
 
+use SuperAdmin\Model\RatingModel;
+use SuperAdmin\Model\RatingTable;
+
 use SuperAdmin\Model\SkillModel;
 use SuperAdmin\Model\SkillTable;
 
@@ -141,7 +144,14 @@ class Module
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
                     $table = new SkillTable($dbAdapter);
                     return $table;
-                },          
+                },
+                        
+                'SuperAdmin\Model\RatingTable' => function($sm)
+                {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $table = new RatingTable($dbAdapter);
+                    return $table;
+                },                 
             ),
         );
     }

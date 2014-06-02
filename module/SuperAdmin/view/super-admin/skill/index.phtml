@@ -1,5 +1,4 @@
 <script type="text/javascript">
-
     
     $(document).ready(function() {
        
@@ -10,12 +9,11 @@
     
     function showTable()
     {   
-        var code = <?php echo $employee; ?>;   
         
         $.ajax({
 
             type:"POST",
-            url:"/superAdmin/rating/ajaxList/"+code,
+            url:"/superAdmin/skill/ajaxList",
             cache:false,
             data:{},
             dataType:"html",
@@ -30,10 +28,10 @@
     
     //Delete
     $('.del').live('click',function()
-    {   var code1 = <?php echo $employee; ?>;
+    { 
         $.ajax({
             type:"POST",
-            url:"/superAdmin/rating/delete/"+code1,
+            url:"/superAdmin/skill/delete",
             cache:false,
             data:{},
             dataType:"html",
@@ -66,7 +64,7 @@
         <div class="span12">
             <div class="row-fluid">
         <a class="btn btn-primary " href="/superAdmin/rating/back/<?php echo $employee; ?>">Go Back</a>
-                    <a href="/superAdmin/rating/add/<?php echo $employee; ?>"><button type="submit" class="btn btn-primary" style="margin-left:885px;">Add</button></a>
+                    <a href="/superAdmin/skill/add"><button type="submit" class="btn btn-primary" style="margin-left:885px;">Add</button></a>
 
     </div>
 
