@@ -1150,6 +1150,20 @@ return array(
                             ),
                     
                     
+                            'ajaxTable' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/ajaxTable[/:id]',
+                                    'constraints' => array(
+                                        'id' => '[0-9]+'
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'ajaxTable'
+                                    )
+                                )
+                            ),
+                    
+                    
                                 
                             
                             

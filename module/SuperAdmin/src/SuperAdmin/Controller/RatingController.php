@@ -11,6 +11,10 @@ use SuperAdmin\Model\RatingModel;
 use SuperAdmin\Model\RatingTable;
 
 
+use SuperAdmin\Model\SkillModel;
+use SuperAdmin\Model\SkillTable;
+
+
 class RatingController extends AbstractActionController
 {
     protected $authService;
@@ -36,6 +40,17 @@ class RatingController extends AbstractActionController
             $this->ratingTable = $sm->get('SuperAdmin\Model\RatingTable'); 
         }
         return $this->ratingTable;
+    }
+    
+    
+    public function getSkillTable()
+    {	
+        if(!$this->skillTable)
+        {
+            $sm= $this->getServiceLocator();
+            $this->skillTable = $sm->get('SuperAdmin\Model\SkillTable'); 
+        }
+        return $this->skillTable;
     }
     
     
@@ -73,9 +88,9 @@ class RatingController extends AbstractActionController
             $this->layout('layout/superAdminDashboardLayout');
             $request= $this->getRequest();
             if($request->isPost()){
-                $count = $request->getPost('noskill');
+                $count = $request->getPost('cnt');
                 $data = new RatingModel;
-                for($i=1; $i< $count; $i++){
+                for($i=1; $i<= $count; $i++){
                     $data->setEmployeeCode($id);
                     $data->setSkill($request->getPost('skill'.$i));
                     $data->setRating($request->getPost('rating'.$i));
@@ -85,8 +100,10 @@ class RatingController extends AbstractActionController
             return $this->redirect()->toRoute('superAdmin/rating/index',array('id'=>$id));
             }
             
-                $viewModel= new ViewModel(array(
-                'employee' => $id,
+        
+            $viewModel= new ViewModel(array(
+            'skillDatas' => $this->getSkillTable()->fetchAllData(),
+               'employee' => $id, 
             ));
             return $viewModel;
         }
@@ -139,7 +156,6 @@ class RatingController extends AbstractActionController
             $this->layout('layout/superAdminDashboardLayout');
             $request= $this->getRequest();
             if($request->isPost()){
-                $count = $request->getPost('noskill');
                 $data = new RatingModel;
                 
                 $data->setEmployeeCode($id);
@@ -190,6 +206,28 @@ class RatingController extends AbstractActionController
             return $this->redirect()->toRoute("superAdmin");
         }
     }
+    
+    
+    public function ajaxTableAction()
+    {   
+        if($this->getAuthService()->hasIdentity())
+        {
+            $count = $_POST['cnt'];
+            $viewModel= new ViewModel(array(
+            'skillDatas' => $this->getSkillTable()->fetchAllData(),
+                'count' =>  $count,
+            ));
+            $viewModel->setTerminal(true);
+            return $viewModel;
+        }
+        else {
+            $this->flashMessenger()->addMessage("Please Login");
+            return $this->redirect()->toRoute("superAdmin");
+        }
+    }
+    
+    
+    
     
 }
     

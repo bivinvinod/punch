@@ -92,7 +92,7 @@ class SkillController extends AbstractActionController
         $id= $this->params()->fromRoute('id');
         
         $viewModel= new ViewModel(array(
-            'skillDatas' => $this->getSkillTable()->fetchAllData($id),
+            'skillDatas' => $this->getSkillTable()->fetchAllData(),
         ));
 
         $viewModel->setTerminal(true);

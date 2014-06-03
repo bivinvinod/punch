@@ -1,0 +1,13 @@
+<table>
+<tr>
+                        <td> Skill:
+                            <select nam="skill<?php echo $count; ?>">  
+                                <?php foreach ($skillDatas as $value) {?>
+                                <option value="<?php echo $value['skill']; ?>"><?php    echo $value['skill']; ?></option>
+                                <?php } ?>
+                                
+                          </select>                 
+                        </td>
+                        <td> Rating: <input name="rating<?php echo $count; ?>" type="number" min="1" max="5"><b style="font-size: 20px; color: red;">/5</b></td>
+                    </tr>
+</table>
