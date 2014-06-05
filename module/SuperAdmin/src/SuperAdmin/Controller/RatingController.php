@@ -60,7 +60,6 @@ class RatingController extends AbstractActionController
         {
             $this->layout('layout/superAdminDashboardLayout');
             $id= $this->params()->fromRoute('id');
-            //echo $id;
             $viewModel= new ViewModel(array(
             'employee' => $id,
         ));
@@ -84,16 +83,16 @@ class RatingController extends AbstractActionController
         if($this->getAuthService()->hasIdentity())
         {
             $id= $this->params()->fromRoute('id');
-            //echo $id;
+            $postData = $this->getRequest()->getPost()->toArray();
             $this->layout('layout/superAdminDashboardLayout');
             $request= $this->getRequest();
             if($request->isPost()){
                 $count = $request->getPost('cnt');
                 $data = new RatingModel;
-                for($i=1; $i<= $count; $i++){
+                for($i=0; $i<$count; $i++){
                     $data->setEmployeeCode($id);
-                    $data->setSkill($request->getPost('skill'.$i));
-                    $data->setRating($request->getPost('rating'.$i));
+                    $data->setSkill($postData['skill'][$i]);
+                    $data->setRating($postData['rating'][$i]);
                     $this->getRatingTable()->insertData($data);
                 }   
             

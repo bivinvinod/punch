@@ -16,9 +16,20 @@
             }
         });
     }  
-</script> 
+    
+    $('.cls').live('click',function()
+    {
+        var id= $(this).attr('id');
+        var delId= id.split('_');
+        cnt = document.getElementById('cnt').value--;
+        $("#cp"+delId[1]).remove();
+    });
+</script>
+
 <style type="text/css">
     .add { cursor: pointer;}
+    
+     .cls{ cursor: pointer; }
 
 </style>
 <div class="span9" id="content">
@@ -44,19 +55,23 @@
                                 
                                
                                 
-
+                <div class="control-group" id="cp<?php echo $this->count ;?>">
+    <div class="controls" style="margin-left: 0;">                
                 <table>
                     <tr>
                         <td> Skill:
-                            <select nam="skill1">  
+                            <select name="skill[]">  
                                 <?php foreach ($skillDatas as $value) {?>
                                 <option value="<?php echo $value['skill']; ?>"><?php    echo $value['skill']; ?></option>
                                 <?php } ?>
                           </select>                 
                         </td>
-                        <td> Rating: <input name="rating1" type="number" min="1" max="5"><b style="font-size: 20px; color: red;">/5</b></td>
+                        <td> Rating: <input name="rating[]" type="number" min="1" max="5"><b style="font-size: 20px; color: red;">/5</b></td>
                     </tr>
                     </table> 
+    </div>
+                </div>
+                    
                     <div id="result"> </div>
                     
                 
