@@ -22,7 +22,7 @@
               <?php foreach ($profile as $key => $value) { ?>
 		
 		<b><h2 style="text-align: center;"><?php echo $value['employee_name']; ?> </h2> <img style="float: right;" src="/images/upload/<?php echo $value['image']; ?>" id="image" onmouseover="" width="100" height="130" border="6"  > </b>
-                <div class="muted pull-left"><b style="font-size: 20px;"><a href="/superAdmin/rating/index/<?php echo $value['employee_code']; ?>" rel="facebox">*Rating</a>&nbsp;&nbsp;<a href="">*Notes</a></b></div>
+                <div class="muted pull-left"><b style="font-size: 20px;"><a href="/superAdmin/rating/index/<?php echo $value['employee_code']; ?>" rel="facebox">*Rating</a>&nbsp;&nbsp;<a href="">*Notes</a>&nbsp;&nbsp<a href="/superAdmin/attendence/specific/<?php echo $value['employee_code'];  ?>" rel="facebox" >*Leave History</a></b></div>
                 
                     <table  class="table table-striped"> 
                          <tbody>

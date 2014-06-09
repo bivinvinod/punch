@@ -68,13 +68,24 @@ class AttendenceController extends AbstractActionController
     
     public function ajaxListAction()
         {
-	    //exit("shit");
+            if($this->params()->fromRoute('id'))
+            {
+                $id = $this->params()->fromRoute('id');
+                $this->layout('layout/superAdminDashboardLayout');
+                $viewModel= new ViewModel(array(
+                'employeeLeaveDatas' => $this->getAttendenceTable()->SpecificEmployeeData($id),
+                ));
+                return $viewModel;
+            }
+            else
+            {
             $viewModel= new ViewModel(array(
                 'employeeLeaveDatas' => $this->getAttendenceTable()->getNames(),
             ));
 
             $viewModel->setTerminal(true);
             return $viewModel;
+            }
         }
 	
 	
@@ -213,6 +224,27 @@ class AttendenceController extends AbstractActionController
         }
         
     }
+    
+    public function specificAction() {
+        
+        if($this->getAuthService()->hasIdentity())
+        {
+            $id = $this->params()->fromRoute('id');
+            $this->layout('layout/superAdminDashboardLayout');
+            $viewModel= new ViewModel(array(
+            'employeeLeaveDatas' => $this->getAttendenceTable()->SpecificEmployeeData($id),
+            ));
+            $viewModel->setTerminal(true);
+            return $viewModel;
+        }
+        else {
+            $this->flashMessenger()->addMessage("Please Login");
+            return $this->redirect()->toRoute("superAdmin");
+        }
+        
+    }
+    
+    
     
 }
 

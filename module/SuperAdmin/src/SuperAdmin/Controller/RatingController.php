@@ -133,11 +133,9 @@ class RatingController extends AbstractActionController
     {   
         if($this->getAuthService()->hasIdentity())
         {
-            $idt= $this->params()->fromRoute('idt');
-            $id= $this->params()->fromRoute('id');
+            $idt = $_POST['tableId'];
+            $id = $this->params()->fromRoute('id');
             $this->getRatingTable()->deleteData($idt);
-            $this->flashMessenger()->addMessage("Deleting...");
-            return $this->redirect()->toRoute('superAdmin/rating/index',array('id'=>$id));
         }
         else {
             $this->flashMessenger()->addMessage("Please Login");
@@ -150,7 +148,7 @@ class RatingController extends AbstractActionController
                 
         if($this->getAuthService()->hasIdentity())
         {
-            $id= $this->params()->fromRoute('id');
+            $id = $this->params()->fromRoute('id');
             $idt = $this->params()->fromRoute('idt');
             $this->layout('layout/superAdminDashboardLayout');
             $request= $this->getRequest();

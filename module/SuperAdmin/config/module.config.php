@@ -635,9 +635,9 @@ return array(
                             'ajaxList' => array(
                                 'type' => 'segment',
                                 'options'=> array(
-                                    'route' => '/ajaxList',
+                                    'route' => '/ajaxList[/:id]',
                                     'constraints' => array(
-                                        //'action1' => '[a-zA-Z0-9_-]+'
+                                        'id' => '[0-9]+'
                                     ),
                                     'defaults' => array(
                                         'action' => 'ajaxList'
@@ -688,6 +688,20 @@ return array(
                                     )
                                 )
                             ),
+                            
+                            'specific' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/specific[/:id]',
+                                    'constraints' => array(
+                                        'id' => '[0-9]+'
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'specific'
+                                    )
+                                )
+                            ),
+                            
                             
                                                 
                             

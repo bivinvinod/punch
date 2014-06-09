@@ -30,12 +30,14 @@
     
     //Delete
     $('.del').live('click',function()
-    {   var code1 = <?php echo $employee; ?>;
+    {
+        var id= $(this).attr('id');
+        var delId= id.split('_');
         $.ajax({
             type:"POST",
-            url:"/superAdmin/rating/delete/"+code1,
+            url:"/superAdmin/rating/delete",
             cache:false,
-            data:{},
+            data:{tableId:delId[1]},
             dataType:"html",
             success:function(data)
             {   

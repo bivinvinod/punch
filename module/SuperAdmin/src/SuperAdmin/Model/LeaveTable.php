@@ -110,8 +110,5 @@ class LeaveTable extends AbstractTableGateway
         return $result; 
         }
     
-        
-       
-     
      
 }

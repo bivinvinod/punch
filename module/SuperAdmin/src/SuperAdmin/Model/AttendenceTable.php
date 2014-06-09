@@ -123,4 +123,13 @@ class AttendenceTable extends AbstractTableGateway
         return $result; 
     }
     
+    public function specificEmployeeData($id)
+    {
+        $sql = "SELECT tbl_attendence.*, registration.employee_name FROM tbl_attendence INNER JOIN registration ON  tbl_attendence.user_id = registration.employee_code  WHERE tbl_attendence.user_id = '$id' ORDER BY tbl_attendence.leave_dates DESC  LIMIT 20 "; 
+        $statement = $this->adapter->query($sql);           
+        $result = $statement->execute();
+        return $result; 
+    }
+       
+    
 }

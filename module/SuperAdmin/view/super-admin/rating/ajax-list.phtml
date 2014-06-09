@@ -14,8 +14,8 @@
                 <td style="text-align:center;"><?php echo $value['skill']; ?></td>
                 <td style="text-align:center;"><?php echo $value['rating']; ?></td>
                 <td style="text-align:center;">
-                    <a href="/superAdmin/rating/edit/<?php echo $employee; ?>/<?php echo $value['id'];?>" rel="facebox"><img src="/images/edit.gif" border="0" width="40" height="40" id=""></a>
-                    <a href="/superAdmin/rating/delete/<?php echo $employee; ?>/<?php echo $value['id'];?>" ><img src="/images/delete.png" border="0" width="30" height="30" style="padding-left: 20px;" class ="del"></a>
+                    <a href="/superAdmin/rating/edit/<?php echo $employee; ?>/<?php echo $value['id'];?>" ><img src="/images/edit.gif" border="0" width="40" height="40" id=""></a>
+                    <a href="" ><img src="/images/delete.png" border="0" width="30" height="30" style="padding-left: 20px;" class ="del" id="del_<?php echo $value['id'];?>"></a>
                 </td>
             </tr>
             <?php
