@@ -647,5 +647,276 @@ class UserReportsController extends AbstractActionController
         }
     }
     
+    public function incentiveAction()
+    {
+        if ($this->getAuthService()->hasIdentity())
+        {
+            $this->layout('layout/superAdminDashboardLayout');
+                        
+            $viewModel = new ViewModel(array(
+                'userNames' => iterator_to_array($this->getRegistrationTable()->fetchAllUsers()),                         
+            ));
+            
+            //$viewModel->setTemplate('/super-admin/user-reports/employees-month-ways-chart.phtml');
+            return $viewModel;
+        }
+        else
+        {
+            return $this->redirect()->toRoute('superAdmin');         
+        }
+        
+    }
+    public function incentiveSalaryAction()
+    {
+        if ($this->getAuthService()->hasIdentity())
+        {
+            $this->layout('layout/superAdminDashboardLayout');
+            $request= $this->getRequest();
+            if($request->isPost())
+            {
+                $records = iterator_to_array($this->getWorkHistoryTable()->fetchAllUsersIncentive($request->getPost('name'),$request->getPost('mnth'),$request->getPost('year')));
+                $salary = $this->getRegistrationTable()->getMonthlySalary($request->getPost('mnth'));
+                $holyDay = $this->getLeaveTable()->holyDays($request->getPost('mnth'),$request->getPost('year'));
+                $specialDuty = $this->getSpecialDutyTable()->getSpecialDuty($request->getPost('name'),$request->getPost('mnth'),$request->getPost('year'));
+                $penalty = $this->getPenaltyTable()->getPenalty($request->getPost('name'),$request->getPost('mnth'),$request->getPost('year'));
+
+
+                //Total day calculation in thyis month;
+                $totalDay= cal_days_in_month(CAL_GREGORIAN, $request->getPost('mnth'),$request->getPost('year'));
+
+                // User total leave
+                $leave = $this->getAttendenceTable()->fetchUserLeave($request->getPost('name'),$request->getPost('mnth'),$request->getPost('year'));
+
+
+                foreach($records as $v)
+                {
+                    $twh= $v['twh'];
+                    $ot= $v['cnt'];
+                    $sunday= $v['sndy'];
+                }
+                foreach($leave as $q)
+                {
+                    if($q['leave_type']== 'Fullday')
+                    {
+                        //$full= count($q['leave_type']);
+                        $leave = count($q['leave_type'])*1;
+                    }
+                    if($q['leave_type']== 'Halfday')
+                    {
+                        $leave += count($q['leave_type'])*0.5;
+                    }
+                    if($q['leave_type']== 'Paidhalfday')
+                    {
+                        $leave += count($q['leave_type'])*0.5;
+                    }
+                    if($q['leave_type']== 'Paidfullday')
+                    {
+                        $leave += count($q['leave_type'])*1;
+                    }
+
+                }
+                if($leave >2)
+                {
+                    $totalPresent= $totalDay-($leave-2);
+                }
+                else
+                {
+                    $totalPresent= 30;
+                }
+
+                $perDaySalary= $salary/30;
+                $daybaseSalary= $perDaySalary*$totalPresent;
+                $hourbaseSalary= ($perDaySalary/8)*$twh;
+
+                //echo $name."<br>".$month."<br>".$year;exit;
+                $viewModel = new ViewModel(array(
+                    'salary' => $salary,
+                    'daybaseSalary' => $daybaseSalary,
+                    'hourbaseSalary' => $hourbaseSalary,
+                    'userId'    => $request->getPost('name'),
+                    'mnth'  =>$request->getPost('mnth'),
+                    'year' => $request->getPost('year'),
+                    'userNames' => iterator_to_array($this->getRegistrationTable()->fetchAllUsers()),
+                    'penalty'   => $penalty
+                ));
+                $viewModel->setTemplate('/super-admin/user-reports/incentive.phtml');
+                return $viewModel;
+            }
+            
+        }
+        else
+        {
+            return $this->redirect()->toRoute('superAdmin');         
+        }
+    }
+    
+    
+    public function incentiveTableAction()
+    {
+        if ($this->getAuthService()->hasIdentity())
+        {
+            $count= $_POST['cnt'];
+            $viewModel = new ViewModel(array(
+                'count' => $count,              
+            ));
+            $viewModel->setTerminal(true);
+            return $viewModel;
+        }
+        else
+        {
+            return $this->redirect()->toRoute('superAdmin');         
+        }
+            
+    }
+//    public function bankTableAction()
+//    {
+//        if ($this->getAuthService()->hasIdentity())
+//        {
+//            $count= $_POST['cnt'];
+//            $viewModel = new ViewModel(array(
+//                'count' => $count,              
+//            ));
+//            $viewModel->setTerminal(true);
+//            return $viewModel;
+//        }
+//        else
+//        {
+//            return $this->redirect()->toRoute('superAdmin');         
+//        }
+//            
+//    }
+//    
+//    
+//    
+    
+    
+    public function penaltyAction()
+    {
+        if ($this->getAuthService()->hasIdentity())
+        {
+            $this->layout('layout/superAdminDashboardLayout');
+            
+            $viewModel = new ViewModel(array(
+                'userNames' => iterator_to_array($this->getRegistrationTable()->fetchAllUsers())
+            ));
+            return $viewModel;
+            
+        }
+        else
+        {
+            return $this->redirect()->toRoute('superAdmin');         
+        }
+            
+    }
+    public function penaltyTableAction()
+    {
+        if ($this->getAuthService()->hasIdentity())
+        {
+            $count= $_POST['cnt'];
+            $viewModel = new ViewModel(array(
+                'count' => $count,  
+                'userNames' => iterator_to_array($this->getRegistrationTable()->fetchAllUsers())
+            ));
+            $viewModel->setTerminal(true);
+            return $viewModel;
+            
+        }
+        else
+        {
+            return $this->redirect()->toRoute('superAdmin');         
+        }
+    }
+    
+    public function addPenalityAction()
+    {
+        if ($this->getAuthService()->hasIdentity())
+        {
+            
+            $this->layout('layout/superAdminDashboardLayout');
+            $penalty= new PenaltyModel();
+            $request= $this->getRequest();
+            $postData = $this->getRequest()->getPost()->toArray();
+            if($request->isPost())
+            {
+                $cnt= $request->getPost('cnt');
+                
+                for($i= 0; $i <= $cnt-1; $i++)
+                {
+                        $input_date= $postData['penDate'][$i];        
+                        $month = substr($input_date,3,2);
+                        $day = substr($input_date,0,2);
+                        $year = substr($input_date,6,4);                            
+                        $d1 = $year.'-'.$month.'-'.$day;
+                        $penalty->setPenaltyDate($d1);
+                        $penalty->setAmount($postData['amount'][$i]);
+                        $penalty->setDis($postData['dis'][$i]);
+                        $penalty->setEmpName($postData['name'][$i]);
+                        $s= $this->getPenaltyTable()->add($penalty);
+
+
+                }
+            }
+            return $this->redirect()->toRoute('superAdmin/userReports/penaltyList');           
+        }
+        else
+        {
+            return $this->redirect()->toRoute('superAdmin');         
+        }
+    }
+    public function penaltyListAction()
+    {
+        if ($this->getAuthService()->hasIdentity())
+        {
+            
+            $this->layout('layout/superAdminDashboardLayout');
+            $viewModel = new ViewModel(array(
+                'userNames' => iterator_to_array($this->getRegistrationTable()->fetchAllUsers())
+            ));
+            //$viewModel->setTerminal(true);
+            return $viewModel;
+                
+        }
+        else
+        {
+            return $this->redirect()->toRoute('superAdmin');         
+        }
+        
+    }
+    public function penaltyListAllAction()
+    {
+        if ($this->getAuthService()->hasIdentity())
+        {
+            $id= (int) $this->params()->fromRoute('id');
+            $this->layout('layout/superAdminDashboardLayout');
+            $viewModel = new ViewModel(array(
+                'penalty' => iterator_to_array($this->getPenaltyTable()->fetchAllPenalty($id)),
+            ));
+            //$viewModel->setTerminal(true);
+            return $viewModel;
+                
+        }
+        else
+        {
+            return $this->redirect()->toRoute('superAdmin');         
+        }
+        
+    }
+    public function penaltyPerMonthAction()
+    {
+        $id= (int) $this->params()->fromRoute('id');
+        $month= (int) $this->params()->fromRoute('id1');
+        if(strlen($month)== 1)
+        {
+            $month='0'.$month;
+        }
+        $year= (int) $this->params()->fromRoute('id2');
+        $this->layout('layout/superAdminDashboardLayout');
+        $viewModel = new ViewModel(array(
+           'penalty' => iterator_to_array($this->getPenaltyTable()->fetchPenalty($id,$month,$year)),
+           'penaltySum' => $this->getPenaltyTable()->fetchPenaltySum($id,$month,$year),
+        ));
+        //$viewModel->setTerminal(true);
+       return $viewModel;
+    }
     
 }

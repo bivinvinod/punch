@@ -187,5 +187,24 @@ class UserWorkHistoryTable extends AbstractTableGateway
         $result = $statement->execute();
         return $result;
     }
+    public function getAvgWork($ids,$d1,$d2)
+    {
+        $sql="SELECT registration.employee_name, SEC_TO_TIME( SUM(AVG( TIME_TO_SEC( user_work_history.worked_hour ) ) ) ) AS twh, MONTH( user_work_history.worked_date ) AS mw
+                FROM user_work_history
+                INNER JOIN registration ON user_work_history.user_code = registration.employee_code where user_work_history.user_code in ($ids) and worked_date between '$d1' AND '$d2'
+                GROUP BY concat( user_work_history.user_code, mw )
+                ORDER BY MONTH( user_work_history.worked_date ) ASC";
+
+        $statement=$statement = $this->adapter->query($sql);
+        $result = $statement->execute();
+        return $result;
+    }
+    public function fetchAllUsersIncentive($n,$m,$y)
+    {
+        $sql= "select SEC_TO_TIME( SUM( TIME_TO_SEC( user_work_history.worked_hour ) ) ) AS twh,count(worked_hour) as cnt,DAYOFWEEK( worked_date ) AS sndy from user_work_history where user_code= $n and Year(worked_date)= '$y' and Month(worked_date)= '$m'";
+        $statement = $this->adapter->query($sql);
+        $result = $statement->execute();
+        return $result; 
+    }
     
 }

@@ -864,6 +864,145 @@ return array(
                                 )
                             ),
                             
+                            'incentive' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/incentive',
+                                    'constraints' => array(
+                                        //'action1' => '[a-zA-Z0-9_-]+'
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'incentive'
+                                    )
+                                )
+                            ), 
+                            
+                            'incentiveSalary' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/incentiveSalary',
+                                    'constraints' => array(
+                                        //'action1' => '[a-zA-Z0-9_-]+'
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'incentiveSalary'
+                                    )
+                                )
+                            ),
+                            'incentiveSalary1' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/incentiveSalary1[/:id][/:id1][/:id2]',
+                                    'constraints' => array(
+                                        'id'=>'[0-9]+',
+                                        'id1' => '[0-9]+',
+                                        'id2' => '[0-9]+'
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'incentiveSalary1'
+                                    )
+                                )
+                            ),
+                            'incentiveTable' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/incentiveTable',
+                                    'constraints' => array(
+                                        //'action1' => '[a-zA-Z0-9_-]+'
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'incentiveTable'
+                                    )
+                                )
+                            ),
+                            'bankTable' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/bankTable',
+                                    'constraints' => array(
+                                        //'action1' => '[a-zA-Z0-9_-]+'
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'bankTable'
+                                    )
+                                )
+                            ), 
+                            'penalty' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/penalty',
+                                    'constraints' => array(
+                                       
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'penalty'
+                                    )
+                                )
+                            ),
+                            'addPenality' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/addPenalty',
+                                    'constraints' => array(
+                                        //'action1' => '[a-zA-Z0-9_-]+'
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'addPenality'
+                                    )
+                                )
+                            ),
+                            'penaltyTable' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/penaltyTable',
+                                    'constraints' => array(
+                                        //'action1' => '[a-zA-Z0-9_-]+'
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'penaltyTable'
+                                    )
+                                )
+                            ),
+                            'penaltyList' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/penaltyList',
+                                    'constraints' => array(
+                                        //'action1' => '[a-zA-Z0-9_-]+'
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'penaltyList'
+                                    )
+                                )
+                            ),
+                            'penaltyListAll' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/penaltyListAll[/:id]',
+                                    'constraints' => array(
+                                        'id' => '[0-9]+'
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'penaltyListAll'
+                                    )
+                                )
+                            ),
+                            'penaltyPerMonth' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/penaltyPerMonth[/:id][/:id1][/:id2]',
+                                    'constraints' => array(
+                                        'id' => '[0-9]+',
+                                        'id1' => '[0-9]+',
+                                        'id2' => '[0-9]+'
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'penaltyPerMonth'
+                                    )
+                                )
+                            ),
+                            
+                            
                             
                         ),
                     ),
