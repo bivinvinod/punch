@@ -365,7 +365,15 @@ class RegistrationTable extends AbstractTableGateway {
         $statement = $this->adapter->query($sql);           
         $result = $statement->execute(); 
         return $result;   
-    }   
+    }  
+    public function getMonthlySalary($id) 
+    { 
+        $sql=" SELECT monthly_salary FROM registration WHERE employee_code = '$id'";                              
+        $statement = $this->adapter->query($sql);  
+        $result    = $statement->execute();
+        $s = $result->current();
+        return $s['monthly_salary'];
+    }
               
               
     

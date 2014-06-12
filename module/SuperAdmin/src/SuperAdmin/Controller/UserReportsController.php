@@ -19,6 +19,13 @@ use SuperAdmin\Model\MonthlyTable;
 use SuperAdmin\Model\LeaveModel;
 use SuperAdmin\Model\LeaveTable;
 
+use SuperAdmin\Model\SpecialDutyTable;
+use SuperAdmin\Model\SpecialDutyModel;
+
+use SuperAdmin\Model\PenaltyTable;
+use SuperAdmin\Model\PenaltyModel;
+
+
 
 class UserReportsController extends AbstractActionController
 {
@@ -27,6 +34,8 @@ class UserReportsController extends AbstractActionController
     protected $workHistoryTable;
     protected $attendenceTable;
     protected $monthlyTable;
+    protected $specialDutyTable;
+    protected $penaltyTable;
 
     public function getAuthService()
     {
@@ -84,6 +93,25 @@ class UserReportsController extends AbstractActionController
         }
         return $this->monthlyTable;
     }
+    
+    public function getSpecialDutyTable()
+    {		
+        if(!$this->specialDutyTable)
+        {	
+            $sm = $this->getServiceLocator();
+            $this->specialDutyTable = $sm->get('SuperAdmin\Model\SpecialDutyTable'); 
+        }
+        return $this->specialDutyTable;
+    }
+    public function getPenaltyTable()
+    {		
+        if(!$this->penaltyTable)
+        {	
+            $sm = $this->getServiceLocator();
+            $this->penaltyTable = $sm->get('SuperAdmin\Model\PenaltyTable'); 
+        }
+        return $this->penaltyTable;
+    }   
 
 
     public function indexAction()
