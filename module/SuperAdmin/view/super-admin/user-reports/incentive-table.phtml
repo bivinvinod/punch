@@ -1,0 +1,16 @@
+<div class="block-content collapse in" id="cpIn<?php echo $this->count ;?>" style="padding:0;">
+    <form class="form-horizontal" id="addProduct" method="post" enctype="multipart/form-data">
+        <table class="table table-striped">
+            <tr>
+                <td>
+                    <select name="incentive[]" id="incentive">
+                        <option>Select Incentive</option>
+                    </select>
+                    
+                </td>
+                <td><input type="text" id="incen<?php echo $this->count ;?>" name="incen[]" onchange="getIncentiveMoney(this.value,<?php echo $this->count?>)" required></td>
+                <td><img src="/images/minus.png" border="0" title="delete" id="close_<?php echo $this->count ;?>" class="clsIn"></td>
+            </tr>
+        </table>
+    </form>
+</div>
