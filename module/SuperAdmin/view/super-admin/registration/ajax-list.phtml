@@ -3,54 +3,53 @@
         <tbody>
             <tr>
                             
-                            <th>Employee Name </th>
-                            <th>Department</th>
-                            <th>Email ID </th>
-                            <th>Contact Number</th>
-                            <th>Date Of Joining </th>
-                            <th>Monthly Salary</th> 
-                            <th>Shift In Time</th>
-                            <th>Shift Out Time</th>
-                            <th>Status</th>
+                <th>Employee Name </th>
+                <th>Department</th>
+                <th>Email ID </th>
+                <th>Contact Number</th>
+                <th>Date Of Joining </th>
+                <th>Monthly Salary</th> 
+                <th>Shift In Time</th>
+                <th>Shift Out Time</th>
+                <th>Status</th>
+                <th>Actions</th>
                             
             </tr>
-                    <tbody>
-                        <?php
-                        foreach ($datas as $key => $value) {
-                            ?>                         
-                            <tr>
+                <?php
+                foreach ($datas as $key => $value) {
+                    ?>                         
+            <tr>
                                 
-                                <td><a href="/superAdmin/registration/profile/<?php echo $value['employee_code']; ?>"><?php echo  $value['employee_name']; ?></a></td>
-                                <td> <?php echo $value['department']; ?></td>
-                                <td> <?php echo $value['email_id']; ?></td>
-                                <td> <?php echo $value['mobile_no1']; ?></td>
-                                <td> <?php echo $value['doj']; ?></td>
-                                <td> <?php echo $value['monthly_salary']; ?></td>
-                                <td> <?php echo $value['shift_in_time']; ?></td>
-                                <td> <?php echo $value['shift_out_time']; ?></td> 
-                                <td style="text-align:center;">
-                                        <?php 
-                                        if($value['status'] == 1)
-                                        {
-                                        ?>
-                                            <img src="/images/on.png" border="0" width="20" height="20" id="<?php echo $value['id']; ?>" class="ston">
-                                        <?php
-                                        }
-                                        else 
-                                        {
-                                        ?>
-                                            <img src="/images/off.png" border="0" width="20" height="20" id="<?php echo $value['id']; ?>" class="stof">
-                                        <?php
-                                        }
-                                        ?>            
-                                </td>
-                                <td> <a href="/superAdmin/registration/profile/<?php echo $value['employee_code']; ?>">View </a> <br><a href="/superAdmin/registration/edit/<?php echo $value['employee_code']; ?>">Edit</a> <a href="/superAdmin/registration/delete/<?php echo $value['employee_code']; ?>">Delete</a>   </td>
-                                
-                            </tr>
+                <td><a href="/superAdmin/registration/profile/<?php echo $value['employee_code']; ?>"><?php echo  $value['employee_name']; ?></a></td>
+                <td> <?php echo $value['department']; ?></td>
+                <td> <?php echo $value['email_id']; ?></td>
+                <td> <?php echo $value['mobile_no1']; ?></td>
+                <td> <?php echo $value['doj']; ?></td>
+                <td> <?php echo $value['monthly_salary']; ?></td>
+                <td> <?php echo $value['shift_in_time']; ?></td>
+                <td> <?php echo $value['shift_out_time']; ?></td> 
+                <td style="text-align:center;">
+                    <?php 
+                    if($value['status'] == 1)
+                    {
+                    ?>
+                        <img src="/images/on.png" border="0" width="20" height="20" id="<?php echo $value['id']; ?>" class="ston">
+                    <?php
+                    }
+                    else 
+                    {
+                    ?>
+                        <img src="/images/off.png" border="0" width="20" height="20" id="<?php echo $value['id']; ?>" class="stof">
+                    <?php
+                    }
+                    ?>            
+                </td>
+                <td> <a href="/superAdmin/registration/profile/<?php echo $value['employee_code']; ?>">View </a> <br><a href="/superAdmin/registration/edit/<?php echo $value['employee_code']; ?>">Edit</a> <a href="/superAdmin/registration/delete/<?php echo $value['employee_code']; ?>">Delete</a>   </td>
 
-    <?php
-}
-?>
+            </tr>
+            <?php
+            }
+            ?>
    
         </tbody>
     </table>

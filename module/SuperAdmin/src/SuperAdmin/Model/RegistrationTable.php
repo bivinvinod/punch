@@ -319,14 +319,10 @@ class RegistrationTable extends AbstractTableGateway {
     } 
     public function getDeleted($employee_code) 
     { 
-        //$uname = $login_session->username;     
-         
-                $sql="DELETE FROM registration WHERE employee_code='$employee_code'";                              
-                $statement = $this->adapter->query($sql);  
-                $result    = $statement->execute(); 
-                //$row = $result->current();
-                return $result;
-   
+        $sql="DELETE FROM registration WHERE employee_code='$employee_code'";                              
+        $statement = $this->adapter->query($sql);  
+        $result    = $statement->execute(); 
+        return $result;
     }
     
     
@@ -367,6 +363,13 @@ class RegistrationTable extends AbstractTableGateway {
         return $result;   
     }   
               
-              
+    public function updateLeave(RegistrationModel $obj) {
+        $sql = new Sql($this->adapter);         
+        $update = $sql->update($this->table);   
+        $update->set($this->exchangeToArray($obj));
+        $update->where(array('employee_code' => $obj->employee_code));
+        $statement = $sql->prepareStatementForSqlObject($update);
+        $statement->execute();  
+    }          
     
 }

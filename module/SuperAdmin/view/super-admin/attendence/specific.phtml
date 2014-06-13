@@ -3,8 +3,9 @@
         <tbody>
             <tr>
                 <th style="text-align:center;">Date</th>
-		 <th style="text-align:center;">Type</th>
-		  <th style="text-align:center;">Matter</th>
+		<th style="text-align:center;">Type</th>
+		<th style="text-align:center;">Matter</th>
+                <th style="text-align:center;">Status</th> 
             </tr>
             <?php
             foreach ($employeeLeaveDatas as $value)
@@ -34,10 +35,17 @@
             </tr>
             <?php
             }
-            ?>
-            
-
-           
+            ?>   
         </tbody>
     </table>
 </div>
+<div class="row-fluid">
+    <div class="span12">
+        <?php
+            foreach ($leaveNo as $value)
+            {
+            ?>
+        Total Leaves Left: <?php echo  $value[annual_leave]; ?>
+            <?php } ?>
+        </div>
+    </div>

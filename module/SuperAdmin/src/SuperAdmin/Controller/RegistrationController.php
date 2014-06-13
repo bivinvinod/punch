@@ -170,6 +170,7 @@ class RegistrationController extends AbstractActionController {
 	    $id_card = $request->getPost('id_card');
 	    $work_days = $request->getPost('work_days');
 	    $work_hours = $request->getPost('work_hours');
+            $leave = $request->getPost('annualLeaves');
 	    
             $feedback = $request->getPost('feedback');
 
@@ -205,6 +206,7 @@ class RegistrationController extends AbstractActionController {
             $update->setRegistrationCardNumber($id_card);
 	    $update->setRegistrationWorkDays($work_days);
 	    $update->setRegistrationWorkHours($work_hours);
+            $update->setLeave($leave);
             
            
             

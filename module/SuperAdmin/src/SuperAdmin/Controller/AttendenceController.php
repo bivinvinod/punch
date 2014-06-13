@@ -1,12 +1,4 @@
 <?php
-/**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/ZendSkeletonApplication for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- */
-
 namespace SuperAdmin\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;   
@@ -16,6 +8,8 @@ use Zend\Session\Container;
 use SuperAdmin\Model\AttendenceModel;
 use SuperAdmin\Model\AttendenceTable;
 
+use SuperAdmin\Model\RegistrationModel;
+use SuperAdmin\Model\RegistrationTable;
 
 class AttendenceController extends AbstractActionController
 {
@@ -98,6 +92,7 @@ class AttendenceController extends AbstractActionController
             if($request->isPost())
             {
                 $attendence= new AttendenceModel();
+                $employeeCode = $request->getPost('employeeName');
                 //Date
                 if($request->getPost('date') != '')
                 {
@@ -114,7 +109,28 @@ class AttendenceController extends AbstractActionController
                     $fromTime = "09:00:00";
                     $toTime = "18:00:00";
                 }
-		$employeeCode = $request->getPost('employeeName');
+                if($type == "Full Day" || $type == "Half Day" ){
+                    if($type == "Full Day"){
+                        $leaveH = $this->getRegistrationTable()->viewProfile($employeeCode);
+                        $totalLeave = $leaveH->annual_leave;
+                        $totalLeave = $totalLeave - 1;
+                        $upLeave = new RegistrationModel();
+                        $upLeave->setLeave($totalLeave);
+                        $upLeave->setRegistrationEmployeeCode($employeeCode);
+                        $this->getRegistrationTable()->updateLeave($upLeave);
+                    }
+                    if($type == "Half Day"){
+                        $leaveH = $this->getRegistrationTable()->viewProfile($employeeCode);
+                        $totalLeave = $leaveH['annual_leave'];
+                        $totalLeave = $totalLeave - 0.5;
+                        $upLeave = new RegistrationModel();
+                        $upLeave->setLeave($totalLeave);
+                        $upLeave->setRegistrationEmployeeCode($employeeCode);
+                        $this->getRegistrationTable()->updateLeave($upLeave);
+                    }
+                    
+                }
+		
 		$leaveMatter = $request->getPost('leaveMatter');
 		$s1=1;
 
@@ -186,8 +202,7 @@ class AttendenceController extends AbstractActionController
         }
         
         
-    public function editAction()
-	    
+    public function editAction()    
     {
         if($this->getAuthService()->hasIdentity())
         {
@@ -198,8 +213,43 @@ class AttendenceController extends AbstractActionController
             {
               $employeeCode = $request->getPost('employeeName');
               $employeeName = $this->getRegistrationTable()->getEmployeeName($employeeCode); 
-              
-                
+              $type = $request->getPost('leaveType');
+                if($type == "Full Day"){
+                        $leaveH = $this->getRegistrationTable()->viewProfile($employeeCode);
+                        $totalLeave = $leaveH->annual_leave;
+                        $totalLeave = $totalLeave - 1;
+                        $upLeave = new RegistrationModel();
+                        $upLeave->setLeave($totalLeave);
+                        $upLeave->setRegistrationEmployeeCode($employeeCode);
+                        $this->getRegistrationTable()->updateLeave($upLeave);
+                }
+                if($type == "Half Day"){
+                    $leaveH = $this->getRegistrationTable()->viewProfile($employeeCode);
+                    $totalLeave = $leaveH['annual_leave'];
+                    $totalLeave = $totalLeave + 0.5;
+                    $upLeave = new RegistrationModel();
+                    $upLeave->setLeave($totalLeave);
+                    $upLeave->setRegistrationEmployeeCode($employeeCode);
+                    $this->getRegistrationTable()->updateLeave($upLeave);
+                }
+                if($type == "Paid Full Day"){
+                    $leaveH = $this->getRegistrationTable()->viewProfile($employeeCode);
+                    $totalLeave = $leaveH['annual_leave'];
+                    $totalLeave = $totalLeave + 1;
+                    $upLeave = new RegistrationModel();
+                    $upLeave->setLeave($totalLeave);
+                    $upLeave->setRegistrationEmployeeCode($employeeCode);
+                    $this->getRegistrationTable()->updateLeave($upLeave);
+                }
+                if($type == "Paid Half Day"){
+                    $leaveH = $this->getRegistrationTable()->viewProfile($employeeCode);
+                    $totalLeave = $leaveH['annual_leave'];
+                    $totalLeave = $totalLeave + 0.5;
+                    $upLeave = new RegistrationModel();
+                    $upLeave->setLeave($totalLeave);
+                    $upLeave->setRegistrationEmployeeCode($employeeCode);
+                    $this->getRegistrationTable()->updateLeave($upLeave);
+                }  
               $attendence = new AttendenceModel();
               $attendence->setId($id);  
               $attendence->setLeaveDate($request->getPost('date'));
@@ -232,7 +282,8 @@ class AttendenceController extends AbstractActionController
             $id = $this->params()->fromRoute('id');
             $this->layout('layout/superAdminDashboardLayout');
             $viewModel= new ViewModel(array(
-            'employeeLeaveDatas' => $this->getAttendenceTable()->SpecificEmployeeData($id),
+                'employeeLeaveDatas' => $this->getAttendenceTable()->SpecificEmployeeData($id),
+                'leaveNo' => $this->getRegistrationTable()->viewProfile($id),
             ));
             $viewModel->setTerminal(true);
             return $viewModel;
