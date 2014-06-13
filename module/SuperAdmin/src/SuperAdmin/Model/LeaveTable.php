@@ -110,5 +110,11 @@ class LeaveTable extends AbstractTableGateway
         return $result; 
         }
     
-     
+    public function holyDays($m,$y)
+    {
+        $sql = "SELECT count(leave_date),type FROM leave_table where Year(leave_date)= '$y' and Month(leave_date)= '$m'";
+        $statement = $this->adapter->query($sql);           
+        $result = $statement->execute();
+        return $result; 
+    }
 }
