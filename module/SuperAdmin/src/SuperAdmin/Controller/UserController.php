@@ -18,7 +18,7 @@ class UserController extends AbstractActionController
     {
         if (! $this->authservice)
         {
-            $this->authservice = $this->getServiceLocator()->get('AdminAuth');
+            $this->authservice = $this->getServiceLocator()->get('SuperAdminAuth');
         }        
         return $this->authservice;
     }

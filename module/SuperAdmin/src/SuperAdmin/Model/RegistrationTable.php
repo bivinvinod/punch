@@ -277,8 +277,6 @@ class RegistrationTable extends AbstractTableGateway {
     }
 
     public function checkAvaiability($employeeCode) {
-
-        //echo"haii";exit;
         $sql = "SELECT count(employee_code) as employee_code FROM registration WHERE employee_code = '$employeeCode'";
         $statement = $this->adapter->query($sql);
         $result = $statement->execute();
@@ -299,24 +297,24 @@ class RegistrationTable extends AbstractTableGateway {
         exit;
     }
 
-      public function getViewSearch($employee_code) 
+    public function getViewSearch($employee_code) 
     { 
-                $sql="SELECT * FROM registration WHERE employee_code='$employee_code'";                              
-                $statement = $this->adapter->query($sql);  
-                $result    = $statement->execute(); 
-                //$row = $result->current();
-                return $result;
+        $sql="SELECT * FROM registration WHERE employee_code='$employee_code'";                              
+        $statement = $this->adapter->query($sql);  
+        $result    = $statement->execute(); 
+        return $result;
    
-              }
+    }
+    
     public function updateView(RegistrationModel $obj){
-     
         $sql = new Sql($this->adapter);         
         $update = $sql->update($this->table);  
         $update->set ($this->exchangeToArray($obj));
         $update->where(array('employee_code' => $obj->employee_code));
         $statement = $sql->prepareStatementForSqlObject($update);
         $statement->execute();        
-    } 
+    }
+    
     public function getDeleted($employee_code) 
     { 
         $sql="DELETE FROM registration WHERE employee_code='$employee_code'";                              
@@ -342,13 +340,11 @@ class RegistrationTable extends AbstractTableGateway {
         $result    = $statement->execute();
         $s = $result->current();
         return $s['employee_name'];
-	
     }
     
     
     public function updateEmployeeStatusOff($id)
     {  
-	
         $sql = "update registration set status='0' where id= '$id'"; 
         $statement = $this->adapter->query($sql);           
         $result = $statement->execute(); 
@@ -362,6 +358,7 @@ class RegistrationTable extends AbstractTableGateway {
         $result = $statement->execute(); 
         return $result;   
     }  
+    
     public function getMonthlySalary($id) 
     { 
         $sql=" SELECT monthly_salary FROM registration WHERE employee_code = '$id'";                              

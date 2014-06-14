@@ -21,7 +21,7 @@ class AttendenceController extends AbstractActionController
     {
         if (! $this->authservice)
         {
-            $this->authservice = $this->getServiceLocator()->get('AdminAuth');
+            $this->authservice = $this->getServiceLocator()->get('SuperAdminAuth');
         }        
         return $this->authservice;
     }
@@ -61,26 +61,17 @@ class AttendenceController extends AbstractActionController
     }
     
     public function ajaxListAction()
-        {
-            if($this->params()->fromRoute('id'))
-            {
-                $id = $this->params()->fromRoute('id');
-                $this->layout('layout/superAdminDashboardLayout');
-                $viewModel= new ViewModel(array(
-                'employeeLeaveDatas' => $this->getAttendenceTable()->SpecificEmployeeData($id),
-                ));
-                return $viewModel;
-            }
-            else
-            {
-            $viewModel= new ViewModel(array(
-                'employeeLeaveDatas' => $this->getAttendenceTable()->getNames(),
-            ));
+    {
+            
+        $this->layout('layout/superAdminDashboardLayout');    
+        $viewModel= new ViewModel(array(
+            'employeeLeaveDatas' => $this->getAttendenceTable()->getNames(),
+        ));
 
-            $viewModel->setTerminal(true);
-            return $viewModel;
-            }
-        }
+        $viewModel->setTerminal(true);
+        return $viewModel;
+            
+    }
 	
 	
     public function addAction()
@@ -168,35 +159,91 @@ class AttendenceController extends AbstractActionController
     
 	public function statusAction()
         {
-                //echo "Here... crap"; exit;
              
-                        if($_POST['offId'] != '')
-                        {
-                            if($this->getAttendenceTable()->updateEmployeeLeaveStatusOff($_POST['offId']))
-                            {     
-                                echo "Status Edited SuccessFully....";exit;
+            if($_POST['offId'] != '')
+            {
+                if($this->getAttendenceTable()->updateEmployeeLeaveStatusOff($_POST['offId']))
+                { 
+                    $employeeD = $this->getAttendenceTable()->getRowData($_POST['offId']);
+                    foreach ($employeeD as $value) {
+                        $type = $value['leave_type'];
+                        if($type == "Full Day" || $type == "Half Day" ){
+                            if($type == "Full Day"){
+                                $leaveH = $this->getRegistrationTable()->viewProfile($value['user_id']);
+                                foreach ($leaveH as $value2) {
+                                    $totalLeave = $value2['annual_leave'];
+                                    $totalLeave = $totalLeave + 1;
+                                    $upLeave = new RegistrationModel();
+                                    $upLeave->setLeave($totalLeave);
+                                    $upLeave->setRegistrationEmployeeCode($value['user_id']);
+                                    $this->getRegistrationTable()->updateLeave($upLeave);
+                                }
                             }
-                            else
-                            {
-                                echo "You can't Change Status....";exit;
+                            if($type == "Half Day"){
+                                $leaveH = $this->getRegistrationTable()->viewProfile($value['user_id']);
+                                foreach ($leaveH as $value2) {
+                                    $totalLeave = $value2['annual_leave'];
+                                $totalLeave = $totalLeave + 0.5;
+                                $upLeave = new RegistrationModel();
+                                $upLeave->setLeave($totalLeave);
+                                $upLeave->setRegistrationEmployeeCode($value['user_id']);
+                                $this->getRegistrationTable()->updateLeave($upLeave);
                             }
-			}
+                        }
+                    }
+
+                echo "Status Edited SuccessFully....";exit;
+                }
+                }
+                else
+                {
+                    echo "You can't Change Status....";exit;
+                }
+            }
 			
 	
             
             
-                            //Status On
-                            if($_POST['onId'] != '')
-                            {
-                                if($this->getAttendenceTable()->updateEmployeeLeaveStatusOn($_POST['onId']))
-                                {     
-                                    echo "Status Edited SuccessFully....";exit;
-                                }
-                                else
-                                {
-                                    echo "You can't Change Status....";exit;
+            //Status On
+            if($_POST['onId'] != '')
+            {
+                if($this->getAttendenceTable()->updateEmployeeLeaveStatusOn($_POST['onId']))
+                {
+                    $employeeD = $this->getAttendenceTable()->getRowData($_POST['onId']);
+                    foreach ($employeeD as $value) {
+                        $type = $value['leave_type'];
+                        if($type == "Full Day" || $type == "Half Day" ){
+                            if($type == "Full Day"){
+                                $leaveH = $this->getRegistrationTable()->viewProfile($value['user_id']);
+                                foreach ($leaveH as $value2) {
+                                    $totalLeave = $value2['annual_leave'];
+                                    $totalLeave = $totalLeave - 1;
+                                    $upLeave = new RegistrationModel();
+                                    $upLeave->setLeave($totalLeave);
+                                    $upLeave->setRegistrationEmployeeCode($value['user_id']);
+                                    $this->getRegistrationTable()->updateLeave($upLeave);
                                 }
                             }
+                            if($type == "Half Day"){
+                                $leaveH = $this->getRegistrationTable()->viewProfile($value['user_id']);
+                                foreach ($leaveH as $value2) {
+                                    $totalLeave = $value2['annual_leave'];
+                                $totalLeave = $totalLeave - 0.5;
+                                $upLeave = new RegistrationModel();
+                                $upLeave->setLeave($totalLeave);
+                                $upLeave->setRegistrationEmployeeCode($value['user_id']);
+                                $this->getRegistrationTable()->updateLeave($upLeave);
+                                }
+                            }
+                        }      
+                    echo "Status Edited SuccessFully....";exit;
+                    }
+                }
+                else
+                {
+                    echo "You can't Change Status....";exit;
+                }
+            }
             
             
         }

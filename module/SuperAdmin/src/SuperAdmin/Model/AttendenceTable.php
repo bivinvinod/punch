@@ -130,6 +130,7 @@ class AttendenceTable extends AbstractTableGateway
         $result = $statement->execute();
         return $result; 
     }
+    
     public function fetchUserLeave($id,$m,$y)
     {
         $sql = "SELECT count(*),leave_type FROM tbl_attendence where user_id='$id' and Year(leave_dates)= '$y' and Month(leave_dates)= '$m' group by leave_type";
@@ -138,5 +139,11 @@ class AttendenceTable extends AbstractTableGateway
         return $result; 
     }
        
-    
+    public function getRowData($id)
+    {
+        $sql = "SELECT user_id, leave_type FROM tbl_attendence WHERE id = '$id'";
+        $statement = $this->adapter->query($sql);           
+        $result = $statement->execute();
+        return $result; 
+    }
 }
