@@ -1,5 +1,4 @@
 <?php
-
 return array(
     'defaultValues' => array(
         'upload_path'=>'/var/www/punch/public',
@@ -231,8 +230,8 @@ return array(
                         )
                     ),
 /* ------------------------------------------------------------------------------------------------------------------------------------------ */
-                    /* ----------------------------------- Registration Controller ------------------------------------------------------------------------- */
-                    /* ------------------------------------------------------------------------------------------------------------------------------------------ */
+/* ----------------------------------- Registration Controller ------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------------------------------------------------------------------------ */
                     'registration' => array(
                         'type' => 'literal',
                         'options' => array(
@@ -396,9 +395,9 @@ return array(
                         /* Menu Order Action End */
                         )
                     ),
-                    /* ------------------------------------------------------------------------------------------------ */
-                    /* ----------------------------------Registration Controller End ----------------------------------------- */
-                    /* ---------------------------------------------------------------------------
+/* ------------------------------------------------------------------------------------------------ */
+/* ----------------------------------Registration Controller End ----------------------------------------- */
+/* ---------------------------------------------------------------------------
 /* ------------------------------------------------------------------------------------------------------------- */                   
  /* ------------------------------------------------- Record Details Controller -------------------------- */
  /* ------------------------------------------------------------------------------------------------------------- */        
@@ -1499,7 +1498,143 @@ return array(
                              ),
                     ),    
 
-    /*---------------------------------------Annual leave  End ----------------------------------------*/                                          
+/*---------------------------------------Annual leave  End ----------------------------------------*/  
+/* ------------------------------------------------------------------------------------------------------------- */                   
+ /* ------------------------------------------------Notes Controller -------------------------- */
+ /* ------------------------------------------------------------------------------------------------------------- */ 
+                    'notes' => array(
+                'type' => 'literal',
+                'options' => array(
+                    'route' => '/notes',
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'SuperAdmin\Controller',
+                        'controller' => 'Notes',
+                        'action' => 'index'
+                    ),
+                ),
+                'may_terminate' => true,
+                'child_routes' => array(  
+                    'index' => array(
+                        'type' => 'segment',
+                        'options'=> array(
+                            'route' => '/index[/:id]',
+                            'constraints' => array(
+                                    'id' => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'action' => 'index'
+                            )
+                        )
+                    ),
+
+                    'ajaxList' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/ajaxList[/:id]',
+                                    'constraints' => array(
+                                        'id' => '[0-9]+',
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'ajaxList'
+                                    )
+                                )
+                            ),
+                            
+                            'delete' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/delete[/:id/:idt]',
+                                    'constraints' => array(
+                                        'id' => '[0-9]+',
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'delete'
+                                    )
+                                )
+                            ),
+                            
+                    
+                            'add' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/add[/:id]',
+                                    'constraints' => array(
+                                       'id' => '[0-9]+',
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'add'
+                                    )
+                                )
+                            ),
+                            
+                            
+
+                            'edit' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/edit[/:id/:idt]',
+                                    'constraints' => array(
+                                        'id' => '[0-9]+'
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'edit'
+                                    )
+                                )
+                            ),
+                    
+                    
+                            'cancel' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/cancel[/:id]',
+                                    'constraints' => array(
+                                        'id' => '[0-9]+'
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'cancel'
+                                    )
+                                )
+                            ),
+                    
+                    
+                            'back' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/back[/:id]',
+                                    'constraints' => array(
+                                        'id' => '[0-9]+'
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'back'
+                                    )
+                                )
+                            ),
+                    
+                    
+                            'ajaxTable' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/ajaxTable[/:id]',
+                                    'constraints' => array(
+                                        'id' => '[0-9]+'
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'ajaxTable'
+                                    )
+                                )
+                            ),
+                    
+                    
+                                
+                            
+                            
+                             ),
+                    ),    
+
+/*---------------------------------------Notes End ----------------------------------------*/                                                     
+ /* ------------------------------------------------------------------------------------------------------------- */    
+		    
+		                        
                     
                 ),
             ),
@@ -1551,6 +1686,8 @@ return array(
             'SuperAdmin\Controller\Rating' => 'SuperAdmin\Controller\RatingController',
             'SuperAdmin\Controller\Skill' => 'SuperAdmin\Controller\SkillController',
             'SuperAdmin\Controller\AnnualLeave' => 'SuperAdmin\Controller\AnnualLeaveController',
+	    'SuperAdmin\Controller\Notes' => 'SuperAdmin\Controller\NotesController',
+            
         ),
     ),
     

@@ -129,8 +129,6 @@ class SkillController extends AbstractActionController
                 $data->setId($id);
                 $data->setSkill($request->getPost('skill'));
                 $this->getSkillTable()->editData($data);
-                 
-            
             return $this->redirect()->toRoute('superAdmin/skill');
             }
             $viewModel= new ViewModel(array(

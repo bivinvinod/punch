@@ -166,8 +166,8 @@ class RatingController extends AbstractActionController
             $viewModel= new ViewModel(array(
             'ratingDatas' => $this->getRatingTable()->fetchSpecificSkillData($idt),
               'employee' => $id,  
-        ));
-        return $viewModel;
+            ));
+            return $viewModel;
         }
         else {
             $this->flashMessenger()->addMessage("Please Login");

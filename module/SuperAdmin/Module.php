@@ -49,6 +49,14 @@ use SuperAdmin\Model\RatingTable;
 use SuperAdmin\Model\SkillModel;
 use SuperAdmin\Model\SkillTable;
 
+use SuperAdmin\Model\SpecialDutyModel;
+use SuperAdmin\Model\SpecialDutyTable;
+
+use SuperAdmin\Model\PenaltyModel;
+use SuperAdmin\Model\PenaltyTable;
+
+use SuperAdmin\Model\NotesModel;
+use SuperAdmin\Model\NotesTable;
 
 class Module
 {
@@ -151,7 +159,27 @@ class Module
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
                     $table = new RatingTable($dbAdapter);
                     return $table;
-                },                 
+                }, 
+                        
+                'SuperAdmin\Model\SpecialDutyTable' => function($sm)
+                {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $table = new SpecialDutyTable($dbAdapter);
+                    return $table;
+                }, 
+                'SuperAdmin\Model\PenaltyTable' => function($sm)
+                {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $table = new PenaltyTable($dbAdapter);
+                    return $table;
+                },          
+                'SuperAdmin\Model\NotesTable' => function($sm)
+                {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $table = new NotesTable($dbAdapter);
+                    return $table;
+                },            
+                        
             ),
         );
     }
