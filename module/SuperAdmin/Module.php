@@ -58,6 +58,10 @@ use SuperAdmin\Model\PenaltyTable;
 use SuperAdmin\Model\NotesModel;
 use SuperAdmin\Model\NotesTable;
 
+use SuperAdmin\Model\SalaryAdvnaceModel;
+use SuperAdmin\Model\SalaryAdvanceTable;
+
+
 class Module
 {
     public function onBootstrap(MvcEvent $e)
@@ -177,6 +181,12 @@ class Module
                 {
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
                     $table = new NotesTable($dbAdapter);
+                    return $table;
+                }, 
+                'SuperAdmin\Model\SalaryAdvanceTable' => function($sm)
+                {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $table = new SalaryAdvanceTable($dbAdapter);
                     return $table;
                 },            
                         

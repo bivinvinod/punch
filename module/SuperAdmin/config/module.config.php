@@ -1193,7 +1193,7 @@ return array(
 /* ------------------------------------------------------------------------------------------------------------- */                   
  /* ------------------------------------------------Rating Controller -------------------------- */
  /* ------------------------------------------------------------------------------------------------------------- */ 
-                    'rating' => array(
+                'rating' => array(
                 'type' => 'literal',
                 'options' => array(
                     'route' => '/rating',
@@ -1216,7 +1216,7 @@ return array(
                                 'action' => 'index'
                             )
                         )
-                    ),
+                    ), 
 
                     'ajaxList' => array(
                                 'type' => 'segment',
@@ -1632,9 +1632,99 @@ return array(
                     ),    
 
 /*---------------------------------------Notes End ----------------------------------------*/                                                     
- /* ------------------------------------------------------------------------------------------------------------- */    
-		    
-		                        
+ /* ------------------------------------------------------------------------------------------------------------- */ 
+/* ------------------------------------------------------------------------------------------------------------- */                   
+ /* ------------------------------------------------Salary Advance Controller -------------------------- */
+ /* ------------------------------------------------------------------------------------------------------------- */ 
+                'salaryAdvance' => array(
+                'type' => 'literal',
+                'options' => array(
+                    'route' => '/salaryAdvance',
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'SuperAdmin\Controller',
+                        'controller' => 'SalaryAdvance',
+                        'action' => 'index'
+                    ),
+                ),
+                'may_terminate' => true,
+                'child_routes' => array(
+                    'default' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route'    => '/[:controller[/:action]]',
+                            'constraints' => array(
+                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+                            ),
+                            'defaults' => array(
+                            ),
+                        ),
+                    ),
+                    'ajaxList' => array(
+                            'type' => 'segment',
+                            'options'=> array(
+                                'route' => '/ajaxList',
+                                'constraints' => array(
+                                    'id' => '[0-9]+',
+                                ),
+                                'defaults' => array(
+                                    'action' => 'ajaxList'
+                                )
+                            )
+                        ),
+
+                        'delete' => array(
+                            'type' => 'segment',
+                            'options'=> array(
+                                'route' => '/delete[/:id]',
+                                'constraints' => array(
+                                    'id' => '[0-9]+',
+                                ),
+                                'defaults' => array(
+                                    'action' => 'delete'
+                                )
+                            )
+                        ),
+
+
+                        'add' => array(
+                            'type' => 'segment',
+                            'options'=> array(
+                                'route' => '/add[/:id]',
+                                'constraints' => array(
+                                   'id' => '[0-9]+',
+                                ),
+                                'defaults' => array(
+                                    'action' => 'add'
+                                )
+                            )
+                        ),
+
+
+
+                        'edit' => array(
+                            'type' => 'segment',
+                            'options'=> array(
+                                'route' => '/edit[/:id]',
+                                'constraints' => array(
+                                    'id' => '[0-9]+'
+                                ),
+                                'defaults' => array(
+                                    'action' => 'edit'
+                                )
+                            )
+                        ),
+
+
+                    
+                    
+                    
+                    
+                    
+                             ),
+                    ),    
+
+/*---------------------------------------Salary Advance End ----------------------------------------*/                        
                     
                 ),
             ),
@@ -1687,6 +1777,7 @@ return array(
             'SuperAdmin\Controller\Skill' => 'SuperAdmin\Controller\SkillController',
             'SuperAdmin\Controller\AnnualLeave' => 'SuperAdmin\Controller\AnnualLeaveController',
 	    'SuperAdmin\Controller\Notes' => 'SuperAdmin\Controller\NotesController',
+            'SuperAdmin\Controller\SalaryAdvance' => 'SuperAdmin\Controller\SalaryAdvanceController',
             
         ),
     ),
