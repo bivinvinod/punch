@@ -1624,7 +1624,19 @@ return array(
                                 )
                             ),
                     
-                    
+                            'preview' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/preview[/:id]',
+                                    'constraints' => array(
+                                        'id' => '[0-9]+',
+                                        'idT' => '[0-9]+'
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'preview'
+                                    )
+                                )
+                            ),
                                 
                             
                             

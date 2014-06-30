@@ -158,7 +158,7 @@ class NotesController extends AbstractActionController
 		$note->setDates($d1);           
                 $note->setUserId($employeeCode);
 		$note->setTitle($title);
-                $note->setNote($notes);
+                $note->setNote(stripslashes($notes));
 		
                 
 
@@ -229,6 +229,7 @@ class NotesController extends AbstractActionController
             return $this->redirect()->toRoute("superAdmin");
         }
     }
+    
     public function ajaxListAction()
     {    
         $id= $this->params()->fromRoute('id');
@@ -241,6 +242,31 @@ class NotesController extends AbstractActionController
         $viewModel->setTerminal(true);
         return $viewModel;
     }
+    
+    
+    
+    public function previewAction()
+    {   
+        if($this->getAuthService()->hasIdentity())
+        {
+            $id= $this->params()->fromRoute('id');
+            $data= $this->getNotesTable()->fetchEditData($id);
+            
+            $viewModel= new ViewModel(array(
+            'notesDatas' =>$data,
+            ));
+            $viewModel->setTerminal(true);
+            return $viewModel;
+            
+        }
+	
+        else {
+            $this->flashMessenger()->addMessage("Please Login");
+            return $this->redirect()->toRoute("superAdmin");
+        }
+    }
+    
+    
     
 }
 
