@@ -6,11 +6,13 @@ use Zend\Db\TableGateway\AbstractTableGateway;
 use Zend\Db\Sql\Sql;
 use Zend\Db\Sql\Select;
 use Zend\Db\Sql\Where;
+use Zend\Paginator\Adapter\DbSelect;
+use Zend\Paginator\Paginator;
 
 
 class SalaryAdvanceTable extends AbstractTableGateway
 {
-    protected $table = 'salary_advance_table';
+    protected $table = 'salary_advance_table'; 
    	
   	public function __construct(Adapter $adapter)
   	{
@@ -82,5 +84,13 @@ class SalaryAdvanceTable extends AbstractTableGateway
         return $result; 
    }
     
+   public function fullData()
+    {
+        //$sql = "SELECT salary_advance_table.*, registration.employee_name FROM salary_advance_table INNER JOIN registration ON salary_advance_table.employee_code = registration.employee_code ORDER BY salary_advance_table.month ";
+        $sql = "SELECT * from user_work_history ";
+        $statement = $this->adapter->query($sql);           
+        $result = $statement->execute();
+        return $result;
+    }
         
 }

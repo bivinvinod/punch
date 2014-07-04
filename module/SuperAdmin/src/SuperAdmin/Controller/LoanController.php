@@ -9,7 +9,7 @@ use SuperAdmin\Model\AttendenceModel;
 use SuperAdmin\Model\AttendenceTable;
 
 
-class AnnualLeaveController extends AbstractActionController
+class LoanController extends AbstractActionController
 {
     protected $authservice;
     protected $attendenceTable;
@@ -41,6 +41,7 @@ class AnnualLeaveController extends AbstractActionController
         if($this->getAuthService()->hasIdentity())
         {
             $this->layout('layout/superAdminDashboardLayout');
+            
             
         }
         else

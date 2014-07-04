@@ -1412,15 +1412,15 @@ return array(
 
     /*---------------------------------------Rating End ----------------------------------------*/ 
 /* ------------------------------------------------------------------------------------------------------------- */                   
- /* ------------------------------------------------Annual leave Controller -------------------------- */
+ /* ------------------------------------------------Loan Controller -------------------------- */
  /* ------------------------------------------------------------------------------------------------------------- */ 
-                'annualLeave' => array(
+                'loan' => array(
                         'type' => 'literal',
                         'options' => array(
-                            'route' => '/annual',
+                            'route' => '/loan',
                             'defaults' => array(
                                 '__NAMESPACE__' => 'superAdmin\Controller',
-                                'controller' => 'AnnualLeave',
+                                'controller' => 'Loan',
                                 'action' => 'index'
                             ),
                         ),
@@ -1498,7 +1498,7 @@ return array(
                              ),
                     ),    
 
-/*---------------------------------------Annual leave  End ----------------------------------------*/  
+/*---------------------------------------Loan End ----------------------------------------*/  
 /* ------------------------------------------------------------------------------------------------------------- */                   
  /* ------------------------------------------------Notes Controller -------------------------- */
  /* ------------------------------------------------------------------------------------------------------------- */ 
@@ -1727,7 +1727,18 @@ return array(
                             )
                         ),
 
-
+                        'listAll' => array(
+                            'type' => 'segment',
+                            'options'=> array(
+                                'route' => '/listAll[/:page]',
+                                'constraints' => array(
+                                    'page' => '[0-9]+',
+                                ),
+                                'defaults' => array(
+                                    'action' => 'listAll'
+                                )
+                            )
+                        ),
                     
                     
                     
@@ -1787,7 +1798,7 @@ return array(
             'SuperAdmin\Controller\MealPolicy' => 'SuperAdmin\Controller\MealPolicyController',
             'SuperAdmin\Controller\Rating' => 'SuperAdmin\Controller\RatingController',
             'SuperAdmin\Controller\Skill' => 'SuperAdmin\Controller\SkillController',
-            'SuperAdmin\Controller\AnnualLeave' => 'SuperAdmin\Controller\AnnualLeaveController',
+            'SuperAdmin\Controller\Loan' => 'SuperAdmin\Controller\LoanController',
 	    'SuperAdmin\Controller\Notes' => 'SuperAdmin\Controller\NotesController',
             'SuperAdmin\Controller\SalaryAdvance' => 'SuperAdmin\Controller\SalaryAdvanceController',
             

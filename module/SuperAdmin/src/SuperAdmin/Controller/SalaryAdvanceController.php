@@ -5,6 +5,8 @@ namespace SuperAdmin\Controller;
 use Zend\Mvc\Controller\AbstractActionController;   
 use Zend\View\Model\ViewModel;
 use Zend\Session\Container;
+use Zend\Paginator\Adapter\DbSelect;
+use Zend\Paginator\Paginator;
 
 
 use SuperAdmin\Model\RegistrationModel;
@@ -15,13 +17,13 @@ use SuperAdmin\Model\SalaryAdvanceModel;
 use SuperAdmin\Model\SalaryAdvanceTable;
 
 
-
 class SalaryAdvanceController extends AbstractActionController
 {
  
     protected $authservice;
     protected $salaryAdvanceTable;
     protected $registrationTable;
+    
     
     
     public function getAuthService()
@@ -184,6 +186,26 @@ class SalaryAdvanceController extends AbstractActionController
     }
     
     
-    
+    public function listAllAction()
+    {
+        if($this->getAuthService()->hasIdentity())
+        {
+            $page = (int) $this->params()->fromRoute('page',1);
+            $this->layout('layout/superAdminDashboardLayout');
+            $iteratorAdapter = new \Zend\Paginator\Adapter\ArrayAdapter(iterator_to_array($this->getSalaryAdvanceTable()->fullData())); 
+            $fullData = new \Zend\Paginator\Paginator($iteratorAdapter); 
+            $fullData->setCurrentPageNumber($page)->setItemCountPerPage(20);
+            $viewModel= new ViewModel(array(
+            'data' => $fullData,
+            ));
+            return $viewModel;
+
+        }
+        else {
+
+            $this->flashMessenger()->addMessage("Please Login");
+            return $this->redirect()->toRoute("superAdmin");
+        }
+    }
     
 }
