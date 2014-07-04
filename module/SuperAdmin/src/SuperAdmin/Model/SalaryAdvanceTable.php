@@ -86,8 +86,7 @@ class SalaryAdvanceTable extends AbstractTableGateway
     
    public function fullData()
     {
-        //$sql = "SELECT salary_advance_table.*, registration.employee_name FROM salary_advance_table INNER JOIN registration ON salary_advance_table.employee_code = registration.employee_code ORDER BY salary_advance_table.month ";
-        $sql = "SELECT * from user_work_history ";
+        $sql = "SELECT salary_advance_table.*, registration.employee_name FROM salary_advance_table INNER JOIN registration ON salary_advance_table.employee_code = registration.employee_code ORDER BY salary_advance_table.month ";
         $statement = $this->adapter->query($sql);           
         $result = $statement->execute();
         return $result;
