@@ -1747,9 +1747,45 @@ return array(
                              ),
                     ),    
 
-/*---------------------------------------Salary Advance End ----------------------------------------*/                        
-                    
+/*---------------------------------------Salary Advance End ----------------------------------------*/ 
+/* ------------------------------------------------------------------------------------------------------------- */                   
+ /* ------------------------------------------------Edit Records Controller -------------------------- */
+ /* ------------------------------------------------------------------------------------------------------------- */  
+  'edirRecords' => array(
+                'type' => 'literal',
+                'options' => array(
+                    'route' => '/editRecords',
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'SuperAdmin\Controller',
+                        'controller' => 'EditRecords',
+                        'action' => 'index'
+                    ),
                 ),
+                'may_terminate' => true,
+                'child_routes' => array(
+                    'default' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route'    => '/[:controller[/:action]]',
+                            'constraints' => array(
+                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+                            ),
+                            'defaults' => array(
+                            ),
+                        ),
+                    ),                  
+                    
+                    
+                    
+                    
+         
+                             ),
+                    ),    
+             
+/* ------------------------------------------------------------------------------------------------------------- */                   
+ /* ------------------------------------------------End Edit Records Controller -------------------------- */
+               ),
             ),
 
 
@@ -1801,6 +1837,7 @@ return array(
             'SuperAdmin\Controller\Loan' => 'SuperAdmin\Controller\LoanController',
 	    'SuperAdmin\Controller\Notes' => 'SuperAdmin\Controller\NotesController',
             'SuperAdmin\Controller\SalaryAdvance' => 'SuperAdmin\Controller\SalaryAdvanceController',
+            'SuperAdmin\Controller\EditRecords' => 'SuperAdmin\Controller\EditRecordsController',
             
         ),
     ),
