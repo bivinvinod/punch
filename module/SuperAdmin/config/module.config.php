@@ -1777,6 +1777,19 @@ return array(
                     ),                  
                     
                     
+                    'edit' => array(
+                            'type' => 'segment',
+                            'options'=> array(
+                                'route' => '/edit',
+                                'constraints' => array(
+                                    
+                                ),
+                                'defaults' => array(
+                                    'action' => 'edit'
+                                )
+                            )
+                        ),
+                    
                     
                     
          
@@ -1866,3 +1879,4 @@ return array(
         ),
     ),
 );
+

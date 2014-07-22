@@ -7,6 +7,9 @@
                 closeImage   : '/images/closelabel.png'
             })
           })
+          $(document).bind('afterClose.facebox', function() {
+    location.reload();
+});
   </script>
 <div class="span99" id="content">
     <div class="row-fluid">
