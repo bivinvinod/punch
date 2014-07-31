@@ -14,6 +14,7 @@ class MonthlyInOutModel implements InputFilterAwareInterface
 	public $monthlyTableId;
         public $userId;
         public $punchDate;
+        public $id;
 	
 	protected $inputFilter;        
 
@@ -21,6 +22,11 @@ class MonthlyInOutModel implements InputFilterAwareInterface
 	public function setInTime($inTime)
 	{
 		$this->inTime = $inTime;				
+	}
+        
+        public function setId($id)
+	{
+		$this->id = $id;				
 	}
 
 

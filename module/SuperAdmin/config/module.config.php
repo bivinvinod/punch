@@ -1053,14 +1053,38 @@ return array(
                                 )
                             ),
                             
+                            'updateRecord' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/updateRecord',
+                                    'constraints' => array(
+                                        //'action1' => '[a-zA-Z0-9_-]+'
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'updateRecord'
+                                    )
+                                )
+                            ),
                             
+                            'recalc' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/recalc',
+                                    'constraints' => array(
+                                        //'action1' => '[a-zA-Z0-9_-]+'
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'recalc'
+                                    )
+                                )
+                            ),
                             
                             
                                 
                         ),
                     ),    
 
-/*--------------------------------------- EDIT Reports ----------------------------------------*/
+/*--------------------------------------- EDIT Controller End ----------------------------------------*/
                     
 /* ------------------------------------------------------------------------------------------------------------- */                   
  /* ------------------------------------------------Bonus Controller -------------------------- */
@@ -1749,55 +1773,7 @@ return array(
 
 /*---------------------------------------Salary Advance End ----------------------------------------*/ 
 /* ------------------------------------------------------------------------------------------------------------- */                   
- /* ------------------------------------------------Edit Records Controller -------------------------- */
- /* ------------------------------------------------------------------------------------------------------------- */  
-  'edirRecords' => array(
-                'type' => 'literal',
-                'options' => array(
-                    'route' => '/editRecords',
-                    'defaults' => array(
-                        '__NAMESPACE__' => 'SuperAdmin\Controller',
-                        'controller' => 'EditRecords',
-                        'action' => 'index'
-                    ),
-                ),
-                'may_terminate' => true,
-                'child_routes' => array(
-                    'default' => array(
-                        'type'    => 'Segment',
-                        'options' => array(
-                            'route'    => '/[:controller[/:action]]',
-                            'constraints' => array(
-                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-                            ),
-                            'defaults' => array(
-                            ),
-                        ),
-                    ),                  
-                    
-                    
-                    'edit' => array(
-                            'type' => 'segment',
-                            'options'=> array(
-                                'route' => '/edit',
-                                'constraints' => array(
-                                    
-                                ),
-                                'defaults' => array(
-                                    'action' => 'edit'
-                                )
-                            )
-                        ),
-                    
-                    
-                    
-         
-                             ),
-                    ),    
-             
-/* ------------------------------------------------------------------------------------------------------------- */                   
- /* ------------------------------------------------End Edit Records Controller -------------------------- */
+
                ),
             ),
 

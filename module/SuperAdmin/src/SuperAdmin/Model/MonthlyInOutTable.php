@@ -42,7 +42,8 @@ class MonthlyInOutTable extends AbstractTableGateway
         if(isset($obj->punchDate))
             $return['punch_date'] = $obj->punchDate;
 
-
+        if(isset($obj->id))
+            $return['id'] = $obj->id;
 
         return $return;
     }
@@ -73,7 +74,7 @@ class MonthlyInOutTable extends AbstractTableGateway
      }
      
      
-       public function searchMonthlyInOutTable($from, $to, $name)
+     public function searchMonthlyInOutTable($from, $to, $name)
      {
           $sql = "SELECT * FROM monthly_in_out_table  WHERE  date > '$from'  AND date < '$to' and employee_name= '$name'"; 
         //  print_r($sql); 
@@ -83,5 +84,25 @@ class MonthlyInOutTable extends AbstractTableGateway
         
      }
      
+     public function editRecords($employeeCode, $dates) {
+        $sql = "SELECT monthly_in_out_tables.* , monthly_table.employee_name
+                FROM monthly_in_out_tables  
+                INNER JOIN monthly_table 
+                ON monthly_in_out_tables.monthly_table_id = monthly_table.id 
+                WHERE  monthly_table.dates = '$dates' AND monthly_table.employee_code = '$employeeCode' ";
+        $statement = $this->adapter->query($sql);           
+        $result = $statement->execute(); 
+        return $result; 
+     }
+     
+    public function updateInOutTime(MonthlyInOutModel $obj)
+    {        
+        $sql = new Sql($this->adapter);   
+        $update = $sql->update($this->table);
+        $update->set($this->exchangeToArray($obj));
+        $update->where(array('id' => $obj->id));
+        $statement = $sql->prepareStatementForSqlObject($update);
+        $statement->execute();
+    }
      
 }

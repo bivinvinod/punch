@@ -1,11 +1,4 @@
 <?php
-
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 namespace SuperAdmin\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;   
@@ -13,6 +6,9 @@ use Zend\View\Model\ViewModel;
 use Zend\Session\Container;
 
 
+
+use SuperAdmin\Model\MonthlyInOutModel;
+use SuperAdmin\Model\MonthlyInOutTable;
 
 use SuperAdmin\Model\UserWorkHistoryModel;
 use SuperAdmin\Model\UserWorkHistoryTable;
@@ -22,6 +18,8 @@ class editController extends AbstractActionController
 {
     protected $userWorkHistoryTable;
     protected $registration;
+    protected $monthlyInOutTable;
+    protected $authservice;
     
     
     public function getAuthService()
@@ -45,6 +43,16 @@ class editController extends AbstractActionController
         return $this->userWorkHistoryTable;
     }
     
+    public function getMonthlyInOutTable()
+    {
+        if(!$this->monthlyInOutTable)
+        {	
+            $sm = $this->getServiceLocator();
+            $this->monthlyInOutTable = $sm->get('SuperAdmin\Model\MonthlyInOutTable'); 
+        }
+        return $this->monthlyInOutTable;
+    }
+    
     public function getRegistrationTable()
     {
         if (!$this->registration)
@@ -55,17 +63,17 @@ class editController extends AbstractActionController
         return $this->registration;
     }
     
+
     public function indexAction()
     {
         if($this->getAuthService()->hasIdentity())
         {
             $this->layout('layout/superAdminDashboardLayout');
             $viewModel= new ViewModel(array(
-                'userNames' => $this->getRegistrationTable()->fetchAllUsers()
+                'userNames' => $this->getRegistrationTable()->fetchAllUsers(),
+                'flashMessages' => $this->flashMessenger()->getMessages()
             ));
             return $viewModel;
-            
-            
             
         }
         else
@@ -87,11 +95,12 @@ class editController extends AbstractActionController
              if ($request->isPost()) {
                 $name = $request->getPost('name');
                 $d1 = $request->getPost('date1');
-                 $viewModel= new ViewModel(array(
-                'record' => $this->getUserWorkHistoryTable()->getData($name, $d1)
-            ));
+                
+                $res = $this->getMonthlyInOutTable()->editRecords($name, $d1);
+                $viewModel= new ViewModel(array(
+                'records' => $this->getMonthlyInOutTable()->editRecords($name, $d1)
+                ));
             return $viewModel;
-            
             }
            
             
@@ -105,8 +114,63 @@ class editController extends AbstractActionController
     }
     
     
+    public function updateRecordAction()
+    {
+        if($this->getAuthService()->hasIdentity())
+        {
+            $this->layout('layout/superAdminDashboardLayout');
+            $request = $this->getRequest();
+            $postData = $this->getRequest()->getPost()->toArray();
+            if ($request->isPost()) {
+              $data = new MonthlyInOutModel;
+              $totalInRecords = $request->getPost('totalInRecords');
+              for($i=0; $i<$totalInRecords; $i++)
+              { 
+                $inTime = $postData['inTime'][$i];
+                if($inTime!= ''){
+                    $outTime = NULL;
+                    $data->setInTime($inTime);
+                    $data->setOutTime($outTime);
+                    $data->setId($postData['inTableId'][$i]);
+                    $this->getMonthlyInOutTable()->updateInOutTime($data);
+                }
+              }
+                $totalOutRecords = $request->getPost('totalOutRecords');
+                for($i=0; $i<$totalOutRecords; $i++)
+                {
+                    $outTime =  $postData['outTime'][$i];
+                    $inTime =  NULL;
+                    $data->setInTime($inTime);
+                    $data->setOutTime($outTime);
+                    $data->setId($postData['outTableId'][$i]);
+                    $this->getMonthlyInOutTable()->updateInOutTime($data);
+                }
+                
+              return $this->redirect()->toRoute("superAdmin/edit/recalc");
+            }
+            
+        }
+        else
+        {
+            $this->flashMessenger()->addMessage("Please Login");
+            return $this->redirect()->toRoute("superAdmin");
+        }
+    }
     
-    
-    
+    public function recalcAction()
+    {
+       if($this->getAuthService()->hasIdentity())
+        {
+            $this->layout('layout/superAdminDashboardLayout');
+            
+            
+        }
+        else
+        {
+            $this->flashMessenger()->addMessage("Please Login");
+            return $this->redirect()->toRoute("superAdmin");
+        }
+        
+    }
     
 }
