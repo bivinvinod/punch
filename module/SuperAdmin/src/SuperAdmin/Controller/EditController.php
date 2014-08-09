@@ -124,6 +124,7 @@ class editController extends AbstractActionController
             if ($request->isPost()) {
               $data = new MonthlyInOutModel;
               $totalInRecords = $request->getPost('totalInRecords');
+              $id = $request->getPost('monthly_table_id');
               for($i=0; $i<$totalInRecords; $i++)
               { 
                 $inTime = $postData['inTime'][$i];
@@ -146,7 +147,7 @@ class editController extends AbstractActionController
                     $this->getMonthlyInOutTable()->updateInOutTime($data);
                 }
                 
-              return $this->redirect()->toRoute("superAdmin/edit/recalc");
+              return $this->redirect()->toRoute('superAdmin/edit/recalc', array('id'=>$id));
             }
             
         }
@@ -162,6 +163,12 @@ class editController extends AbstractActionController
        if($this->getAuthService()->hasIdentity())
         {
             $this->layout('layout/superAdminDashboardLayout');
+            $id= $this->params()->fromRoute('id');
+            $records = $this->getMonthlyInOutTable()->selectMonthlyInOutTable($id);
+            foreach ($records as $value) {
+                //print_r($value);
+            }
+            
             
             
         }
@@ -171,6 +178,26 @@ class editController extends AbstractActionController
             return $this->redirect()->toRoute("superAdmin");
         }
         
+    }
+    
+    
+    public function ajaxTableAction()
+    {   
+        if($this->getAuthService()->hasIdentity())
+        {
+            $inTotal = $_POST['inTotal'];
+            $outTotal = $_POST['outTotal'];
+            $viewModel= new ViewModel(array(
+                'inTotal' =>  $inTotal,
+                'outTotal' => $outTotal
+            ));
+            $viewModel->setTerminal(true);
+            return $viewModel;
+        }
+        else {
+            $this->flashMessenger()->addMessage("Please Login");
+            return $this->redirect()->toRoute("superAdmin");
+        }
     }
     
 }

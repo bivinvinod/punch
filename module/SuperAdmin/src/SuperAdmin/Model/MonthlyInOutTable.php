@@ -57,16 +57,14 @@ class MonthlyInOutTable extends AbstractTableGateway
         $insert = $sql->insert($this->table);                       
         $insert->values ($this->exchangeToArray($obj));
         $statement = $sql->prepareStatementForSqlObject($insert);          
-        $result = $statement->execute();                    
-        //$lastId=$this->adapter->getDriver()->getConnection()->getLastGeneratedValue();
+        $result = $statement->execute();
         return $result;             
        
      }
      
      
      public function selectMonthlyInOutTable($id) {
-        $sql = "SELECT * FROM monthly_in_out_table  where monthly_table_id = $id   "; 
-        //echo $sql;exit;
+        $sql = "SELECT * FROM monthly_in_out_tables  where monthly_table_id = '$id'"; 
         $statement = $this->adapter->query($sql);           
         $result = $statement->execute(); 
         return $result; 
@@ -76,8 +74,7 @@ class MonthlyInOutTable extends AbstractTableGateway
      
      public function searchMonthlyInOutTable($from, $to, $name)
      {
-          $sql = "SELECT * FROM monthly_in_out_table  WHERE  date > '$from'  AND date < '$to' and employee_name= '$name'"; 
-        //  print_r($sql); 
+          $sql = "SELECT * FROM monthly_in_out_tables  WHERE  date > '$from'  AND date < '$to' and employee_name= '$name'"; 
           $statement = $this->adapter->query($sql);           
           $result = $statement->execute(); 
           return $result;   

@@ -1,30 +1,3 @@
- <script type="text/javascript">
-    var i=2;
-    function increase()
-    {
-	var cnt= i++;
-        $('#cnt').val(cnt);
-        $.ajax({
-            type:"POST",
-            url:"/superAdmin/rating/ajaxTable",
-            cache:false,
-            data: { cnt:cnt },
-            dataType:"html",
-            success:function(data)
-            {
-                $("#result").append(data);   
-            }
-        });
-    }  
-    
-    $('.cls').live('click',function()
-    {
-        var id= $(this).attr('id');
-        var delId= id.split('_');
-        cnt = document.getElementById('cnt').value--;
-        $("#cp"+delId[1]).remove();
-    });
-</script>
 <style type="text/css">
     .add { cursor: pointer;}
     
@@ -60,34 +33,45 @@
             <?php foreach ($records as $value) { 
             static $i = 0; 
             static $j = 0; 
+            static $count = 0;
             if($i == 0)
             {
                echo '<h3> Date: '. $value['punch_date'] . '</h3>';
-               echo '<h4> Name: '. $value['employee_name'] . '</h4>'; ?>
+               echo '<h4> Name: '. $value['employee_name'] . '</h4>'; 
+               echo '<input type="hidden" name="monthly_table_id" value="'. $value['monthly_table_id'].'">'; ?>
             
                 <table class="table table-striped">
                     <tbody>
                      <tr> 
                         <th style="text-align:left;">In Time</th>
                         <th style="text-align:left;">Out Time</th>
+                        <th style="text-align:left;"></th>
                      </tr>
+                     
+            </tbody>
+            </table>
                     <?php 
             }
                 if($value['in_time']!= NULL)
                 {
-                   echo '<tr><td><input type="time" value="'. $value['in_time'] .'" name="inTime[]">'; 
+                   echo '<div class="control-group" id="cp'.$count.'">';
+                   echo '<table class="table table-striped"><tbody><tr><td><input type="time" value="'. $value['in_time'] .'" name="inTime[]">'; 
                    echo '<input type="hidden" name="inTableId[]" value="'. $value['id'].'"> </td> ';
                    $i++;
                    if($value['out_time']!=NULL){
                    echo '<td><input type="time" value="'. $value['out_time'] . '" name="outTime[]">';
-                   echo '<input type="hidden" name="outTableId[]" value="'. $value['id'].'"> </td> </tr>';
+                   echo '<input type="hidden" name="outTableId[]" value="'. $value['id'].'"> </td>';
+                   echo '</tr></tbody></table></div>';
                    $j++;
+                   $count++;
                    }
                 }
                else if($value['out_time']!=NULL){
                    echo '<td><input type="time" value="'. $value['out_time'] . '" name="outTime[]">';
-                   echo '<input type="hidden" name="outTableId[]" value="'. $value['id'].'"> </td> </tr>';
+                   echo '<input type="hidden" name="outTableId[]" value="'. $value['id'].'"> </td>';
+                   echo '</tr></tbody></table></div>';
                    $j++;
+                   $count++;
                }
                    
             
@@ -96,19 +80,12 @@
             <?php
             
             }
-            echo '<input type="hidden" name="totalInRecords" value="'. $i.'">';
-            echo '<input type="hidden" name="totalOutRecords" value="'. $j.'">';
-            $total = $i + $j;
-            echo '<input type="hidden" name="totalRecords" value="'. $total.'">';
-            ?>
-            </tbody>
-            </table> 
-            <div id="ajax_table"></div>
+            echo '<input type="hidden" name="totalInRecords" id = "totalInRecords" value="'. $i.'">';
+            echo '<input type="hidden" name="totalOutRecords" id = "totalOutRecords" value="'. $j.'">';
+            echo '<input type="hidden" name="totalRecords" value="'. $count.'" id="totalRecords" >';
+            ?> 
             <div class="form-actions">
-                                    <span id="skillnew" style="float: right;" class="add" onclick="increase()"><input name="cnt"  id="cnt" value="1" type="hidden" >
-                                    <image src="/images/add.png" height="40px" width="40px"/>Add<input type="hidden" id="noskill" name="noskill" value="2"></span>
-
-                                    <button type="submit" name="submit" class="btn btn-primary">Save</button>
+                                    <button type="submit" name="submit" class="btn btn-primary">Update</button>
                                     <button type="reset" class="btn" id="cancel">Cancel</button>
             </div>
         </div>

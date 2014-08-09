@@ -1069,12 +1069,25 @@ return array(
                             'recalc' => array(
                                 'type' => 'segment',
                                 'options'=> array(
-                                    'route' => '/recalc',
+                                    'route' => '/recalc[/:id]',
+                                    'constraints' => array(
+                                        'id' => '[a-zA-Z0-9_-]+'
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'recalc'
+                                    )
+                                )
+                            ),
+                            
+                            'ajaxTable' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/ajaxTable',
                                     'constraints' => array(
                                         //'action1' => '[a-zA-Z0-9_-]+'
                                     ),
                                     'defaults' => array(
-                                        'action' => 'recalc'
+                                        'action' => 'ajaxTable'
                                     )
                                 )
                             ),

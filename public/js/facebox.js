@@ -67,11 +67,7 @@
  */
 (function($) {
   $.facebox = function(data, klass) {
-<<<<<<< HEAD
-    $.facebox.loading()
-=======
     $.facebox.loading(data.settings || [])
->>>>>>> 65e124c50dbdb32586c40d7b7ed1f93f5d2cf758
 
     if (data.ajax) fillFaceboxFromAjax(data.ajax, klass)
     else if (data.image) fillFaceboxFromImage(data.image, klass)
@@ -157,11 +153,7 @@
       return false
     }
 
-<<<<<<< HEAD
-    return this.live('click.facebox', clickHandler)
-=======
     return this.bind('click.facebox', clickHandler)
->>>>>>> 65e124c50dbdb32586c40d7b7ed1f93f5d2cf758
   }
 
   /*
@@ -268,11 +260,7 @@
   }
 
   function fillFaceboxFromAjax(href, klass) {
-<<<<<<< HEAD
-    $.get(href, function(data) { $.facebox.reveal(data, klass) })
-=======
     $.facebox.jqxhr = $.get(href, function(data) { $.facebox.reveal(data, klass) })
->>>>>>> 65e124c50dbdb32586c40d7b7ed1f93f5d2cf758
   }
 
   function skipOverlay() {
@@ -309,13 +297,10 @@
    */
 
   $(document).bind('close.facebox', function() {
-<<<<<<< HEAD
-=======
     if ($.facebox.jqxhr) {
       $.facebox.jqxhr.abort()
       $.facebox.jqxhr = null
     }
->>>>>>> 65e124c50dbdb32586c40d7b7ed1f93f5d2cf758
     $(document).unbind('keydown.facebox')
     $('#facebox').fadeOut(function() {
       $('#facebox .content').removeClass().addClass('content')
