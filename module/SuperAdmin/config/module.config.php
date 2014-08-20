@@ -1,7 +1,7 @@
 <?php
 return array(
     'defaultValues' => array(
-        'upload_path'=>'/var/www/punch/public',
+        'upload_path'=>'/var/www/html/punch/public',
     ),
     'router' => array(
         'routes' => array(
@@ -1787,6 +1787,96 @@ return array(
 /*---------------------------------------Salary Advance End ----------------------------------------*/ 
 /* ------------------------------------------------------------------------------------------------------------- */                   
 
+/* ------------------------------------------------------------------------------------------------------------- */                   
+ /* ------------------------------------------------Add Controller -------------------------- */
+ /* ------------------------------------------------------------------------------------------------------------- */        
+                          
+                    
+                    
+                    
+                    'add' => array(
+                        'type' => 'literal',
+                        'options' => array(
+                            'route' => '/add',
+                            'defaults' => array(
+                                '__NAMESPACE__' => 'superAdmin\Controller',
+                                'controller' => 'Add',
+                                'action' => 'index'
+                            ),
+                        ),
+                        'may_terminate' => true,
+                        'child_routes' => array(
+                            'default' => array(
+                                'type' => 'Segment',
+                                'options' => array(
+                                    'route' => '/[:controller[/:action]]',
+                                    'constraints' => array(
+                                        'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                    ),
+                                    'defaults' => array(
+                                    ),
+                                ),
+                            ),
+
+                            'addRecord' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/addRecord',
+                                    'constraints' => array(
+                                        //'action1' => '[a-zA-Z0-9_-]+'
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'addRecord'
+                                    )
+                                )
+                            ),
+                            
+                            'updateRecord' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/updateRecord',
+                                    'constraints' => array(
+                                        //'action1' => '[a-zA-Z0-9_-]+'
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'updateRecord'
+                                    )
+                                )
+                            ),
+                            
+                            'recalc' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/recalc[/:id]',
+                                    'constraints' => array(
+                                        'id' => '[a-zA-Z0-9_-]+'
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'recalc'
+                                    )
+                                )
+                            ),
+                            
+                            'ajaxTable' => array(
+                                'type' => 'segment',
+                                'options'=> array(
+                                    'route' => '/ajaxTable',
+                                    'constraints' => array(
+                                        //'action1' => '[a-zA-Z0-9_-]+'
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'ajaxTable'
+                                    )
+                                )
+                            ),
+                            
+                            
+                                
+                        ),
+                    ),    
+
+/*--------------------------------------- Add Controller End ----------------------------------------*/
                ),
             ),
 
@@ -1840,6 +1930,7 @@ return array(
 	    'SuperAdmin\Controller\Notes' => 'SuperAdmin\Controller\NotesController',
             'SuperAdmin\Controller\SalaryAdvance' => 'SuperAdmin\Controller\SalaryAdvanceController',
             'SuperAdmin\Controller\EditRecords' => 'SuperAdmin\Controller\EditRecordsController',
+            'SuperAdmin\Controller\Add' => 'SuperAdmin\Controller\AddController',
             
         ),
     ),

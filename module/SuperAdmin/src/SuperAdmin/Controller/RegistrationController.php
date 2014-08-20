@@ -142,7 +142,7 @@ class RegistrationController extends AbstractActionController {
         $request = $this->getRequest();
         if ($request->isPost()) {
 
-            $employee_name = $request->getPost('employee_name');
+            $employee_name = $request->getPost('employee_name');           
             $last_name = $request->getPost('last_name');
             $dob = $request->getPost('dob');
             $gender = $request->getPost('gender');
@@ -212,18 +212,21 @@ class RegistrationController extends AbstractActionController {
             
             $update->setRegistrationFeedback($feedback);
             $this->getRegistrationTable()->updateView($update);
+           
             
-            
-            
+            //print_r($_FILES);exit;
             //Profile Image
             if ($this->params()->fromFiles('dp') != '') {
-                $file = $this->params()->fromFiles('dp');
+                $file = $this->params()->fromFiles('dp'); 
+                //print_r($file); exit();
                 $ext = explode('.', $file['name']);
-                $img = $employee_name.'.'.$ext[1];
-                if (!empty($file['name'])) {
+                $img = $employee_name.'.'.$ext[1];  
+                //print_r($img); exit();
+                if (!empty($file['name'])) {                   
                     $paths = $path.'/images/upload/'.$img;
-                    move_uploaded_file($_FILES['dp']['tmp_name'], $paths);
-                    $this->getRegistrationTable()->updateProfileImage($employeeCode, $img);
+                    //echo $paths; exit();                 
+                    move_uploaded_file($_FILES['dp']['tmp_name'],$paths);                    
+                    $this->getRegistrationTable()->updateProfileImage($employee_code, $img);
                 }
             }
             

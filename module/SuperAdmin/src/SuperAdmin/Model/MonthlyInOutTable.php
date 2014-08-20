@@ -80,6 +80,16 @@ class MonthlyInOutTable extends AbstractTableGateway
           return $result;   
         
      }
+     public function addRecords($employeeCode, $dates) {
+        $sql = "SELECT monthly_in_out_tables.* , monthly_table.employee_name
+                FROM monthly_in_out_tables  
+                INNER JOIN monthly_table 
+                ON monthly_in_out_tables.monthly_table_id = monthly_table.id 
+                WHERE  monthly_table.dates = '$dates' AND monthly_table.employee_code = '$employeeCode' ";
+        $statement = $this->adapter->query($sql);           
+        $result = $statement->execute(); 
+        return $result; 
+     }
      
      public function editRecords($employeeCode, $dates) {
         $sql = "SELECT monthly_in_out_tables.* , monthly_table.employee_name

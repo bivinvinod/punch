@@ -29,6 +29,7 @@ use SuperAdmin\Model\UserWorkHistoryTable;
 class UploadController extends AbstractActionController
 {
     protected $monthlyTable;
+    protected $authservice;
     protected $monthlyInOutTables;
     protected $registrationTable;
     protected $userWorkHistoryTable;
@@ -90,36 +91,40 @@ class UploadController extends AbstractActionController
             $config = $this->getServiceLocator()->get('config'); 
             $request=$this->getRequest();
             $path=$config['defaultValues']['upload_path'];
+            //Database Connection variable
+            $link = mysql_connect('localhost', 'root', 'root');
             
             
             if($request->isPost())
             {
                 $file  = $this->params()->fromFiles('uploaded');
-                $ext= explode('.', $file[name]);
+                $ext= explode('.', $file['name']);
                 $monthlyTableData = new MonthlyModel();
                 $workHistory = new UserWorkHistoryModel();
                 if($ext[1]=="csv")
                 {
                     $tot=0;
                     $handle = fopen($_FILES['uploaded']['tmp_name'], "r");
-                    while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) 
-                    {	
+                    while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+                        
                         for ($c=0; $c < 1; $c++) 
                         {
+                            //echo preg_replace('/[^A-Za-z0-9\-]/', '', $data[1]); exit;
                             if($tot==0)
                             continue;
-                            $input_date= mysql_real_escape_string($data[0]);
+                            $input_date= $data[0];
                             $month = substr($input_date,3,2);
                             $day = substr($input_date,0,2);
                             $year = '20' . substr($input_date,6,2);                            
                             $newDate = $year.'-'.$month.'-'.$day;
                             
                             //Over time calculation Based on registration
-                            $shiftOut= $this->getRegistrationTable()->getShiftTime(mysql_real_escape_string($data[1]));
+                            $shiftOut= $this->getRegistrationTable()->getShiftTime(mysql_real_escape_string($data[1]), $link);
                             //print_r($shiftOut); echo $shiftOut['shift_out_time'];exit;
                             
                             $monthlyTableData->setDate($newDate);
                             $monthlyTableData->setEmployeeCode(mysql_real_escape_string($data[1]));
+                            //echo mysql_real_escape_string($data[1]); exit;
                             $monthlyTableData->setEmployeeName(mysql_real_escape_string($data[2]));
                             $monthlyTableData->setCompany(mysql_real_escape_string($data[3]));
                             $monthlyTableData->setDepartment(mysql_real_escape_string($data[4]));

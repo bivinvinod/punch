@@ -239,7 +239,7 @@ class RegistrationTable extends AbstractTableGateway {
 
     public function updateProfileImage($employeeCode, $img) {
         $sql = "update registration set image='$img' where employee_code = '$employeeCode'";
-        //echo($sql);exit;
+       // echo($employeeCode);exit;
         $statement = $this->adapter->query($sql);
         $result = $statement->execute();
         return $result;

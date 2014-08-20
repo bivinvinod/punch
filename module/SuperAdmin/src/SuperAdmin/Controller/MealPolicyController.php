@@ -74,16 +74,16 @@ class MealPolicyController extends AbstractActionController
             $request= $this->getRequest();
             if($request->isPost()){
                 $datas= new MealModel();
-                
+              
                 $mealType = $request->getPost('meal');
                 $fromTime = $request->getPost('fromTime');
                 $toTime = $request->getPost('toTime');
-                
+                 //echo $fromType; exit();
                 $datas->setMealType($mealType);
                 $datas->setStartTime($fromTime);  
                 $datas->setStopTime($toTime);
                 $this->getMealTable()->insertData($datas);
-                return $this->redirect()->toRoute('superAdmin/MealPolicy');
+                return $this->redirect()->toRoute('superAdmin/mealPolicy');
                 
             }
             
